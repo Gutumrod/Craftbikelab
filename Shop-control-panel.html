@@ -1049,6 +1049,267 @@ body::after {
 <div class="toast" id="toast"></div>
 
 <script>
+// ══════════════════════════════════════════════════════════════
+// 🔐 PASSWORD PROTECTION SYSTEM
+// ══════════════════════════════════════════════════════════════
+(function() {
+  'use strict';
+  
+  // Obfuscated password (encoded to make it harder to find in source)
+  const _p1 = '1100';
+  const _p2 = '7017';
+  const _p3 = '32226';
+  const _correctPass = _p1 + _p2 + _p3;
+  
+  // Check session
+  const _authKey = 'cblab_auth_' + btoa('session').substring(0, 8);
+  const _stored = sessionStorage.getItem(_authKey);
+  
+  if (_stored === btoa(_correctPass)) {
+    // Already authenticated
+    return;
+  }
+  
+  // Create login screen
+  const loginHTML = `
+    <div id="loginScreen" style="
+      position: fixed;
+      inset: 0;
+      background: #0e0e0e;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Manrope', 'IBM Plex Sans Thai', sans-serif;
+    ">
+      <div style="
+        background: linear-gradient(135deg, #131313 0%, #1a1a1a 100%);
+        border-radius: 0 12px 0 12px;
+        padding: 48px 40px;
+        max-width: 420px;
+        width: 90%;
+        box-shadow: 
+          inset 0 1px 0 rgba(105,218,255,0.18),
+          0 30px 60px rgba(0,0,0,0.6);
+        position: relative;
+        overflow: hidden;
+      ">
+        <!-- Accent line -->
+        <div style="
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: linear-gradient(90deg, #ff7350, #00c0ea, #69daff);
+          animation: pulse 3s ease-in-out infinite;
+        "></div>
+        
+        <!-- Logo -->
+        <div style="text-align: center; margin-bottom: 32px;">
+          <div style="
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            background: linear-gradient(135deg, #69daff 0%, #00c0ea 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 12px rgba(105,218,255,0.4));
+            margin-bottom: 8px;
+          ">CRAFTBIKELAB</div>
+          <div style="
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 4px;
+            color: #7a9ab4;
+          ">ADMIN SYSTEM</div>
+        </div>
+        
+        <!-- Lock icon -->
+        <div style="text-align: center; margin-bottom: 24px;">
+          <div style="
+            display: inline-block;
+            font-size: 48px;
+            padding: 20px;
+            background: rgba(105,218,255,0.08);
+            border-radius: 50%;
+            border: 2px solid rgba(105,218,255,0.2);
+          ">🔐</div>
+        </div>
+        
+        <!-- Title -->
+        <div style="
+          text-align: center;
+          color: #ffffff;
+          font-size: 18px;
+          font-weight: 600;
+          margin-bottom: 8px;
+        ">ระบบต้องการรหัสผ่าน</div>
+        
+        <div style="
+          text-align: center;
+          color: #7a9ab4;
+          font-size: 13px;
+          margin-bottom: 28px;
+        ">กรุณาใส่รหัสผ่านเพื่อเข้าใช้งาน</div>
+        
+        <!-- Password input -->
+        <input 
+          type="password" 
+          id="loginPassword"
+          placeholder="กรอกรหัสผ่าน"
+          style="
+            width: 100%;
+            padding: 16px;
+            background: #0e0e0e;
+            border: 1px solid rgba(72,72,71,0.3);
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 16px;
+            font-family: 'IBM Plex Mono', monospace;
+            letter-spacing: 2px;
+            text-align: center;
+            outline: none;
+            transition: all 0.2s;
+            margin-bottom: 6px;
+          "
+          autocomplete="off"
+          inputmode="numeric"
+          onkeypress="if(event.key==='Enter')document.getElementById('loginBtn').click()"
+          onfocus="this.style.borderColor='rgba(105,218,255,0.5)'; this.style.boxShadow='0 0 0 3px rgba(105,218,255,0.1)'"
+          onblur="this.style.borderColor='rgba(72,72,71,0.3)'; this.style.boxShadow='none'"
+        >
+        
+        <!-- Error message -->
+        <div id="loginError" style="
+          color: #ff5252;
+          font-size: 12px;
+          text-align: center;
+          margin-bottom: 20px;
+          min-height: 18px;
+          font-family: 'IBM Plex Mono', monospace;
+        "></div>
+        
+        <!-- Login button -->
+        <button 
+          id="loginBtn"
+          onclick="window._checkPassword()"
+          style="
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #69daff 0%, #00c0ea 100%);
+            border: none;
+            border-radius: 6px;
+            color: #003040;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 0 20px rgba(105,218,255,0.3);
+          "
+          onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 30px rgba(105,218,255,0.5)'"
+          onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 0 20px rgba(105,218,255,0.3)'"
+        >🔓 เข้าสู่ระบบ</button>
+        
+        <!-- Footer -->
+        <div style="
+          text-align: center;
+          margin-top: 24px;
+          padding-top: 24px;
+          border-top: 1px solid rgba(72,72,71,0.15);
+          color: #3e5a70;
+          font-size: 11px;
+          font-family: 'IBM Plex Mono', monospace;
+        ">
+          🛡️ SECURED ACCESS ONLY
+        </div>
+      </div>
+      
+      <style>
+        @keyframes pulse {
+          0%, 100% { opacity: 0.6; }
+          50% { opacity: 1; box-shadow: 0 0 24px rgba(105,218,255,0.5); }
+        }
+      </style>
+    </div>
+  `;
+  
+  // Inject login screen
+  document.body.insertAdjacentHTML('afterbegin', loginHTML);
+  
+  // Password check function
+  window._checkPassword = function() {
+    const input = document.getElementById('loginPassword');
+    const error = document.getElementById('loginError');
+    const btn = document.getElementById('loginBtn');
+    const value = input.value.trim();
+    
+    if (!value) {
+      error.textContent = '⚠️ กรุณากรอกรหัสผ่าน';
+      input.focus();
+      return;
+    }
+    
+    if (value === _correctPass) {
+      // Correct password
+      btn.textContent = '✅ กำลังเข้าสู่ระบบ...';
+      btn.disabled = true;
+      sessionStorage.setItem(_authKey, btoa(_correctPass));
+      
+      setTimeout(function() {
+        const screen = document.getElementById('loginScreen');
+        screen.style.transition = 'opacity 0.4s ease';
+        screen.style.opacity = '0';
+        setTimeout(function() {
+          screen.remove();
+        }, 400);
+      }, 600);
+    } else {
+      // Wrong password
+      error.textContent = '❌ รหัสผ่านไม่ถูกต้อง';
+      input.value = '';
+      input.focus();
+      
+      // Shake animation
+      input.style.animation = 'shake 0.5s';
+      setTimeout(function() {
+        input.style.animation = '';
+      }, 500);
+    }
+  };
+  
+  // Add shake animation
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+  `;
+  document.head.appendChild(style);
+  
+  // Auto-focus password field
+  setTimeout(function() {
+    const input = document.getElementById('loginPassword');
+    if (input) input.focus();
+  }, 100);
+  
+})();
+
+// ══════════════════════════════════════════════════════════════
+// 🔑 GEMINI API KEY CONFIGURATION (Add your key here)
+// ══════════════════════════════════════════════════════════════
+// TODO: Replace with your actual Gemini API key
+// Example: const GEMINI_API_KEY = "AIzaSy...your_key_here";
+const GEMINI_API_KEY = ""; // ← ใส่ API Key ตรงนี้
+
+// ══════════════════════════════════════════════════════════════
+
 // ══════════════════════════════════════════════════════
 // ── LOCAL MODE — NO SUPABASE AUTH ──
 // ══════════════════════════════════════════════════════
