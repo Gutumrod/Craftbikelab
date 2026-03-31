@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CRAFT YOUR BIKE | CraftBikeLab APEX</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&amp;family=Manrope:wght@200;300;400;500;600;700;800&amp;family=Noto+Sans+Thai:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-tint": "#69daff",
+              "tertiary": "#a68cff",
+              "on-tertiary-fixed": "#1c0055",
+              "on-secondary-container": "#fff6f4",
+              "surface-dim": "#0e0e0e",
+              "outline-variant": "#484847",
+              "tertiary-container": "#7c4dff",
+              "secondary": "#ff7350",
+              "on-tertiary": "#25006b",
+              "surface-bright": "#2c2c2c",
+              "on-secondary-fixed": "#681300",
+              "tertiary-fixed-dim": "#ab93ff",
+              "on-error-container": "#ffa8a3",
+              "error-container": "#9f0519",
+              "on-primary-fixed": "#002a35",
+              "inverse-surface": "#fcf9f8",
+              "primary-fixed": "#00cffc",
+              "tertiary-fixed": "#b8a3ff",
+              "on-tertiary-fixed-variant": "#4000ad",
+              "primary-container": "#00cffc",
+              "inverse-primary": "#006880",
+              "surface-container-low": "#131313",
+              "secondary-container": "#b42800",
+              "error": "#ff716c",
+              "surface-container-high": "#20201f",
+              "outline": "#767575",
+              "primary-fixed-dim": "#00c0ea",
+              "surface": "#0e0e0e",
+              "on-tertiary-container": "#ffffff",
+              "on-primary-fixed-variant": "#004a5c",
+              "surface-variant": "#262626",
+              "on-background": "#ffffff",
+              "secondary-fixed": "#ffc4b6",
+              "surface-container-highest": "#262626",
+              "on-secondary-fixed-variant": "#9b2200",
+              "primary-dim": "#00c0ea",
+              "on-surface": "#ffffff",
+              "on-error": "#490006",
+              "on-primary": "#004a5d",
+              "background": "#0e0e0e",
+              "on-secondary": "#440900",
+              "inverse-on-surface": "#565555",
+              "surface-container": "#1a1a1a",
+              "tertiary-dim": "#7e51ff",
+              "primary": "#69daff",
+              "on-primary-container": "#004050",
+              "secondary-dim": "#dc3300",
+              "secondary-fixed-dim": "#ffb09d",
+              "on-surface-variant": "#adaaaa",
+              "surface-container-lowest": "#000000",
+              "error-dim": "#d7383b"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk", "Noto Sans Thai"],
+              "body": ["Manrope", "Noto Sans Thai"],
+              "label": ["Space Grotesk", "Noto Sans Thai"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(26, 26, 26, 0.65);
+            backdrop-filter: blur(20px);
+        }
+        .kinetic-gradient-primary {
+            background: linear-gradient(135deg, #69daff 0%, #00cffc 100%);
+        }
+        .kinetic-gradient-secondary {
+            background: linear-gradient(135deg, #ff7350 0%, #b42800 100%);
+        }
+        .racing-accent {
+            border-left: 4px solid #ff7350;
+        }
+        .text-glow-primary {
+            text-shadow: 0 0 15px rgba(105, 218, 255, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary selection:text-on-primary-fixed">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#0e0e0e]/60 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,0,0,0.6)]">
+<div class="flex justify-between items-center px-8 py-4 max-w-[1440px] mx-auto">
+<div class="text-2xl font-black italic tracking-tighter text-[#69daff] font-headline uppercase">
+                CRAFTBIKELAB
+            </div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-headline tracking-tighter uppercase text-white/70 hover:text-white transition-colors" href="#">Shop</a>
+<a class="font-headline tracking-tighter uppercase text-[#69daff] border-b-2 border-[#69daff] pb-1" href="#">Craft</a>
+<a class="font-headline tracking-tighter uppercase text-white/70 hover:text-white transition-colors" href="#">Trip</a>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-white/70 hover:text-[#69daff] transition-all duration-300 active:scale-95">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+</button>
+<button class="text-white/70 hover:text-[#69daff] transition-all duration-300 active:scale-95">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+<div class="bg-gradient-to-b from-[#69daff]/10 to-transparent h-[1px] w-full"></div>
+</nav>
+<main class="pt-24 min-h-screen">
+<!-- Hero Section -->
+<section class="relative px-8 py-20 overflow-hidden">
+<div class="absolute top-0 right-0 w-1/2 h-full opacity-20 pointer-events-none">
+<img class="w-full h-full object-cover grayscale" data-alt="close-up of a high-performance motorcycle engine with neon blue reflections and dark metallic textures in a futuristic workshop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4oI_rwX5RFcS4KnUFmDGOMvu88XJULOXNLFbBvPWLy9IprtLEy31iQ6P056iTxbv8e0D79iQrNvnxGg3Zp1lEsXxoX3UKHmhkKPewCu16a3NytsUWxNVMIAJ5K68703Mzv0moGpATkpQJi5Ym_0kq1roqD55lXCkRpcuIHIOeDgfYsziSv7efRJTl8BghJ12rOh4D2LuK5_VSmXQmwP5McrKt4zdctC0pjIhAmdbxBR5oL-hGj-V7XyI-fskbe8ATzELl2wKvGw3j"/>
+<div class="absolute inset-0 bg-gradient-to-l from-transparent to-surface"></div>
+</div>
+<div class="max-w-7xl mx-auto relative z-10">
+<h1 class="text-[48px] md:text-[64px] font-black italic tracking-tighter font-headline leading-none text-on-surface mb-2">
+                    CRAFT YOUR BIKE
+                </h1>
+<p class="text-[24px] text-primary font-medium tracking-wide font-body">
+                    แต่งรถตามงบของคุณ <span class="text-white/30 ml-2">| ENGINEERED FOR SPEED</span>
+</p>
+<!-- Input Section -->
+<div class="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-6 bg-surface-container-low p-1 rounded-lg">
+<div class="p-6 flex flex-col gap-2">
+<label class="text-xs font-headline uppercase tracking-widest text-white/50">Your Budget</label>
+<input class="bg-transparent border-b border-outline-variant focus:border-primary outline-none py-3 text-lg font-body text-on-surface placeholder:text-white/20 transition-all" placeholder="ระบุงบประมาณของคุณ (เช่น 10,000 บาท)" type="text"/>
+</div>
+<div class="p-6 flex flex-col gap-2">
+<label class="text-xs font-headline uppercase tracking-widest text-white/50">Choose Your Ride</label>
+<input class="bg-transparent border-b border-outline-variant focus:border-primary outline-none py-3 text-lg font-body text-on-surface placeholder:text-white/20 transition-all" placeholder="ระบุรุ่นมอเตอร์ไซค์ของคุณ" type="text"/>
+</div>
+<div class="flex items-center justify-center p-4">
+  <button class="bg-[#69daff] w-full h-full min-h-[60px] flex items-center justify-center gap-3 text-black font-black italic tracking-tighter text-2xl uppercase hover:scale-[1.02] active:scale-95 transition-all duration-300 shadow-[0_0_30px_rgba(105,218,255,0.4)]">
+    CRAFT
+    <span class="material-symbols-outlined" data-icon="bolt" data-weight="fill" style="font-variation-settings: 'FILL' 1;">bolt</span>
+  </button>
+</div>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Results Section -->
+<section class="px-8 pb-32 max-w-7xl mx-auto">
+<div class="flex items-end justify-between mb-12">
+<div>
+<h2 class="text-[32px] font-black italic tracking-tighter font-headline uppercase text-on-surface">Recommended Configuration</h2>
+<div class="h-1 w-24 bg-secondary mt-2"></div>
+</div>
+<div class="text-white/40 text-sm font-label uppercase tracking-widest hidden md:block">
+                    Displaying 6 Results based on your budget
+                </div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Part Card 1 -->
+<div class="group bg-surface-container-low hover:bg-surface-container transition-all duration-500 overflow-hidden flex flex-col">
+<div class="h-64 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="high-end titanium motorcycle exhaust system with blue heat discoloration sitting on a clean dark carbon fiber surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdm4XGFuh69HH4KndLFvu2wakhs_qnUxgujcEj8QaUS2pgSicViPIUdyryBod4BazKesFTx77lYxEaTdpeg8WUZi2WtAB_5jJev8cu3jarQBLMnezVVhJGmc2j0taxv_n5ztI6bi-VlJgcv3AIEbSEbRoBBa5R4NnywovAR2rwTa63s78aCerPOV9ci9p2UBcU6OkGjm-bWwm8ZLfXGKUuKHUssk6f9Sb9RRQNt2ybtF-Cd4Uyxk16PkgYFY8vr2fJqFpuNLTnARBd"/>
+<div class="absolute top-4 left-4 bg-secondary px-3 py-1 text-[10px] font-black uppercase tracking-tighter italic text-on-secondary">Performance Tier 1</div>
+</div>
+<div class="p-6 racing-accent flex-grow flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<h3 class="text-[24px] font-black italic tracking-tight font-headline uppercase leading-tight group-hover:text-primary transition-colors">Carbon Apex Exhaust</h3>
+<span class="material-symbols-outlined text-white/20" data-icon="settings_input_component">settings_input_component</span>
+</div>
+<div class="flex items-center gap-4 mb-6">
+<div class="bg-surface-container-highest px-3 py-1 rounded-sm border-l-2 border-secondary">
+<span class="text-[10px] font-label text-on-surface-variant uppercase">+12 HP</span>
+</div>
+<div class="bg-surface-container-highest px-3 py-1 rounded-sm border-l-2 border-primary">
+<span class="text-[10px] font-label text-on-surface-variant uppercase">-3.2 KG</span>
+</div>
+</div>
+<div class="mt-auto pt-6 flex items-center justify-between border-t border-white/5">
+<div class="text-2xl font-black italic font-headline text-on-surface">฿12,500</div>
+<button class="bg-white/5 hover:bg-white/10 text-white text-xs font-black uppercase tracking-widest px-6 py-3 transition-all active:scale-95">View Platform</button>
+</div>
+</div>
+</div>
+<!-- Part Card 2 -->
+<div class="group bg-surface-container-low hover:bg-surface-container transition-all duration-500 overflow-hidden flex flex-col">
+<div class="h-64 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="professional motorcycle suspension system with gold anodized finish and red coil springs in dramatic studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxegDSIcKumIEPE5vZULyijhEx_G3habK4rwO2-DjmRpW0MR9-poAYIDce1YHArNCoAWV0j37eREipgsqJ-I_gEhFz5QfuD5MVvn7aUVnQNzu_Uk6xv0mTBY197pehLdD8AvjNBbni8aaP4tM0J1_3e_RstIg9ycyTBs0cpTa4Jz0FXmwao6iUgco_hyghgK0jkq8C27NqN-HAR5L51sSh1c7atDiojMF7EPIwPO3wNSrcAzMRkQ1BvNkJJyI1PDDb9eKh51GzrvB5"/>
+<div class="absolute top-4 left-4 bg-primary px-3 py-1 text-[10px] font-black uppercase tracking-tighter italic text-on-primary">Tuned Handling</div>
+</div>
+<div class="p-6 racing-accent border-secondary flex-grow flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<h3 class="text-[24px] font-black italic tracking-tight font-headline uppercase leading-tight group-hover:text-primary transition-colors">Nitro-Series Shock</h3>
+<span class="material-symbols-outlined text-white/20" data-icon="equalizer">equalizer</span>
+</div>
+<div class="flex items-center gap-4 mb-6">
+<div class="bg-surface-container-highest px-3 py-1 rounded-sm border-l-2 border-secondary">
+<span class="text-[10px] font-label text-on-surface-variant uppercase">Adjustable</span>
+</div>
+<div class="bg-surface-container-highest px-3 py-1 rounded-sm border-l-2 border-primary">
+<span class="text-[10px] font-label text-on-surface-variant uppercase">Nitrogen Gas</span>
+</div>
+</div>
+<div class="mt-auto pt-6 flex items-center justify-between border-t border-white/5">
+<div class="text-2xl font-black italic font-headline text-on-surface">฿8,900</div>
+<button class="bg-white/5 hover:bg-white/10 text-white text-xs font-black uppercase tracking-widest px-6 py-3 transition-all active:scale-95">View Platform</button>
+</div>
+</div>
+</div>
+<!-- Part Card 3 -->
+<div class="group bg-surface-container-low hover:bg-surface-container transition-all duration-500 overflow-hidden flex flex-col">
+<div class="h-64 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="high performance forged aluminum motorcycle wheels in satin black finish against a dark moody background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4zBD0jCtQ2q9qE386Gz8QEpiogCgQBJj9IBxWTiIEHcfuETl0n0m9SYJe6QKkOuV9cyi_yE657lwfK1-SYK9IfdeFFTtI1rK7csfRta9wzsFXkU4nr62IyeJcna6OtvuKk6NwpH3hO1PqAOubnkRjOyEbQ3S4tgPsQdUkBzaV_zjel2BT5HWMcJfM5IQPjvYuHUxODNfcqG-n7HywyDz8pjtbFcDZfMzKdMM2D0Yt-aOP9DmMhvW0h98J0DCTvty_9CdQRvwK7kxa"/>
+<div class="absolute top-4 left-4 bg-secondary px-3 py-1 text-[10px] font-black uppercase tracking-tighter italic text-on-secondary">Elite Weight</div>
+</div>
+<div class="p-6 racing-accent flex-grow flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<h3 class="text-[24px] font-black italic tracking-tight font-headline uppercase leading-tight group-hover:text-primary transition-colors">Apex Forged Rims</h3>
+<span class="material-symbols-outlined text-white/20" data-icon="refresh">refresh</span>
+</div>
+<div class="flex items-center gap-4 mb-6">
+<div class="bg-surface-container-highest px-3 py-1 rounded-sm border-l-2 border-secondary">
+<span class="text-[10px] font-label text-on-surface-variant uppercase">Forged Alum</span>
+</div>
+<div class="bg-surface-container-highest px-3 py-1 rounded-sm border-l-2 border-primary">
+<span class="text-[10px] font-label text-on-surface-variant uppercase">Matte Black</span>
+</div>
+</div>
+<div class="mt-auto pt-6 flex items-center justify-between border-t border-white/5">
+<div class="text-2xl font-black italic font-headline text-on-surface">฿15,200</div>
+<button class="bg-white/5 hover:bg-white/10 text-white text-xs font-black uppercase tracking-widest px-6 py-3 transition-all active:scale-95">View Platform</button>
+</div>
+</div>
+</div>
+<!-- Part Card 4 -->
+<div class="group bg-surface-container-low hover:bg-surface-container transition-all duration-500 overflow-hidden flex flex-col">
+<div class="h-64 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="machined aluminum racing brake calipers with red branding and braided stainless steel lines on a dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBRzohwH0x2INVX2vIOTtXbs8VwUmvmqWVgDhfRf3a6Yge-TGDYYvIZXiKYnHZnSKMMqdx9aIrSFE33P_ND1aN0ozi-vORH1dJDB8niTO1Y85d3mFMcfyFhcyDl9JdB3R-eTfusKTfLr3kRxc7XDAkao1oS5AbGEfSZcu4foL6jvj8KQFcgKhPpVatKi3CBN5mVlyJ8_ia_1D3LaLzTDwuXFzRyRt_eXMpMLG4Ed31HtwFVs-QJQHMFT0k75Uk-DFl79Gi_DHvGkVp"/>
+<div class="absolute top-4 left-4 bg-primary px-3 py-1 text-[10px] font-black uppercase tracking-tighter italic text-on-primary">Safety Max</div>
+</div>
+<div class="p-6 racing-accent border-secondary flex-grow flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<h3 class="text-[24px] font-black italic tracking-tight font-headline uppercase leading-tight group-hover:text-primary transition-colors">Vortex Brake Kit</h3>
+<span class="material-symbols-outlined text-white/20" data-icon="pan_tool_alt">pan_tool_alt</span>
+</div>
+<div class="flex items-center gap-4 mb-6">
+<div class="bg-surface-container-highest px-3 py-1 rounded-sm border-l-2 border-secondary">
+<span class="text-[10px] font-label text-on-surface-variant uppercase">6-Piston</span>
+</div>
+<div class="bg-surface-container-highest px-3 py-1 rounded-sm border-l-2 border-primary">
+<span class="text-[10px] font-label text-on-surface-variant uppercase">Synthetic Pads</span>
+</div>
+</div>
+<div class="mt-auto pt-6 flex items-center justify-between border-t border-white/5">
+<div class="text-2xl font-black italic font-headline text-on-surface">฿6,450</div>
+<button class="bg-white/5 hover:bg-white/10 text-white text-xs font-black uppercase tracking-widest px-6 py-3 transition-all active:scale-95">View Platform</button>
+</div>
+</div>
+</div>
+<!-- Part Card 5 -->
+<div class="group bg-surface-container-low hover:bg-surface-container transition-all duration-500 overflow-hidden flex flex-col">
+<div class="h-64 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="modern motorcycle digital instrument cluster showing glowing blue telemetry data and speed against a dark cockpit background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD84UadNpbS5FaTNF7ZMxxQ5X2kUl3p1XBtCVeMKcS_3lQ6gu8Qv9UfEt5sw6saCDdfvjuh25uTncM9FxGrU088OR4uxaEN7imSrD7sdrN40fIjy_A5DwJy3kCNQw5CpSJf9HLzuCU3VkPxOwfuu49PFsQq5olMflFayck3BiVG_Y8lLOCkUAv0D6EgtKHsvewKADo-acj6V4w5WxKoRVdbZD_BBEXGE15s6FgYHGUdIwKZnABUhP3MTYHcWgO8KkZFY22KEOlEKh-4"/>
+<div class="absolute top-4 left-4 bg-secondary px-3 py-1 text-[10px] font-black uppercase tracking-tighter italic text-on-secondary">Smart Tech</div>
+</div>
+<div class="p-6 racing-accent flex-grow flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<h3 class="text-[24px] font-black italic tracking-tight font-headline uppercase leading-tight group-hover:text-primary transition-colors">Apex Telemetry Mod</h3>
+<span class="material-symbols-outlined text-white/20" data-icon="speed">speed</span>
+</div>
+<div class="flex items-center gap-4 mb-6">
+<div class="bg-surface-container-highest px-3 py-1 rounded-sm border-l-2 border-secondary">
+<span class="text-[10px] font-label text-on-surface-variant uppercase">GPS Sync</span>
+</div>
+<div class="bg-surface-container-highest px-3 py-1 rounded-sm border-l-2 border-primary">
+<span class="text-[10px] font-label text-on-surface-variant uppercase">OLED Display</span>
+</div>
+</div>
+<div class="mt-auto pt-6 flex items-center justify-between border-t border-white/5">
+<div class="text-2xl font-black italic font-headline text-on-surface">฿4,200</div>
+<button class="bg-white/5 hover:bg-white/10 text-white text-xs font-black uppercase tracking-widest px-6 py-3 transition-all active:scale-95">View Platform</button>
+</div>
+</div>
+</div>
+<!-- Part Card 6 -->
+<div class="group bg-surface-container-low hover:bg-surface-container transition-all duration-500 overflow-hidden flex flex-col border border-primary/10">
+<div class="h-64 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="close-up of a high performance motorcycle air filter with metallic blue mesh and carbon fiber housing in a clean engine bay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgMq-w1ksHcPwpVAx8OAOScNKAgUdPsnd7hcbrz4orw6e4gpNMhzBsKuXdXDqbNSSVsarjmKtHQOX3ZP3fcEiTOxZs8Do1fhCcXpY_0PsSMg0I9o2HX00j8sRibkAYR-r3c9Sh8B_8l_cNtEbHdq8y38GeAqx9cMGVUn1Zl69vyroeX2qMrw7Rdn31uai8ja6YyQr5aoX-AuqzLn7t5TfIFT2ZfgdudbQusWxPobAW6QjQrkLQft0jHbHWI8j3Cts_BSB7WPwv1ARj"/>
+<div class="absolute top-4 left-4 bg-primary px-3 py-1 text-[10px] font-black uppercase tracking-tighter italic text-on-primary">Efficiency</div>
+</div>
+<div class="p-6 racing-accent border-secondary flex-grow flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<h3 class="text-[24px] font-black italic tracking-tight font-headline uppercase leading-tight group-hover:text-primary transition-colors">High-Flow Intake</h3>
+<span class="material-symbols-outlined text-white/20" data-icon="air">air</span>
+</div>
+<div class="flex items-center gap-4 mb-6">
+<div class="bg-surface-container-highest px-3 py-1 rounded-sm border-l-2 border-secondary">
+<span class="text-[10px] font-label text-on-surface-variant uppercase">+4 HP Gain</span>
+</div>
+<div class="bg-surface-container-highest px-3 py-1 rounded-sm border-l-2 border-primary">
+<span class="text-[10px] font-label text-on-surface-variant uppercase">Washable</span>
+</div>
+</div>
+<div class="mt-auto pt-6 flex items-center justify-between border-t border-white/5">
+<div class="text-2xl font-black italic font-headline text-on-surface">฿2,800</div>
+<button class="bg-white/5 hover:bg-white/10 text-white text-xs font-black uppercase tracking-widest px-6 py-3 transition-all active:scale-95">View Platform</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#0e0e0e] w-full py-12 px-8 border-t border-[#2c2c2c]">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-[1440px] mx-auto">
+<div class="col-span-1 md:col-span-2">
+<div class="text-xl font-black text-[#69daff] font-headline uppercase tracking-tighter mb-4">CRAFTBIKELAB</div>
+<p class="text-white/40 font-body text-sm max-w-sm mb-6">
+                    ENGINEERED FOR THE NIGHT RIDERS. PERFORMANCE PARTS, TELEMETRY DATA, AND CUSTOM BUILDS FOR THE MODERN ADRENALINE JUNKIE.
+                </p>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-[#69daff]" data-icon="language">language</span>
+<span class="material-symbols-outlined text-[#69daff]" data-icon="share">share</span>
+<span class="material-symbols-outlined text-[#69daff]" data-icon="verified">verified</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-8 col-span-1 md:col-span-2">
+<div class="flex flex-col gap-3">
+<div class="text-[#69daff] font-headline text-xs font-bold uppercase tracking-[0.2em] mb-2">QUICK LINKS</div>
+<a class="font-manrope text-sm uppercase tracking-widest text-white/40 hover:text-[#ff7350] transition-colors hover:translate-x-1 transition-transform" href="#">Privacy Policy</a>
+<a class="font-manrope text-sm uppercase tracking-widest text-white/40 hover:text-[#ff7350] transition-colors hover:translate-x-1 transition-transform" href="#">Terms of Service</a>
+<a class="font-manrope text-sm uppercase tracking-widest text-white/40 hover:text-[#ff7350] transition-colors hover:translate-x-1 transition-transform" href="#">Shipping &amp; Returns</a>
+</div>
+<div class="flex flex-col gap-3">
+<div class="text-[#69daff] font-headline text-xs font-bold uppercase tracking-[0.2em] mb-2">SUPPORT</div>
+<a class="font-manrope text-sm uppercase tracking-widest text-white/40 hover:text-[#ff7350] transition-colors hover:translate-x-1 transition-transform" href="#">Contact Tech Support</a>
+<a class="font-manrope text-sm uppercase tracking-widest text-white/40 hover:text-[#ff7350] transition-colors hover:translate-x-1 transition-transform" href="#">Dealer Locator</a>
+</div>
+</div>
+</div>
+<div class="max-w-[1440px] mx-auto mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="font-manrope text-[10px] uppercase tracking-[0.3em] text-white/20">
+                © 2024 CRAFTBIKELAB PERFORMANCE. ENGINEERED FOR SPEED.
+            </div>
+<div class="flex gap-4 text-[10px] font-black italic font-headline uppercase text-primary">
+<span>Racing League Certified</span>
+<span>•</span>
+<span>Apex Certified Dealer</span>
+</div>
+</div>
+</footer>
+</body></html>
