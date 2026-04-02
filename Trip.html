@@ -375,7 +375,7 @@
 </a>
 </nav>
 <script>
-    // Data for trips (original 3 + 3 mock)
+    // Data for trips (original 3 + 3 mock + extra for load more)
     const tripsData = [
         {
             id: 1,
@@ -424,11 +424,7 @@
             season: "Sunny Coast",
             description: "เส้นทางเลียบชายหาดอุทยานแห่งชาติ วิวทะเลและภูเขาหินปูน ถนนเรียบ ลมทะเลเย็นสบาย เหมาะกับการขี่ชิลล์",
             image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDuRVbTZgyBFAT1V5aB1z-ePrJbfuDDhgyqKnns_c1IxoyhTJ2lZMn6YQJCw64OvRwOPYKCUrClS4WGhMALaD38LmBjZMJODQA10gZmSCMTOaF0zsPDuCtmS_EPTTil2A0utajA9C64wtqRX2N5FVhwhiiuSv858BTbjQHnbF5FQFRQ8H5vjb-ZyM6HoIiV4GVFTmXsW3MQCifEiTuPJPPJ17oyvPAoe4Gb4ooPSx1XCzZAffiU0APkg5BTel94o3cAKSd8OkaAuiSc"
-        }
-    ];
-
-    // Additional mock data for load more
-    const extraTrips = [
+        },
         {
             id: 7,
             name: "Petchabun Skyline",
@@ -463,7 +459,7 @@
         }
     ];
 
-    let allTrips = [...tripsData];       // all data (original + future loaded)
+    let allTrips = [...tripsData];       // all data (original + extra)
     let visibleCount = 6;                // start with 6 cards
     const loadMoreBtn = document.getElementById('load-more-btn');
     const tripsGrid = document.getElementById('trips-grid');
@@ -497,7 +493,7 @@
             </div>
         `).join('');
         
-        // Hide load more button if no more data
+        // Show/hide load more button
         if (visibleCount >= allTrips.length) {
             loadMoreBtn.style.display = 'none';
         } else {
@@ -506,15 +502,7 @@
     }
 
     function loadMore() {
-        const newLimit = visibleCount + 4;
-        // If we need more data than currently in allTrips, add from extraTrips
-        if (newLimit > allTrips.length) {
-            // Add extra trips (up to 4 at a time)
-            const needed = newLimit - allTrips.length;
-            const toAdd = extraTrips.slice(0, needed);
-            allTrips.push(...toAdd);
-        }
-        visibleCount = Math.min(newLimit, allTrips.length);
+        visibleCount = Math.min(visibleCount + 4, allTrips.length);
         renderTrips(visibleCount);
     }
 
