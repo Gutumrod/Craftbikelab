@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html class="dark" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>CraftBikeLab | Midnight Apex Shop</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&amp;family=Manrope:wght@200;300;400;500;600;700;800&amp;family=Noto+Sans+Thai:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-tint": "#69daff",
+              "tertiary": "#a68cff",
+              "on-tertiary-fixed": "#1c0055",
+              "on-secondary-container": "#fff6f4",
+              "surface-dim": "#0e0e0e",
+              "outline-variant": "#484847",
+              "tertiary-container": "#7c4dff",
+              "secondary": "#ff7350",
+              "on-tertiary": "#25006b",
+              "surface-bright": "#2c2c2c",
+              "on-secondary-fixed": "#681300",
+              "tertiary-fixed-dim": "#ab93ff",
+              "on-error-container": "#ffa8a3",
+              "error-container": "#9f0519",
+              "on-primary-fixed": "#002a35",
+              "inverse-surface": "#fcf9f8",
+              "primary-fixed": "#00cffc",
+              "tertiary-fixed": "#b8a3ff",
+              "on-tertiary-fixed-variant": "#4000ad",
+              "primary-container": "#00cffc",
+              "inverse-primary": "#006880",
+              "surface-container-low": "#131313",
+              "secondary-container": "#b42800",
+              "error": "#ff716c",
+              "surface-container-high": "#20201f",
+              "outline": "#767575",
+              "primary-fixed-dim": "#00c0ea",
+              "surface": "#0e0e0e",
+              "on-tertiary-container": "#ffffff",
+              "on-primary-fixed-variant": "#004a5c",
+              "surface-variant": "#262626",
+              "on-background": "#ffffff",
+              "secondary-fixed": "#ffc4b6",
+              "surface-container-highest": "#262626",
+              "on-secondary-fixed-variant": "#9b2200",
+              "primary-dim": "#00c0ea",
+              "on-surface": "#ffffff",
+              "on-error": "#490006",
+              "on-primary": "#004a5d",
+              "background": "#0e0e0e",
+              "on-secondary": "#440900",
+              "inverse-on-surface": "#565555",
+              "surface-container": "#1a1a1a",
+              "tertiary-dim": "#7e51ff",
+              "primary": "#69daff",
+              "on-primary-container": "#004050",
+              "secondary-dim": "#dc3300",
+              "secondary-fixed-dim": "#ffb09d",
+              "on-surface-variant": "#adaaaa",
+              "surface-container-lowest": "#000000",
+              "error-dim": "#d7383b"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk", "Noto Sans Thai"],
+              "body": ["Manrope", "Noto Sans Thai"],
+              "label": ["Space Grotesk", "Noto Sans Thai"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-panel {
+          background: rgba(26, 26, 26, 0.65);
+          backdrop-filter: blur(20px);
+      }
+      .kinetic-gradient-primary {
+          background: linear-gradient(135deg, #69daff 0%, #00cffc 100%);
+      }
+      .text-glow-primary {
+          text-shadow: 0 0 15px rgba(105, 218, 255, 0.4);
+      }
+      .favorite-btn {
+          background: rgba(26, 26, 26, 0.65);
+          backdrop-filter: blur(20px);
+          color: #ffffff;
+          transition: all 0.25s ease;
+      }
+      .favorite-btn.is-favorite {
+          color: #ff4d6d;
+          box-shadow: 0 0 16px rgba(255, 77, 109, 0.55);
+      }
+      .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+      }
+      .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+      }
+      .mobile-menu {
+          transition: all 0.3s ease;
+          transform-origin: top;
+      }
+      .mobile-menu.hidden {
+          opacity: 0;
+          transform: scaleY(0);
+          pointer-events: none;
+      }
+      .mobile-menu:not(.hidden) {
+          opacity: 1;
+          transform: scaleY(1);
+          pointer-events: auto;
+      }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary selection:text-on-primary-fixed">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#0e0e0e]/60 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,0,0,0.6)]">
+<div class="flex justify-between items-center px-4 md:px-8 py-4 max-w-[1440px] mx-auto">
+<div class="text-xl md:text-2xl font-black italic tracking-tighter text-[#69daff] font-headline uppercase">
+                <a href="index.html">CRAFTBIKELAB</a>
+            </div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-headline tracking-tighter uppercase text-[#69daff] border-b-2 border-[#69daff] pb-1" href="Shop.html">Shop</a>
+<a class="font-headline tracking-tighter uppercase text-white/70 hover:text-white transition-colors" href="Craft.html">Craft</a>
+<a class="font-headline tracking-tighter uppercase text-white/70 hover:text-white transition-colors" href="Trip.html">Trip</a>
+</div>
+<div class="flex items-center gap-4 md:gap-6">
+<button class="text-white/70 hover:text-[#69daff] transition-all duration-300 active:scale-95">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+</button>
+<button class="text-white/70 hover:text-[#69daff] transition-all duration-300 active:scale-95">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+<button id="menuToggle" class="block md:hidden text-white/70 hover:text-[#69daff] transition-colors">
+<span class="material-symbols-outlined text-2xl">menu</span>
+</button>
+</div>
+</div>
+<div id="mobileMenu" class="mobile-menu hidden md:hidden bg-[#0e0e0e]/95 backdrop-blur-xl border-t border-white/10 shadow-lg">
+<div class="flex flex-col py-4 px-4 gap-4">
+<a class="font-headline tracking-tighter uppercase text-white/80 hover:text-[#69daff] transition-colors py-2" href="Shop.html">Shop</a>
+<a class="font-headline tracking-tighter uppercase text-white/80 hover:text-[#69daff] transition-colors py-2" href="Craft.html">Craft</a>
+<a class="font-headline tracking-tighter uppercase text-white/80 hover:text-[#69daff] transition-colors py-2" href="Trip.html">Trip</a>
+</div>
+</div>
+<div class="bg-gradient-to-b from-[#69daff]/10 to-transparent h-[1px] w-full"></div>
+</nav>
+<main class="pt-24 min-h-screen">
+<section class="relative px-4 md:px-8 py-12 md:py-20 overflow-hidden">
+<div class="absolute top-0 right-0 w-1/2 h-full opacity-20 pointer-events-none">
+<img class="w-full h-full object-cover grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnw8GLsJJlDitZmevoa-o012rTxZcRSIljVwxHZRAviLVSp9tbRGsQrGD5T6GOclbadein7WYSyGIcY0EtPTUyVFsz3RpUYtWfoXxCGfWBWu53E_CmD8N10gJFVTJJmy4DYzAO1Xa1KEbLe74a5DsQCpPvTQLT4E2RRgS-YjddqxNAhlWUtSfbbTr11R1On95p-0IRWslgyn3w5fpTenoBbfJELW7Vpkypi5mJKmpwKapifqDz0ozTWX_rz1zs_fsPxFJH3w681r1N"/>
+<div class="absolute inset-0 bg-gradient-to-l from-transparent to-surface"></div>
+</div>
+<div class="max-w-7xl mx-auto relative z-10">
+<h1 class="text-4xl md:text-[48px] lg:text-[64px] font-black italic tracking-tighter font-headline leading-tight md:leading-none text-on-surface mb-2 text-glow-primary">BUILD YOUR BIKE</h1>
+<p class="text-xl md:text-[24px] text-primary font-medium tracking-wide font-body mb-8 md:mb-10">ค้นหาอะไหล่และของแต่งพรีเมียมที่ใช่สำหรับรถของคุณ</p>
+<div class="glass-panel p-3 md:p-4 rounded-xl border border-outline-variant/20 max-w-4xl">
+<div class="flex items-center gap-2 md:gap-3">
+<span class="material-symbols-outlined text-on-surface-variant">tune</span>
+<input class="w-full bg-transparent border-none focus:ring-0 text-base md:text-lg font-body text-on-surface placeholder:text-on-surface-variant/60" placeholder="ค้นหาสินค้า, รุ่นรถ, หรือแบรนด์..." type="text"/>
+<button class="kinetic-gradient-primary w-12 h-12 md:w-14 md:h-14 rounded-lg flex items-center justify-center text-black shadow-[0_0_20px_rgba(105,218,255,0.35)] hover:scale-105 transition-transform active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">search</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+
+<section class="px-4 md:px-8 pb-8">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
+<div class="relative group h-44 md:h-52 rounded-xl overflow-hidden transition-transform hover:-translate-y-1">
+<div class="absolute inset-0 bg-gradient-to-br from-orange-600 to-red-700 opacity-90"></div>
+<img class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXuKSzLXdIHFLKY4vQHP5K3Iys8ubJ7ZetYxfPm0HgXD1xZaLJzJRciyqZn0ypnwSgN7P9yIOreo5ss-yNEy_kzjANFsfTSZmMFiC3EDGlnNvKsJnzXZCblD8968DXkIrKPLChg2Xuc6paQtCCWu6BOAe-S7V0M1mOxQ0UxFV6feJRRF2tstvYYfv1Hp15P3rzZHB8pUClEsO8t3RDTPH3eIP3MAv-6YptOf8-JszijGf0jsK29NK0XrcmupJ5aDluSqsxPzRrCwqi"/>
+<div class="relative h-full flex flex-col justify-center p-6 md:p-8">
+<span class="font-headline font-black text-2xl md:text-3xl italic tracking-tighter">SHOPEE</span>
+<p class="font-body text-base md:text-lg mt-2">โปรโมชั่นเด็ด ลดสูงสุด 50%</p>
+</div>
+</div>
+<div class="relative group h-44 md:h-52 rounded-xl overflow-hidden transition-transform hover:-translate-y-1">
+<div class="absolute inset-0 bg-gradient-to-br from-blue-700 to-indigo-900 opacity-90"></div>
+<img class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKJcDhpDLNLD9NN0HvCEujqX2i8zta7myzu5hsI_g86-eWLkCnMyNctsIFS3PtHTUxwP7Cv9HygMVwUm1vDK3a5_HBHnGYK-NI-mE7jtVFE4UMiq8BRtQlZh6HfBQL6EpiYm8sQ3Pzwz5I3UkWlzhyohWJt7xzwcOCakLEzKW1CA6lKA7PH7D2DYYTABygUfciZ8_U-ICacH57I39Olozot__H_qwC_sDrB0urmh3i0Bp3mFQj8EGr8s6FSXD9oAyI_y0jiN8TGiSu"/>
+<div class="relative h-full flex flex-col justify-center p-6 md:p-8">
+<span class="font-headline font-black text-2xl md:text-3xl italic tracking-tighter">LAZADA</span>
+<p class="font-body text-base md:text-lg mt-2">Flash Sale เริ่มต้น 9 บาท</p>
+</div>
+</div>
+<div class="relative group h-44 md:h-52 rounded-xl overflow-hidden transition-transform hover:-translate-y-1">
+<div class="absolute inset-0 bg-zinc-950 opacity-90 border border-zinc-800"></div>
+<img class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxbdPnfKjXgCdNh4TXXglnZiptd3a_7O5UxDsSTyO4AUHMYPNWUzjl6z_dHlgXRe67iHnbr0UoljNnVhkJQztmr9_BjFeH2d2Dzva09DSXc1n00Zzh3gfzur046AGkVmgk5sY2TyWGaOjjJSdnu2JBmtixm6sf-YVsPMCFa-AxvTMKWVtfNRKR0wGEf1dxczgVnGOQHQRs0uJSUCuWmAvQSh1WQ3eoeUMyDmKRNtfjkz9qze6tWMiut-Dq4xVFmMNw2B2Ke1MmNqoR"/>
+<div class="relative h-full flex flex-col justify-center p-6 md:p-8">
+<span class="font-headline font-black text-2xl md:text-3xl italic tracking-tighter">TIKTOK SHOP</span>
+<p class="font-body text-base md:text-lg mt-2">แจกโค้ดส่วนลดในไลฟ์</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="px-4 md:px-8 py-8 md:py-12">
+<div class="max-w-7xl mx-auto">
+<div class="flex items-end gap-4 mb-6 md:mb-8">
+<h2 class="text-2xl md:text-3xl font-black uppercase tracking-tighter font-headline text-glow-primary">Recommended for You</h2>
+<div class="h-[2px] flex-grow bg-gradient-to-r from-primary to-transparent mb-2 opacity-40"></div>
+</div>
+<div class="relative">
+<button class="absolute -left-3 md:-left-5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 md:w-12 md:h-12 rounded-full bg-black/20 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:text-primary hover:shadow-[0_0_20px_rgba(105,218,255,0.55)] transition-all hidden md:flex" onclick="document.getElementById('recommended-track').scrollBy({left:-460,behavior:'smooth'})">
+<span class="material-symbols-outlined transition-transform hover:scale-110">chevron_left</span>
+</button>
+<button class="absolute -right-3 md:-right-5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 md:w-12 md:h-12 rounded-full bg-black/20 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:text-primary hover:shadow-[0_0_20px_rgba(105,218,255,0.55)] transition-all hidden md:flex" onclick="document.getElementById('recommended-track').scrollBy({left:460,behavior:'smooth'})">
+<span class="material-symbols-outlined transition-transform hover:scale-110">chevron_right</span>
+</button>
+<div class="flex gap-4 md:gap-6 overflow-x-auto pb-4 snap-x snap-mandatory hide-scrollbar" id="recommended-track">
+<article class="min-w-[280px] md:min-w-[420px] snap-start bg-surface-container-low border border-primary/30 rounded-xl overflow-hidden shadow-[0_0_28px_rgba(105,218,255,0.18)]">
+<div class="relative h-48 md:h-64">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1KdyXctvZ_5IMucPOOr3sQ_VW7zB9Es4eIddgiSjGAfxf5NR8rCQOVAjGu6gIWjzllVU-2kqDdInhEIrZymoI_VvDXIZVV_flp6YkLcq9z-_K3BU230EsvdP7zMeItKOBglBTFaWTDeKn84ZP1ao6RxqYr7s2QWgykmf3IDiwbXTOBkfV64Ed1bcl8zDSZptauOO4W0DOAluN8Dz2xI2-DluC0xFJZMORkVu0VN54Q-jxYVmkvP92ONiIobOF4dRFsI2SDNLu1t9v"/>
+<button class="favorite-btn absolute top-3 right-3 md:top-4 md:right-4 w-7 h-7 md:w-9 md:h-9 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-xs md:text-sm">favorite</span></button>
+</div>
+<div class="p-4 md:p-6">
+<h3 class="font-headline text-xl md:text-2xl font-bold">Akrapovic Titanium Pro</h3>
+<p class="font-body text-on-surface-variant text-xs md:text-sm mt-2">เสียงแน่น น้ำหนักเบา และตอบสนองรอบปลายแบบเต็มระบบ</p>
+<p class="font-headline text-2xl md:text-3xl font-black text-white mt-4">฿ 45,500</p>
+<button class="mt-4 md:mt-5 kinetic-gradient-primary text-black px-4 md:px-5 py-2 rounded-lg font-headline font-bold text-sm md:text-base">ดูรายละเอียด</button>
+</div>
+</article>
+<article class="min-w-[280px] md:min-w-[420px] snap-start bg-surface-container-low border border-primary/30 rounded-xl overflow-hidden shadow-[0_0_28px_rgba(105,218,255,0.18)]">
+<div class="relative h-48 md:h-64">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu8xPgXWfZBIFnPhoX7Qv7ZP_fwuvZRuKrc2Wrnf2RBzLE-qKssgorVb4uQalflVF6Mkdv8vwDT7frBju9KhveARMKnZWCKR34tnbjWqv5Wk-McGivRAq7RCmDsIgEdKJbENMY7iuAoshB4Fge_DDggdPO3fK8ovAG0vX6_1X_F5dELe7sROciJO9Ju2yKWrum6ch5Gf27cxeDvhztFV88hU7cPF_nHY1AeoMsycBIuhx-Mrxc1uSK93t_JSfvxGOa5fPiPoLBifDZ"/>
+<button class="favorite-btn absolute top-3 right-3 md:top-4 md:right-4 w-7 h-7 md:w-9 md:h-9 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-xs md:text-sm">favorite</span></button>
+</div>
+<div class="p-4 md:p-6">
+<h3 class="font-headline text-xl md:text-2xl font-bold">Brembo GP4-RS Kit</h3>
+<p class="font-body text-on-surface-variant text-xs md:text-sm mt-2">ชุดเบรกระดับสนามแข่ง คุมอุณหภูมิและฟีลลิ่งได้ยอดเยี่ยม</p>
+<p class="font-headline text-2xl md:text-3xl font-black text-white mt-4">฿ 32,900</p>
+<button class="mt-4 md:mt-5 kinetic-gradient-primary text-black px-4 md:px-5 py-2 rounded-lg font-headline font-bold text-sm md:text-base">ดูรายละเอียด</button>
+</div>
+</article>
+<article class="min-w-[280px] md:min-w-[420px] snap-start bg-surface-container-low border border-primary/30 rounded-xl overflow-hidden shadow-[0_0_28px_rgba(105,218,255,0.18)]">
+<div class="relative h-48 md:h-64">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTIiKXrRusl934DDDAAX4XWyyhXMcKP7iz-Cwruum5vFH_9OCrUtN5rJyakhydnFdaDD-WmTC2zq4pNIsjZmylIaX71dez-cvZFU3DWsIDKmmADN-n1HOw4i-mhWm9_n6hU6ZwqSBSBw5TEycJHZGujJ5YAekx6u-on_iHtndeBRXQ5BsEvSN9FZ9eB8vf16b5B3LHSVypx7xxMWrLShDWzTVpDbYegNtbdSZTw0xBLlN9ssXTUU46YtBKV87w8krJLji-wjc9V5jv"/>
+<button class="favorite-btn absolute top-3 right-3 md:top-4 md:right-4 w-7 h-7 md:w-9 md:h-9 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-xs md:text-sm">favorite</span></button>
+</div>
+<div class="p-4 md:p-6">
+<h3 class="font-headline text-xl md:text-2xl font-bold">Ohlins TTX GP Rear</h3>
+<p class="font-body text-on-surface-variant text-xs md:text-sm mt-2">ซับแรงกระแทกระดับพรีเมียม เพิ่มเสถียรภาพในทุกโค้ง</p>
+<p class="font-headline text-2xl md:text-3xl font-black text-white mt-4">฿ 58,000</p>
+<button class="mt-4 md:mt-5 kinetic-gradient-primary text-black px-4 md:px-5 py-2 rounded-lg font-headline font-bold text-sm md:text-base">ดูรายละเอียด</button>
+</div>
+</article>
+<article class="min-w-[280px] md:min-w-[420px] snap-start bg-surface-container-low border border-primary/30 rounded-xl overflow-hidden shadow-[0_0_28px_rgba(105,218,255,0.18)]">
+<div class="relative h-48 md:h-64">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzuIWztDhe0BCF46OaPJs3L-QUrXoSOrb-4-e5RlOYMdvVHAC6A92JdkhQXDvvEA0O27NeI6EbvP25YpGnu4JLi3hwjRvP9k9n7uyC2O2kvuTpNlAhn5_23R8cIxa8P7rS7isvCHX8tKqf8sY4ZyPoTCvfqqS6WUUCKdQzcyatvzgY4zEar7x7nACUBdXmT1INCALVKHrVFkb0iM5N40hXax-k7LxEMmCcxIVLtfPZK-B-HcXhAPQ1s2rxUaa4Xw75YdXYypgaiw-C"/>
+<button class="favorite-btn absolute top-3 right-3 md:top-4 md:right-4 w-7 h-7 md:w-9 md:h-9 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-xs md:text-sm">favorite</span></button>
+</div>
+<div class="p-4 md:p-6">
+<h3 class="font-headline text-xl md:text-2xl font-bold">Carbon Fairing Elite</h3>
+<p class="font-body text-on-surface-variant text-xs md:text-sm mt-2">ชุดแฟริ่งคาร์บอนเต็มระบบ น้ำหนักเบาและลุคสนามแข่งชัดเจน</p>
+<p class="font-headline text-2xl md:text-3xl font-black text-white mt-4">฿ 89,000</p>
+<button class="mt-4 md:mt-5 kinetic-gradient-primary text-black px-4 md:px-5 py-2 rounded-lg font-headline font-bold text-sm md:text-base">ดูรายละเอียด</button>
+</div>
+</article>
+<article class="min-w-[280px] md:min-w-[420px] snap-start bg-surface-container-low border border-primary/30 rounded-xl overflow-hidden shadow-[0_0_28px_rgba(105,218,255,0.18)]">
+<div class="relative h-48 md:h-64">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzPquSUct2OSoVcVggqygI9WLurRwGQVeuIoKBpJVFHUTkGtoIybcpb_VF-Ux3FkjzS2weqIDdFHwNtLMXVD4OYhRF-85Wzh_qU7iZvL32IxCorThLGA8XMUJSgez4Tb12RkyT9GPSMMN1iVFRdSBbe7EjZaKvDgnSIEJAqB7wdACWadcyptTFvqIkXKmgG__ebp6Qwgf1ZxmG64ETcHl9nuq_TSfa1lbsWNGdTgxFtTj35aYyUqVyWvcFINw5NuecdJfKKOUkn9Lu"/>
+<button class="favorite-btn absolute top-3 right-3 md:top-4 md:right-4 w-7 h-7 md:w-9 md:h-9 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-xs md:text-sm">favorite</span></button>
+</div>
+<div class="p-4 md:p-6">
+<h3 class="font-headline text-xl md:text-2xl font-bold">Pirelli Supercorsa Set</h3>
+<p class="font-body text-on-surface-variant text-xs md:text-sm mt-2">ยางสปอร์ตระดับสนามสำหรับผู้ขี่ที่ต้องการฟีลการยึดเกาะสูงสุด</p>
+<p class="font-headline text-2xl md:text-3xl font-black text-white mt-4">฿ 14,900</p>
+<button class="mt-4 md:mt-5 kinetic-gradient-primary text-black px-4 md:px-5 py-2 rounded-lg font-headline font-bold text-sm md:text-base">ดูรายละเอียด</button>
+</div>
+</article>
+<article class="min-w-[280px] md:min-w-[420px] snap-start bg-surface-container-low border border-primary/30 rounded-xl overflow-hidden shadow-[0_0_28px_rgba(105,218,255,0.18)]">
+<div class="relative h-48 md:h-64">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkN6zWnbcva-Bu00NgrVcDIPLdHNBwZs4JHFJO-Kh-wD4aHihYyvcVmmmbYZ0t-hMwb_6zpO7RtwUfAB87KF_2Tk5N-qqknjKWis8FDR21tB1uluyGz6HSgWvoTai62babLDL9uKsV7_0EEB5AUJE7MOn0kqnRJI-yFr5_L8lOrbPt0H1ZKboMPFqH-D4S6igTzFPczm4JrouR16djL3BRzBAxsGklnwOcnOgoOp0_dyX3PyL8GgB7m5lm2wsuCiuJMORDT5aIOK49"/>
+<button class="favorite-btn absolute top-3 right-3 md:top-4 md:right-4 w-7 h-7 md:w-9 md:h-9 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-xs md:text-sm">favorite</span></button>
+</div>
+<div class="p-4 md:p-6">
+<h3 class="font-headline text-xl md:text-2xl font-bold">Shoei Aero Pro Helmet</h3>
+<p class="font-body text-on-surface-variant text-xs md:text-sm mt-2">หมวกแอโรไดนามิกดีไซน์ลู่ลม ระบายอากาศดีเหมาะทั้งถนนและสนาม</p>
+<p class="font-headline text-2xl md:text-3xl font-black text-white mt-4">฿ 26,500</p>
+<button class="mt-4 md:mt-5 kinetic-gradient-primary text-black px-4 md:px-5 py-2 rounded-lg font-headline font-bold text-sm md:text-base">ดูรายละเอียด</button>
+</div>
+</article>
+</div>
+<div class="mt-4 flex justify-center items-center gap-3">
+<span class="h-1.5 w-9 rounded-full bg-[#69daff] shadow-[0_0_12px_rgba(105,218,255,0.55)]"></span>
+<span class="h-1.5 w-1.5 rounded-full bg-white/35"></span>
+<span class="h-1.5 w-1.5 rounded-full bg-white/35"></span>
+<span class="h-1.5 w-1.5 rounded-full bg-white/35"></span>
+</div>
+</div>
+</div>
+</section>
+
+<section class="px-4 md:px-8 pb-16 md:pb-24">
+<div class="max-w-7xl mx-auto">
+<div class="flex items-end gap-4 mb-6 md:mb-8">
+<h2 class="text-2xl md:text-3xl font-black uppercase tracking-tighter font-headline">All Products</h2>
+<div class="h-[2px] flex-grow bg-gradient-to-r from-secondary to-transparent mb-2 opacity-40"></div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-5">
+<article class="group bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden"><div class="relative h-32 md:h-40"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvM48Dkov0iJM1yKiy53PjZjtNke3jQjVwgR5JvpT_aB_v8ppHXE35XSJdzFykczqa-G_rR4bOIi6B8JVLGUANoHfZqF7UsAANVbNa6WUUZTLkcTWlQLy_8mjBk3k_IdCx9nQIQkSMDKCY3BSEmj6M30kQWoiTnu_454xNek3qJUCJGu8XmHS4ao9_DkkTWjbuwqXRJcM3UqTrvWw8qQJJBiy3kWK9-bQC7TROXW9NqsTf36z75K3x4IlKg2R3jQvIxujPnC3Fi9-k"/><button class="favorite-btn absolute top-2 right-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-[10px] md:text-xs">favorite</span></button></div><div class="p-2 md:p-4"><h3 class="font-headline text-xs md:text-sm font-bold leading-tight">Liqui Moly 4T Oil</h3><p class="font-body text-[10px] md:text-xs text-on-surface-variant mt-1">น้ำมันเครื่องสังเคราะห์</p><p class="font-headline text-base md:text-lg font-black text-white mt-2">฿ 850</p><button class="mt-2 md:mt-3 w-full kinetic-gradient-primary text-black text-[10px] md:text-xs font-headline font-bold py-1.5 md:py-2 rounded">ดูรายละเอียด</button></div></article>
+<article class="group bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden"><div class="relative h-32 md:h-40"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzPquSUct2OSoVcVggqygI9WLurRwGQVeuIoKBpJVFHUTkGtoIybcpb_VF-Ux3FkjzS2weqIDdFHwNtLMXVD4OYhRF-85Wzh_qU7iZvL32IxCorThLGA8XMUJSgez4Tb12RkyT9GPSMMN1iVFRdSBbe7EjZaKvDgnSIEJAqB7wdACWadcyptTFvqIkXKmgG__ebp6Qwgf1ZxmG64ETcHl9nuq_TSfa1lbsWNGdTgxFtTj35aYyUqVyWvcFINw5NuecdJfKKOUkn9Lu"/><button class="favorite-btn absolute top-2 right-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-[10px] md:text-xs">favorite</span></button></div><div class="p-2 md:p-4"><h3 class="font-headline text-xs md:text-sm font-bold leading-tight">Pirelli Supercorsa</h3><p class="font-body text-[10px] md:text-xs text-on-surface-variant mt-1">ยางสปอร์ตระดับสนาม</p><p class="font-headline text-base md:text-lg font-black text-white mt-2">฿ 14,900</p><button class="mt-2 md:mt-3 w-full kinetic-gradient-primary text-black text-[10px] md:text-xs font-headline font-bold py-1.5 md:py-2 rounded">ดูรายละเอียด</button></div></article>
+<article class="group bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden"><div class="relative h-32 md:h-40"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGMKewxlRFAVez0lfnwF7iZ2Lv-glMS8CMPXOBNo0BKZDpdB1L7h9Y0Z6JzL_3LrlOLmD9pNkfVmV2Vu6IHzE-_ay39lbzEuJIp9kSCUzu880zdO7S3UsAAtQwocPMkJfM-rTXdn9f_zpiPR11B3nxOBBhNT6DGGLxaFt60yeFzK2G7ZIEcfOrqIBkKV3AnlHWjwzOGMguhnibBWytakzvheSfxsU1NTfr_x7URqmo1LQrmG3qJKKbQ0nECAOK5PJCW_FsCfgc4iey"/><button class="favorite-btn absolute top-2 right-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-[10px] md:text-xs">favorite</span></button></div><div class="p-2 md:p-4"><h3 class="font-headline text-xs md:text-sm font-bold leading-tight">Dainese Carbon 3</h3><p class="font-body text-[10px] md:text-xs text-on-surface-variant mt-1">ถุงมือป้องกันคาร์บอน</p><p class="font-headline text-base md:text-lg font-black text-white mt-2">฿ 6,200</p><button class="mt-2 md:mt-3 w-full kinetic-gradient-primary text-black text-[10px] md:text-xs font-headline font-bold py-1.5 md:py-2 rounded">ดูรายละเอียด</button></div></article>
+<article class="group bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden"><div class="relative h-32 md:h-40"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkN6zWnbcva-Bu00NgrVcDIPLdHNBwZs4JHFJO-Kh-wD4aHihYyvcVmmmbYZ0t-hMwb_6zpO7RtwUfAB87KF_2Tk5N-qqknjKWis8FDR21tB1uluyGz6HSgWvoTai62babLDL9uKsV7_0EEB5AUJE7MOn0kqnRJI-yFr5_L8lOrbPt0H1ZKboMPFqH-D4S6igTzFPczm4JrouR16djL3BRzBAxsGklnwOcnOgoOp0_dyX3PyL8GgB7m5lm2wsuCiuJMORDT5aIOK49"/><button class="favorite-btn absolute top-2 right-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-[10px] md:text-xs">favorite</span></button></div><div class="p-2 md:p-4"><h3 class="font-headline text-xs md:text-sm font-bold leading-tight">Shoei X-Spirit III</h3><p class="font-body text-[10px] md:text-xs text-on-surface-variant mt-1">หมวกกันน็อคสนาม</p><p class="font-headline text-base md:text-lg font-black text-white mt-2">฿ 26,500</p><button class="mt-2 md:mt-3 w-full kinetic-gradient-primary text-black text-[10px] md:text-xs font-headline font-bold py-1.5 md:py-2 rounded">ดูรายละเอียด</button></div></article>
+<article class="group bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden"><div class="relative h-32 md:h-40"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1KdyXctvZ_5IMucPOOr3sQ_VW7zB9Es4eIddgiSjGAfxf5NR8rCQOVAjGu6gIWjzllVU-2kqDdInhEIrZymoI_VvDXIZVV_flp6YkLcq9z-_K3BU230EsvdP7zMeItKOBglBTFaWTDeKn84ZP1ao6RxqYr7s2QWgykmf3IDiwbXTOBkfV64Ed1bcl8zDSZptauOO4W0DOAluN8Dz2xI2-DluC0xFJZMORkVu0VN54Q-jxYVmkvP92ONiIobOF4dRFsI2SDNLu1t9v"/><button class="favorite-btn absolute top-2 right-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-[10px] md:text-xs">favorite</span></button></div><div class="p-2 md:p-4"><h3 class="font-headline text-xs md:text-sm font-bold leading-tight">Akrapovic Slip-On</h3><p class="font-body text-[10px] md:text-xs text-on-surface-variant mt-1">ปลายท่อไทเทเนียม</p><p class="font-headline text-base md:text-lg font-black text-white mt-2">฿ 31,900</p><button class="mt-2 md:mt-3 w-full kinetic-gradient-primary text-black text-[10px] md:text-xs font-headline font-bold py-1.5 md:py-2 rounded">ดูรายละเอียด</button></div></article>
+<article class="group bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden"><div class="relative h-32 md:h-40"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu8xPgXWfZBIFnPhoX7Qv7ZP_fwuvZRuKrc2Wrnf2RBzLE-qKssgorVb4uQalflVF6Mkdv8vwDT7frBju9KhveARMKnZWCKR34tnbjWqv5Wk-McGivRAq7RCmDsIgEdKJbENMY7iuAoshB4Fge_DDggdPO3fK8ovAG0vX6_1X_F5dELe7sROciJO9Ju2yKWrum6ch5Gf27cxeDvhztFV88hU7cPF_nHY1AeoMsycBIuhx-Mrxc1uSK93t_JSfvxGOa5fPiPoLBifDZ"/><button class="favorite-btn absolute top-2 right-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-[10px] md:text-xs">favorite</span></button></div><div class="p-2 md:p-4"><h3 class="font-headline text-xs md:text-sm font-bold leading-tight">Brembo Brake Pads</h3><p class="font-body text-[10px] md:text-xs text-on-surface-variant mt-1">ผ้าเบรกสมรรถนะสูง</p><p class="font-headline text-base md:text-lg font-black text-white mt-2">฿ 4,800</p><button class="mt-2 md:mt-3 w-full kinetic-gradient-primary text-black text-[10px] md:text-xs font-headline font-bold py-1.5 md:py-2 rounded">ดูรายละเอียด</button></div></article>
+<article class="group bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden"><div class="relative h-32 md:h-40"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTIiKXrRusl934DDDAAX4XWyyhXMcKP7iz-Cwruum5vFH_9OCrUtN5rJyakhydnFdaDD-WmTC2zq4pNIsjZmylIaX71dez-cvZFU3DWsIDKmmADN-n1HOw4i-mhWm9_n6hU6ZwqSBSBw5TEycJHZGujJ5YAekx6u-on_iHtndeBRXQ5BsEvSN9FZ9eB8vf16b5B3LHSVypx7xxMWrLShDWzTVpDbYegNtbdSZTw0xBLlN9ssXTUU46YtBKV87w8krJLji-wjc9V5jv"/><button class="favorite-btn absolute top-2 right-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-[10px] md:text-xs">favorite</span></button></div><div class="p-2 md:p-4"><h3 class="font-headline text-xs md:text-sm font-bold leading-tight">Ohlins Front Fork</h3><p class="font-body text-[10px] md:text-xs text-on-surface-variant mt-1">โช้คหน้าเกรดสนาม</p><p class="font-headline text-base md:text-lg font-black text-white mt-2">฿ 62,000</p><button class="mt-2 md:mt-3 w-full kinetic-gradient-primary text-black text-[10px] md:text-xs font-headline font-bold py-1.5 md:py-2 rounded">ดูรายละเอียด</button></div></article>
+<article class="group bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden"><div class="relative h-32 md:h-40"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzuIWztDhe0BCF46OaPJs3L-QUrXoSOrb-4-e5RlOYMdvVHAC6A92JdkhQXDvvEA0O27NeI6EbvP25YpGnu4JLi3hwjRvP9k9n7uyC2O2kvuTpNlAhn5_23R8cIxa8P7rS7isvCHX8tKqf8sY4ZyPoTCvfqqS6WUUCKdQzcyatvzgY4zEar7x7nACUBdXmT1INCALVKHrVFkb0iM5N40hXax-k7LxEMmCcxIVLtfPZK-B-HcXhAPQ1s2rxUaa4Xw75YdXYypgaiw-C"/><button class="favorite-btn absolute top-2 right-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-[10px] md:text-xs">favorite</span></button></div><div class="p-2 md:p-4"><h3 class="font-headline text-xs md:text-sm font-bold leading-tight">Carbon Fairing Kit</h3><p class="font-body text-[10px] md:text-xs text-on-surface-variant mt-1">ชุดแฟริ่งคาร์บอนเต็มคัน</p><p class="font-headline text-base md:text-lg font-black text-white mt-2">฿ 89,000</p><button class="mt-2 md:mt-3 w-full kinetic-gradient-primary text-black text-[10px] md:text-xs font-headline font-bold py-1.5 md:py-2 rounded">ดูรายละเอียด</button></div></article>
+<article class="group bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden"><div class="relative h-32 md:h-40"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvM48Dkov0iJM1yKiy53PjZjtNke3jQjVwgR5JvpT_aB_v8ppHXE35XSJdzFykczqa-G_rR4bOIi6B8JVLGUANoHfZqF7UsAANVbNa6WUUZTLkcTWlQLy_8mjBk3k_IdCx9nQIQkSMDKCY3BSEmj6M30kQWoiTnu_454xNek3qJUCJGu8XmHS4ao9_DkkTWjbuwqXRJcM3UqTrvWw8qQJJBiy3kWK9-bQC7TROXW9NqsTf36z75K3x4IlKg2R3jQvIxujPnC3Fi9-k"/><button class="favorite-btn absolute top-2 right-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-[10px] md:text-xs">favorite</span></button></div><div class="p-2 md:p-4"><h3 class="font-headline text-xs md:text-sm font-bold leading-tight">Chain Cleaner Set</h3><p class="font-body text-[10px] md:text-xs text-on-surface-variant mt-1">เซ็ตล้างโซ่ครบชุด</p><p class="font-headline text-base md:text-lg font-black text-white mt-2">฿ 1,290</p><button class="mt-2 md:mt-3 w-full kinetic-gradient-primary text-black text-[10px] md:text-xs font-headline font-bold py-1.5 md:py-2 rounded">ดูรายละเอียด</button></div></article>
+<article class="group bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden"><div class="relative h-32 md:h-40"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzPquSUct2OSoVcVggqygI9WLurRwGQVeuIoKBpJVFHUTkGtoIybcpb_VF-Ux3FkjzS2weqIDdFHwNtLMXVD4OYhRF-85Wzh_qU7iZvL32IxCorThLGA8XMUJSgez4Tb12RkyT9GPSMMN1iVFRdSBbe7EjZaKvDgnSIEJAqB7wdACWadcyptTFvqIkXKmgG__ebp6Qwgf1ZxmG64ETcHl9nuq_TSfa1lbsWNGdTgxFtTj35aYyUqVyWvcFINw5NuecdJfKKOUkn9Lu"/><button class="favorite-btn absolute top-2 right-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-[10px] md:text-xs">favorite</span></button></div><div class="p-2 md:p-4"><h3 class="font-headline text-xs md:text-sm font-bold leading-tight">Pirelli Rosso IV</h3><p class="font-body text-[10px] md:text-xs text-on-surface-variant mt-1">ยางถนนสปอร์ตพรีเมียม</p><p class="font-headline text-base md:text-lg font-black text-white mt-2">฿ 12,500</p><button class="mt-2 md:mt-3 w-full kinetic-gradient-primary text-black text-[10px] md:text-xs font-headline font-bold py-1.5 md:py-2 rounded">ดูรายละเอียด</button></div></article>
+<article class="group bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden"><div class="relative h-32 md:h-40"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGMKewxlRFAVez0lfnwF7iZ2Lv-glMS8CMPXOBNo0BKZDpdB1L7h9Y0Z6JzL_3LrlOLmD9pNkfVmV2Vu6IHzE-_ay39lbzEuJIp9kSCUzu880zdO7S3UsAAtQwocPMkJfM-rTXdn9f_zpiPR11B3nxOBBhNT6DGGLxaFt60yeFzK2G7ZIEcfOrqIBkKV3AnlHWjwzOGMguhnibBWytakzvheSfxsU1NTfr_x7URqmo1LQrmG3qJKKbQ0nECAOK5PJCW_FsCfgc4iey"/><button class="favorite-btn absolute top-2 right-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-[10px] md:text-xs">favorite</span></button></div><div class="p-2 md:p-4"><h3 class="font-headline text-xs md:text-sm font-bold leading-tight">Racing Gloves Pro</h3><p class="font-body text-[10px] md:text-xs text-on-surface-variant mt-1">ถุงมือหนังกันกระแทก</p><p class="font-headline text-base md:text-lg font-black text-white mt-2">฿ 5,400</p><button class="mt-2 md:mt-3 w-full kinetic-gradient-primary text-black text-[10px] md:text-xs font-headline font-bold py-1.5 md:py-2 rounded">ดูรายละเอียด</button></div></article>
+<article class="group bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden"><div class="relative h-32 md:h-40"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkN6zWnbcva-Bu00NgrVcDIPLdHNBwZs4JHFJO-Kh-wD4aHihYyvcVmmmbYZ0t-hMwb_6zpO7RtwUfAB87KF_2Tk5N-qqknjKWis8FDR21tB1uluyGz6HSgWvoTai62babLDL9uKsV7_0EEB5AUJE7MOn0kqnRJI-yFr5_L8lOrbPt0H1ZKboMPFqH-D4S6igTzFPczm4JrouR16djL3BRzBAxsGklnwOcnOgoOp0_dyX3PyL8GgB7m5lm2wsuCiuJMORDT5aIOK49"/><button class="favorite-btn absolute top-2 right-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-[10px] md:text-xs">favorite</span></button></div><div class="p-2 md:p-4"><h3 class="font-headline text-xs md:text-sm font-bold leading-tight">Shoei Aero Helmet</h3><p class="font-body text-[10px] md:text-xs text-on-surface-variant mt-1">หมวกแอโรไดนามิก</p><p class="font-headline text-base md:text-lg font-black text-white mt-2">฿ 24,900</p><button class="mt-2 md:mt-3 w-full kinetic-gradient-primary text-black text-[10px] md:text-xs font-headline font-bold py-1.5 md:py-2 rounded">ดูรายละเอียด</button></div></article>
+<article class="group bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden"><div class="relative h-32 md:h-40"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1KdyXctvZ_5IMucPOOr3sQ_VW7zB9Es4eIddgiSjGAfxf5NR8rCQOVAjGu6gIWjzllVU-2kqDdInhEIrZymoI_VvDXIZVV_flp6YkLcq9z-_K3BU230EsvdP7zMeItKOBglBTFaWTDeKn84ZP1ao6RxqYr7s2QWgykmf3IDiwbXTOBkfV64Ed1bcl8zDSZptauOO4W0DOAluN8Dz2xI2-DluC0xFJZMORkVu0VN54Q-jxYVmkvP92ONiIobOF4dRFsI2SDNLu1t9v"/><button class="favorite-btn absolute top-2 right-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-[10px] md:text-xs">favorite</span></button></div><div class="p-2 md:p-4"><h3 class="font-headline text-xs md:text-sm font-bold leading-tight">Slip-On Carbon Lite</h3><p class="font-body text-[10px] md:text-xs text-on-surface-variant mt-1">ปลายท่อคาร์บอนน้ำหนักเบา</p><p class="font-headline text-base md:text-lg font-black text-white mt-2">฿ 21,700</p><button class="mt-2 md:mt-3 w-full kinetic-gradient-primary text-black text-[10px] md:text-xs font-headline font-bold py-1.5 md:py-2 rounded">ดูรายละเอียด</button></div></article>
+<article class="group bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden"><div class="relative h-32 md:h-40"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu8xPgXWfZBIFnPhoX7Qv7ZP_fwuvZRuKrc2Wrnf2RBzLE-qKssgorVb4uQalflVF6Mkdv8vwDT7frBju9KhveARMKnZWCKR34tnbjWqv5Wk-McGivRAq7RCmDsIgEdKJbENMY7iuAoshB4Fge_DDggdPO3fK8ovAG0vX6_1X_F5dELe7sROciJO9Ju2yKWrum6ch5Gf27cxeDvhztFV88hU7cPF_nHY1AeoMsycBIuhx-Mrxc1uSK93t_JSfvxGOa5fPiPoLBifDZ"/><button class="favorite-btn absolute top-2 right-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-[10px] md:text-xs">favorite</span></button></div><div class="p-2 md:p-4"><h3 class="font-headline text-xs md:text-sm font-bold leading-tight">Brake Disc Floating</h3><p class="font-body text-[10px] md:text-xs text-on-surface-variant mt-1">จานเบรกทนร้อนสูง</p><p class="font-headline text-base md:text-lg font-black text-white mt-2">฿ 7,900</p><button class="mt-2 md:mt-3 w-full kinetic-gradient-primary text-black text-[10px] md:text-xs font-headline font-bold py-1.5 md:py-2 rounded">ดูรายละเอียด</button></div></article>
+<article class="group bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden"><div class="relative h-32 md:h-40"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTIiKXrRusl934DDDAAX4XWyyhXMcKP7iz-Cwruum5vFH_9OCrUtN5rJyakhydnFdaDD-WmTC2zq4pNIsjZmylIaX71dez-cvZFU3DWsIDKmmADN-n1HOw4i-mhWm9_n6hU6ZwqSBSBw5TEycJHZGujJ5YAekx6u-on_iHtndeBRXQ5BsEvSN9FZ9eB8vf16b5B3LHSVypx7xxMWrLShDWzTVpDbYegNtbdSZTw0xBLlN9ssXTUU46YtBKV87w8krJLji-wjc9V5jv"/><button class="favorite-btn absolute top-2 right-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-[10px] md:text-xs">favorite</span></button></div><div class="p-2 md:p-4"><h3 class="font-headline text-xs md:text-sm font-bold leading-tight">Rear Shock Street</h3><p class="font-body text-[10px] md:text-xs text-on-surface-variant mt-1">โช้คหลังฟีลนุ่มหนึบ</p><p class="font-headline text-base md:text-lg font-black text-white mt-2">฿ 18,500</p><button class="mt-2 md:mt-3 w-full kinetic-gradient-primary text-black text-[10px] md:text-xs font-headline font-bold py-1.5 md:py-2 rounded">ดูรายละเอียด</button></div></article>
+<article class="group bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden"><div class="relative h-32 md:h-40"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzuIWztDhe0BCF46OaPJs3L-QUrXoSOrb-4-e5RlOYMdvVHAC6A92JdkhQXDvvEA0O27NeI6EbvP25YpGnu4JLi3hwjRvP9k9n7uyC2O2kvuTpNlAhn5_23R8cIxa8P7rS7isvCHX8tKqf8sY4ZyPoTCvfqqS6WUUCKdQzcyatvzgY4zEar7x7nACUBdXmT1INCALVKHrVFkb0iM5N40hXax-k7LxEMmCcxIVLtfPZK-B-HcXhAPQ1s2rxUaa4Xw75YdXYypgaiw-C"/><button class="favorite-btn absolute top-2 right-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-[10px] md:text-xs">favorite</span></button></div><div class="p-2 md:p-4"><h3 class="font-headline text-xs md:text-sm font-bold leading-tight">Carbon Side Panel</h3><p class="font-body text-[10px] md:text-xs text-on-surface-variant mt-1">แผงข้างคาร์บอนแท้</p><p class="font-headline text-base md:text-lg font-black text-white mt-2">฿ 9,600</p><button class="mt-2 md:mt-3 w-full kinetic-gradient-primary text-black text-[10px] md:text-xs font-headline font-bold py-1.5 md:py-2 rounded">ดูรายละเอียด</button></div></article>
+<article class="group bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden"><div class="relative h-32 md:h-40"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvM48Dkov0iJM1yKiy53PjZjtNke3jQjVwgR5JvpT_aB_v8ppHXE35XSJdzFykczqa-G_rR4bOIi6B8JVLGUANoHfZqF7UsAANVbNa6WUUZTLkcTWlQLy_8mjBk3k_IdCx9nQIQkSMDKCY3BSEmj6M30kQWoiTnu_454xNek3qJUCJGu8XmHS4ao9_DkkTWjbuwqXRJcM3UqTrvWw8qQJJBiy3kWK9-bQC7TROXW9NqsTf36z75K3x4IlKg2R3jQvIxujPnC3Fi9-k"/><button class="favorite-btn absolute top-2 right-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-[10px] md:text-xs">favorite</span></button></div><div class="p-2 md:p-4"><h3 class="font-headline text-xs md:text-sm font-bold leading-tight">Engine Flush Kit</h3><p class="font-body text-[10px] md:text-xs text-on-surface-variant mt-1">ชุดล้างเครื่องยนต์</p><p class="font-headline text-base md:text-lg font-black text-white mt-2">฿ 1,650</p><button class="mt-2 md:mt-3 w-full kinetic-gradient-primary text-black text-[10px] md:text-xs font-headline font-bold py-1.5 md:py-2 rounded">ดูรายละเอียด</button></div></article>
+<article class="group bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden"><div class="relative h-32 md:h-40"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzPquSUct2OSoVcVggqygI9WLurRwGQVeuIoKBpJVFHUTkGtoIybcpb_VF-Ux3FkjzS2weqIDdFHwNtLMXVD4OYhRF-85Wzh_qU7iZvL32IxCorThLGA8XMUJSgez4Tb12RkyT9GPSMMN1iVFRdSBbe7EjZaKvDgnSIEJAqB7wdACWadcyptTFvqIkXKmgG__ebp6Qwgf1ZxmG64ETcHl9nuq_TSfa1lbsWNGdTgxFtTj35aYyUqVyWvcFINw5NuecdJfKKOUkn9Lu"/><button class="favorite-btn absolute top-2 right-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-[10px] md:text-xs">favorite</span></button></div><div class="p-2 md:p-4"><h3 class="font-headline text-xs md:text-sm font-bold leading-tight">Track Slick V2</h3><p class="font-body text-[10px] md:text-xs text-on-surface-variant mt-1">ยางสนามเต็มระบบ</p><p class="font-headline text-base md:text-lg font-black text-white mt-2">฿ 19,800</p><button class="mt-2 md:mt-3 w-full kinetic-gradient-primary text-black text-[10px] md:text-xs font-headline font-bold py-1.5 md:py-2 rounded">ดูรายละเอียด</button></div></article>
+<article class="group bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden"><div class="relative h-32 md:h-40"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGMKewxlRFAVez0lfnwF7iZ2Lv-glMS8CMPXOBNo0BKZDpdB1L7h9Y0Z6JzL_3LrlOLmD9pNkfVmV2Vu6IHzE-_ay39lbzEuJIp9kSCUzu880zdO7S3UsAAtQwocPMkJfM-rTXdn9f_zpiPR11B3nxOBBhNT6DGGLxaFt60yeFzK2G7ZIEcfOrqIBkKV3AnlHWjwzOGMguhnibBWytakzvheSfxsU1NTfr_x7URqmo1LQrmG3qJKKbQ0nECAOK5PJCW_FsCfgc4iey"/><button class="favorite-btn absolute top-2 right-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-[10px] md:text-xs">favorite</span></button></div><div class="p-2 md:p-4"><h3 class="font-headline text-xs md:text-sm font-bold leading-tight">Gauntlet Gloves X</h3><p class="font-body text-[10px] md:text-xs text-on-surface-variant mt-1">ถุงมือทัวร์ริ่งแขนยาว</p><p class="font-headline text-base md:text-lg font-black text-white mt-2">฿ 3,900</p><button class="mt-2 md:mt-3 w-full kinetic-gradient-primary text-black text-[10px] md:text-xs font-headline font-bold py-1.5 md:py-2 rounded">ดูรายละเอียด</button></div></article>
+<article class="group bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden"><div class="relative h-32 md:h-40"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkN6zWnbcva-Bu00NgrVcDIPLdHNBwZs4JHFJO-Kh-wD4aHihYyvcVmmmbYZ0t-hMwb_6zpO7RtwUfAB87KF_2Tk5N-qqknjKWis8FDR21tB1uluyGz6HSgWvoTai62babLDL9uKsV7_0EEB5AUJE7MOn0kqnRJI-yFr5_L8lOrbPt0H1ZKboMPFqH-D4S6igTzFPczm4JrouR16djL3BRzBAxsGklnwOcnOgoOp0_dyX3PyL8GgB7m5lm2wsuCiuJMORDT5aIOK49"/><button class="favorite-btn absolute top-2 right-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-[10px] md:text-xs">favorite</span></button></div><div class="p-2 md:p-4"><h3 class="font-headline text-xs md:text-sm font-bold leading-tight">Modular Helmet GT</h3><p class="font-body text-[10px] md:text-xs text-on-surface-variant mt-1">หมวกเปิดคางทัวร์ริ่ง</p><p class="font-headline text-base md:text-lg font-black text-white mt-2">฿ 15,900</p><button class="mt-2 md:mt-3 w-full kinetic-gradient-primary text-black text-[10px] md:text-xs font-headline font-bold py-1.5 md:py-2 rounded">ดูรายละเอียด</button></div></article>
+<article class="group bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden"><div class="relative h-32 md:h-40"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1KdyXctvZ_5IMucPOOr3sQ_VW7zB9Es4eIddgiSjGAfxf5NR8rCQOVAjGu6gIWjzllVU-2kqDdInhEIrZymoI_VvDXIZVV_flp6YkLcq9z-_K3BU230EsvdP7zMeItKOBglBTFaWTDeKn84ZP1ao6RxqYr7s2QWgykmf3IDiwbXTOBkfV64Ed1bcl8zDSZptauOO4W0DOAluN8Dz2xI2-DluC0xFJZMORkVu0VN54Q-jxYVmkvP92ONiIobOF4dRFsI2SDNLu1t9v"/><button class="favorite-btn absolute top-2 right-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-[10px] md:text-xs">favorite</span></button></div><div class="p-2 md:p-4"><h3 class="font-headline text-xs md:text-sm font-bold leading-tight">Exhaust Clamp Set</h3><p class="font-body text-[10px] md:text-xs text-on-surface-variant mt-1">แคลมป์ทนความร้อนสูง</p><p class="font-headline text-base md:text-lg font-black text-white mt-2">฿ 2,300</p><button class="mt-2 md:mt-3 w-full kinetic-gradient-primary text-black text-[10px] md:text-xs font-headline font-bold py-1.5 md:py-2 rounded">ดูรายละเอียด</button></div></article>
+<article class="group bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden"><div class="relative h-32 md:h-40"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu8xPgXWfZBIFnPhoX7Qv7ZP_fwuvZRuKrc2Wrnf2RBzLE-qKssgorVb4uQalflVF6Mkdv8vwDT7frBju9KhveARMKnZWCKR34tnbjWqv5Wk-McGivRAq7RCmDsIgEdKJbENMY7iuAoshB4Fge_DDggdPO3fK8ovAG0vX6_1X_F5dELe7sROciJO9Ju2yKWrum6ch5Gf27cxeDvhztFV88hU7cPF_nHY1AeoMsycBIuhx-Mrxc1uSK93t_JSfvxGOa5fPiPoLBifDZ"/><button class="favorite-btn absolute top-2 right-2 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')"><span class="material-symbols-outlined text-[10px] md:text-xs">favorite</span></button></div><div class="p-2 md:p-4"><h3 class="font-headline text-xs md:text-sm font-bold leading-tight">Master Cylinder</h3><p class="font-body text-[10px] md:text-xs text-on-surface-variant mt-1">แม่ปั๊มเบรกปรับองศา</p><p class="font-headline text-base md:text-lg font-black text-white mt-2">฿ 11,500</p><button class="mt-2 md:mt-3 w-full kinetic-gradient-primary text-black text-[10px] md:text-xs font-headline font-bold py-1.5 md:py-2 rounded">ดูรายละเอียด</button></div></article>
+</div>
+<div class="mt-8 md:mt-10 flex justify-center">
+<button class="kinetic-gradient-primary px-6 md:px-8 py-2 md:py-3 rounded-lg text-black font-headline font-black tracking-tighter uppercase text-sm md:text-base shadow-[0_0_24px_rgba(105,218,255,0.3)] hover:scale-105 transition-transform active:scale-95">
+                ดูสินค้าเพิ่มเติม
+            </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#0a0a0a] w-full py-8 md:py-12 px-4 md:px-8 border-t border-[#2c2c2c]">
+    <div class="max-w-[1440px] mx-auto">
+        <div class="flex flex-col lg:flex-row justify-between items-start gap-8 md:gap-12 mb-8 md:mb-12">
+            <div class="flex-1 text-center lg:text-left w-full">
+                <div class="text-2xl md:text-3xl font-black italic tracking-tighter text-[#69daff] font-headline uppercase mb-3 text-glow-primary">
+                    CRAFTBIKELAB
+                </div>
+                <p class="text-white/60 font-body text-sm md:text-base mb-6 font-medium" style="font-family: 'Noto Sans Thai', sans-serif;">
+                    นิยามใหม่ของการแต่งรถระดับพรีเมียม
+                </p>
+                <div class="flex gap-4 justify-center lg:justify-start">
+                    <a href="#" class="text-[#69daff] hover:text-white transition-colors">
+                        <span class="material-symbols-outlined text-2xl">facebook</span>
+                    </a>
+                    <a href="#" class="text-[#69daff] hover:text-white transition-colors flex items-center">
+                        <svg class="w-6 h-6 fill-current" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-[#69daff] hover:text-white transition-colors">
+                        <span class="material-symbols-outlined text-2xl">smart_display</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="flex-1 text-center lg:text-left w-full">
+                <div class="text-[#69daff] font-headline text-base md:text-lg font-bold uppercase tracking-[0.2em] mb-4 text-glow-primary" style="font-family: 'Noto Sans Thai', sans-serif;">
+                    ติดต่อเรา
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-center lg:justify-start gap-2">
+                        <span class="material-symbols-outlined text-[#69daff] text-lg md:text-xl">phone</span>
+                        <span class="text-white/80 font-body text-sm md:text-base" style="font-family: 'Noto Sans Thai', sans-serif;">080-074-2005</span>
+                    </div>
+                    <div class="flex items-center justify-center lg:justify-start gap-2">
+                        <span class="material-symbols-outlined text-[#69daff] text-lg md:text-xl">email</span>
+                        <span class="text-white/80 font-body text-sm md:text-base" style="font-family: 'Noto Sans Thai', sans-serif;">titazmth@gmail.com</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex-[1.5] text-center lg:text-right w-full">
+                <div class="text-[#69daff] font-headline text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold italic tracking-tighter leading-tight md:leading-[1.3] lg:leading-[0.9] text-glow-primary inline-block py-4" 
+                    style="font-family: 'Noto Sans Thai', sans-serif; text-shadow: 0 0 20px rgba(105, 218, 255, 0.5);">
+                    ถ้าชอบแต่งรถ ชอบเดินทาง <br class="hidden md:block"> <span class="inline-block mt-2 md:mt-4">เราคือเพื่อนกัน</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t border-white/10 pt-6 md:pt-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="text-white/40 font-body text-[10px] md:text-xs uppercase tracking-widest text-center md:text-left" style="font-family: 'Noto Sans Thai', sans-serif;">
+                    © 2026 CRAFTBIKELAB | ALL RIGHTS RESERVED
+                </div>
+                <div class="flex flex-wrap items-center justify-center gap-4 md:gap-6">
+                    <div class="flex gap-4">
+                        <a href="#" class="text-white/20 hover:text-[#69daff] transition-colors font-body text-[10px] uppercase tracking-widest" style="font-family: 'Noto Sans Thai', sans-serif;">Privacy Policy</a>
+                        <a href="#" class="text-white/20 hover:text-[#69daff] transition-colors font-body text-[10px] uppercase tracking-widest" style="font-family: 'Noto Sans Thai', sans-serif;">Terms of Service</a>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-1 opacity-50">
+                            <span class="material-symbols-outlined text-[#69daff] text-sm">verified</span>
+                            <span class="text-white text-[10px] font-headline uppercase tracking-tighter">Apex Certified</span>
+                        </div>
+                        <div class="flex items-center gap-1 opacity-50">
+                            <span class="material-symbols-outlined text-[#69daff] text-sm">security</span>
+                            <span class="text-white text-[10px] font-headline uppercase tracking-tighter">Secure Payment</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (menuToggle && mobileMenu) {
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    }
+</script>
+</body></html>
