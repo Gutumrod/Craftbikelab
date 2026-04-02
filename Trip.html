@@ -5,7 +5,6 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&amp;family=Manrope:wght@200;300;400;500;600;700;800&amp;family=Noto+Sans+Thai:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
@@ -154,10 +153,10 @@
 </div>
 <div class="bg-gradient-to-b from-[#69daff]/10 to-transparent h-[1px] w-full"></div>
 </nav>
-<main class="pt-24 min-h-screen">
+<main class="pt-24 min-h-screen pb-20">
 <section class="relative px-4 md:px-8 py-12 md:py-20 overflow-hidden">
 <div class="absolute top-0 right-0 w-1/2 h-full opacity-20 pointer-events-none">
-<img class="w-full h-full object-cover grayscale" data-alt="cinematic low angle shot of a performance motorcycle leaning into a sharp mountain curve at twilight with blue light trails and cinematic motion blur" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3_ngBBQzGCxUujk54TmwSFIz2dKiLEjk0uyRVi5HSmsCxAVN9LGYzetWSi9av_psMbtfpD9fH9vSHwQiLacYbgh5opKJHKsg84SYW9yNtk2iW7Ec0PoEEVh4ngTXWACxxTUBpV9VRBZNvHPDtw0D02F2CXPcI0MX5uL3kx-sMgMq90pUcz4OvYg7FlwRqp4f42MfVyshhjUY8B3FceOtszZff5P7wRJzgIl88vrdqvUEaZRB_ydCfp5QBKt6crx-JHurPkZyts-Nj"/>
+<img class="w-full h-full object-cover grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3_ngBBQzGCxUujk54TmwSFIz2dKiLEjk0uyRVi5HSmsCxAVN9LGYzetWSi9av_psMbtfpD9fH9vSHwQiLacYbgh5opKJHKsg84SYW9yNtk2iW7Ec0PoEEVh4ngTXWACxxTUBpV9VRBZNvHPDtw0D02F2CXPcI0MX5uL3kx-sMgMq90pUcz4OvYg7FlwRqp4f42MfVyshhjUY8B3FceOtszZff5P7wRJzgIl88vrdqvUEaZRB_ydCfp5QBKt6crx-JHurPkZyts-Nj"/>
 <div class="absolute inset-0 bg-gradient-to-l from-transparent to-surface"></div>
 </div>
 <div class="max-w-7xl mx-auto relative z-10">
@@ -197,101 +196,29 @@
 </div>
 </div>
 <div class="mb-8 flex flex-wrap gap-2 md:gap-3 font-body">
-<button class="px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-primary text-black text-xs md:text-sm font-bold shadow-[0_0_20px_rgba(105,218,255,0.35)]">
+<button class="px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-primary text-black text-xs md:text-sm font-bold shadow-[0_0_20px_rgba(105,218,255,0.35)] filter-btn" data-region="all">
                     ทั้งหมด
                 </button>
-<button class="px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-surface-container-high text-white text-xs md:text-sm border border-outline-variant/30 hover:border-primary hover:text-primary transition-colors">
+<button class="px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-surface-container-high text-white text-xs md:text-sm border border-outline-variant/30 hover:border-primary hover:text-primary transition-colors filter-btn" data-region="north">
                     ภาคเหนือ
                 </button>
-<button class="px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-surface-container-high text-white text-xs md:text-sm border border-outline-variant/30 hover:border-primary hover:text-primary transition-colors">
+<button class="px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-surface-container-high text-white text-xs md:text-sm border border-outline-variant/30 hover:border-primary hover:text-primary transition-colors filter-btn" data-region="south">
                     ภาคใต้
                 </button>
-<button class="px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-surface-container-high text-white text-xs md:text-sm border border-outline-variant/30 hover:border-primary hover:text-primary transition-colors">
+<button class="px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-surface-container-high text-white text-xs md:text-sm border border-outline-variant/30 hover:border-primary hover:text-primary transition-colors filter-btn" data-region="northeast">
                     ภาคอีสาน
                 </button>
-<button class="px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-surface-container-high text-white text-xs md:text-sm border border-outline-variant/30 hover:border-primary hover:text-primary transition-colors">
+<button class="px-4 py-1.5 md:px-5 md:py-2 rounded-full bg-surface-container-high text-white text-xs md:text-sm border border-outline-variant/30 hover:border-primary hover:text-primary transition-colors filter-btn" data-region="central">
                     ภาคกลาง
                 </button>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-<div class="group relative bg-surface-container-low rounded-xl overflow-hidden flex flex-col transition-all hover:-translate-y-2 border-b-2 border-transparent hover:border-primary">
-<div class="relative h-56 md:h-64 overflow-hidden">
-<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="misty morning in Northern Thailand mountains with winding asphalt roads through lush green tropical forests and soft morning fog" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqvoapLHCBZz5hzHTsRUPc37bRJgf3cxZYWnP_1jDFX_FTEgEjCYMhQn6n259rv_EL0nNy_zzLCVpUEm3hRDmWfhQII8L09NCvIrj9bugQLADTriRX7yNfStnBaBo7V1btab4FENf7Pw47VjQyHM6vaDahCLDjODaGlF5PqQl0GuLqcNu5bwhcOU2tGb2MMOxI3dgWdJAd0HQTa44zS3LwQX3YhFxaktLLJ_n8gJhu1iznP5NqyEUiM2DIAqZLPddFv1jIGTix0U4i"/>
-<button aria-label="favorite route" class="favorite-btn absolute top-4 right-4 w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')">
-<span class="material-symbols-outlined text-sm md:text-base">favorite</span>
-</button>
-<div class="absolute top-4 left-4 bg-surface-container-high/90 backdrop-blur px-2 md:px-3 py-1 rounded text-[10px] font-headline font-bold uppercase tracking-widest text-primary border-l-2 border-secondary">
-                                Winter Session
-                            </div>
+<div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" id="trips-grid">
+    <!-- Cards will be injected here by JavaScript -->
 </div>
-<div class="p-5 md:p-8 flex flex-col flex-grow">
-<h3 class="text-xl md:text-[24px] leading-tight md:leading-[1.3] font-semibold text-white font-headline mb-3 md:mb-4 uppercase">Mae Hong Son Loop - 1,864 Curves</h3>
-<p class="text-neutral-400 font-body text-sm md:text-base mb-6 md:mb-8 line-clamp-3">
-                                The gold standard of Northern Thailand. Experience cold mountain air and endless technical corners through the high peaks of Mae Hong Son. Best from Nov - Feb.
-                            </p>
-<div class="mt-auto space-y-3">
-<a class="flex items-center justify-center gap-2 w-full py-2.5 md:py-3 bg-secondary-container text-on-secondary-container rounded-lg font-headline font-bold uppercase tracking-tighter text-xs md:text-sm hover:brightness-110 transition-all" href="#">
-<span class="material-symbols-outlined text-sm">map</span>
-                                    View on Google Maps
-                                </a>
-<button class="w-full py-2.5 md:py-3 border border-outline-variant/30 text-white rounded-lg font-headline font-bold uppercase tracking-tighter text-xs md:text-sm hover:bg-white/5 transition-all">
-                                    Trip Details
-                                </button>
-</div>
-</div>
-</div>
-<div class="group relative bg-surface-container-low rounded-xl overflow-hidden flex flex-col transition-all hover:-translate-y-2 border-b-2 border-transparent hover:border-primary">
-<div class="relative h-56 md:h-64 overflow-hidden">
-<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="breathtaking coastal road at sunset with deep orange sky reflecting on the ocean and a winding road hugging the cliffside" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuRVbTZgyBFAT1V5aB1z-ePrJbfuDDhgyqKnns_c1IxoyhTJ2lZMn6YQJCw64OvRwOPYKCUrClS4WGhMALaD38LmBjZMJODQA10gZmSCMTOaF0zsPDuCtmS_EPTTil2A0utajA9C64wtqRX2N5FVhwhiiuSv858BTbjQHnbF5FQFRQ8H5vjb-ZyM6HoIiV4GVFTmXsW3MQCifEiTuPJPPJ17oyvPAoe4Gb4ooPSx1XCzZAffiU0APkg5BTel94o3cAKSd8OkaAuiSc"/>
-<button aria-label="favorite route" class="favorite-btn absolute top-4 right-4 w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')">
-<span class="material-symbols-outlined text-sm md:text-base">favorite</span>
-</button>
-<div class="absolute top-4 left-4 bg-surface-container-high/90 backdrop-blur px-2 md:px-3 py-1 rounded text-[10px] font-headline font-bold uppercase tracking-widest text-primary border-l-2 border-secondary">
-                                Summer Heat
-                            </div>
-</div>
-<div class="p-5 md:p-8 flex flex-col flex-grow">
-<h3 class="text-xl md:text-[24px] leading-tight md:leading-[1.3] font-semibold text-white font-headline mb-3 md:mb-4 uppercase">Chanthaburi Coastal Run</h3>
-<p class="text-neutral-400 font-body text-sm md:text-base mb-6 md:mb-8 line-clamp-3">
-                                High-speed sweeping curves along the Gulf of Thailand. Salt air, golden sunsets, and perfectly paved asphalt. Best from March - May.
-                            </p>
-<div class="mt-auto space-y-3">
-<a class="flex items-center justify-center gap-2 w-full py-2.5 md:py-3 bg-secondary-container text-on-secondary-container rounded-lg font-headline font-bold uppercase tracking-tighter text-xs md:text-sm hover:brightness-110 transition-all" href="#">
-<span class="material-symbols-outlined text-sm">map</span>
-                                    View on Google Maps
-                                </a>
-<button class="w-full py-2.5 md:py-3 border border-outline-variant/30 text-white rounded-lg font-headline font-bold uppercase tracking-tighter text-xs md:text-sm hover:bg-white/5 transition-all">
-                                    Trip Details
-                                </button>
-</div>
-</div>
-</div>
-<div class="group relative bg-surface-container-low rounded-xl overflow-hidden flex flex-col transition-all hover:-translate-y-2 border-b-2 border-transparent hover:border-primary">
-<div class="relative h-56 md:h-64 overflow-hidden">
-<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="dramatic wet asphalt road through a neon-lit city at night with reflections of blue and red lights on the rain-slicked surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhEjui6Tq3IcVULyedBfulXsAGXr3wWut1jDaBKMjt19rcA1IQCVPAOxuS5r38maWq_HcIIIcvmdnVb9GnUU9vPwVgE9qhU1550tBuyJLYJ9G3ydcEx-G7UKpsefWtOjwrSgEhTxb3Siq9AtXTH5sgnR89IrFG6pfdGTZqrPIIL1eGbtOApYfr7nGr3bXtbAbiKtTCh8SmERnH1rzIE4f2I3IhUXcg2LfdKqSQ-Ni52X3_8bYLuec9A3nf0AokcjINl8o21ZbUBv-s"/>
-<button aria-label="favorite route" class="favorite-btn absolute top-4 right-4 w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')">
-<span class="material-symbols-outlined text-sm md:text-base">favorite</span>
-</button>
-<div class="absolute top-4 left-4 bg-surface-container-high/90 backdrop-blur px-2 md:px-3 py-1 rounded text-[10px] font-headline font-bold uppercase tracking-widest text-primary border-l-2 border-secondary">
-                                Rainy Rhythm
-                            </div>
-</div>
-<div class="p-5 md:p-8 flex flex-col flex-grow">
-<h3 class="text-xl md:text-[24px] leading-tight md:leading-[1.3] font-semibold text-white font-headline mb-3 md:mb-4 uppercase">Khao Yai Rainforest Ascent</h3>
-<p class="text-neutral-400 font-body text-sm md:text-base mb-6 md:mb-8 line-clamp-3">
-                                For the rain-ready rider. Deep greens and technical wet handling through Thailand's premier national park. Best from June - Oct.
-                            </p>
-<div class="mt-auto space-y-3">
-<a class="flex items-center justify-center gap-2 w-full py-2.5 md:py-3 bg-secondary-container text-on-secondary-container rounded-lg font-headline font-bold uppercase tracking-tighter text-xs md:text-sm hover:brightness-110 transition-all" href="#">
-<span class="material-symbols-outlined text-sm">map</span>
-                                    View on Google Maps
-                                </a>
-<button class="w-full py-2.5 md:py-3 border border-outline-variant/30 text-white rounded-lg font-headline font-bold uppercase tracking-tighter text-xs md:text-sm hover:bg-white/5 transition-all">
-                                    Trip Details
-                                </button>
-</div>
-</div>
-</div>
+<div class="flex justify-center mt-10" id="load-more-container">
+    <button id="load-more-btn" class="kinetic-gradient-primary px-6 md:px-8 py-2 md:py-3 rounded-lg text-black font-headline font-black tracking-tighter uppercase text-sm md:text-base shadow-[0_0_24px_rgba(105,218,255,0.3)] hover:scale-105 transition-transform active:scale-95">
+        โหลดเพิ่ม
+    </button>
 </div>
 </div>
 </section>
@@ -355,7 +282,6 @@
 </div>
 </section>
 </main>
-<!-- Footer (same as index) -->
 <footer class="bg-[#0a0a0a] w-full py-8 md:py-12 px-4 md:px-8 border-t border-[#2c2c2c]">
     <div class="max-w-[1440px] mx-auto">
         <div class="flex flex-col lg:flex-row justify-between items-start gap-8 md:gap-12 mb-8 md:mb-12">
@@ -449,12 +375,161 @@
 </a>
 </nav>
 <script>
-        const menuToggle = document.getElementById('menuToggle');
-        const mobileMenu = document.getElementById('mobileMenu');
-        if (menuToggle && mobileMenu) {
-            menuToggle.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
+    // Data for trips (original 3 + 3 mock)
+    const tripsData = [
+        {
+            id: 1,
+            name: "Mae Hong Son Loop - 1,864 Curves",
+            region: "north",
+            season: "Winter Session",
+            description: "The gold standard of Northern Thailand. Experience cold mountain air and endless technical corners through the high peaks of Mae Hong Son. Best from Nov - Feb.",
+            image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDqvoapLHCBZz5hzHTsRUPc37bRJgf3cxZYWnP_1jDFX_FTEgEjCYMhQn6n259rv_EL0nNy_zzLCVpUEm3hRDmWfhQII8L09NCvIrj9bugQLADTriRX7yNfStnBaBo7V1btab4FENf7Pw47VjQyHM6vaDahCLDjODaGlF5PqQl0GuLqcNu5bwhcOU2tGb2MMOxI3dgWdJAd0HQTa44zS3LwQX3YhFxaktLLJ_n8gJhu1iznP5NqyEUiM2DIAqZLPddFv1jIGTix0U4i"
+        },
+        {
+            id: 2,
+            name: "Chanthaburi Coastal Run",
+            region: "south",
+            season: "Summer Heat",
+            description: "High-speed sweeping curves along the Gulf of Thailand. Salt air, golden sunsets, and perfectly paved asphalt. Best from March - May.",
+            image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDuRVbTZgyBFAT1V5aB1z-ePrJbfuDDhgyqKnns_c1IxoyhTJ2lZMn6YQJCw64OvRwOPYKCUrClS4WGhMALaD38LmBjZMJODQA10gZmSCMTOaF0zsPDuCtmS_EPTTil2A0utajA9C64wtqRX2N5FVhwhiiuSv858BTbjQHnbF5FQFRQ8H5vjb-ZyM6HoIiV4GVFTmXsW3MQCifEiTuPJPPJ17oyvPAoe4Gb4ooPSx1XCzZAffiU0APkg5BTel94o3cAKSd8OkaAuiSc"
+        },
+        {
+            id: 3,
+            name: "Khao Yai Rainforest Ascent",
+            region: "central",
+            season: "Rainy Rhythm",
+            description: "For the rain-ready rider. Deep greens and technical wet handling through Thailand's premier national park. Best from June - Oct.",
+            image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBhEjui6Tq3IcVULyedBfulXsAGXr3wWut1jDaBKMjt19rcA1IQCVPAOxuS5r38maWq_HcIIIcvmdnVb9GnUU9vPwVgE9qhU1550tBuyJLYJ9G3ydcEx-G7UKpsefWtOjwrSgEhTxb3Siq9AtXTH5sgnR89IrFG6pfdGTZqrPIIL1eGbtOApYfr7nGr3bXtbAbiKtTCh8SmERnH1rzIE4f2I3IhUXcg2LfdKqSQ-Ni52X3_8bYLuec9A3nf0AokcjINl8o21ZbUBv-s"
+        },
+        {
+            id: 4,
+            name: "Phu Kradueng Mountain Trail",
+            region: "northeast",
+            season: "Cool Breeze",
+            description: "ยอดเขาสูงสุดของเทือกเขาเพชรบูรณ์ เส้นทางเดินป่าและวิวทะเลหมอก เส้นทางชันท้าทาย เหมาะสำหรับนักปั่นที่รักธรรมชาติ",
+            image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBhEjui6Tq3IcVULyedBfulXsAGXr3wWut1jDaBKMjt19rcA1IQCVPAOxuS5r38maWq_HcIIIcvmdnVb9GnUU9vPwVgE9qhU1550tBuyJLYJ9G3ydcEx-G7UKpsefWtOjwrSgEhTxb3Siq9AtXTH5sgnR89IrFG6pfdGTZqrPIIL1eGbtOApYfr7nGr3bXtbAbiKtTCh8SmERnH1rzIE4f2I3IhUXcg2LfdKqSQ-Ni52X3_8bYLuec9A3nf0AokcjINl8o21ZbUBv-s"
+        },
+        {
+            id: 5,
+            name: "Doi Inthanon Summit",
+            region: "north",
+            season: "Misty Morning",
+            description: "จุดสูงสุดของประเทศไทย เส้นทางขึ้นเขาสวยงาม อากาศเย็นตลอดปี วิว 360 องศา และเส้นทางโค้งระดับตำนาน",
+            image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDqvoapLHCBZz5hzHTsRUPc37bRJgf3cxZYWnP_1jDFX_FTEgEjCYMhQn6n259rv_EL0nNy_zzLCVpUEm3hRDmWfhQII8L09NCvIrj9bugQLADTriRX7yNfStnBaBo7V1btab4FENf7Pw47VjQyHM6vaDahCLDjODaGlF5PqQl0GuLqcNu5bwhcOU2tGb2MMOxI3dgWdJAd0HQTa44zS3LwQX3YhFxaktLLJ_n8gJhu1iznP5NqyEUiM2DIAqZLPddFv1jIGTix0U4i"
+        },
+        {
+            id: 6,
+            name: "Khao Sam Roi Yot Coastal",
+            region: "central",
+            season: "Sunny Coast",
+            description: "เส้นทางเลียบชายหาดอุทยานแห่งชาติ วิวทะเลและภูเขาหินปูน ถนนเรียบ ลมทะเลเย็นสบาย เหมาะกับการขี่ชิลล์",
+            image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDuRVbTZgyBFAT1V5aB1z-ePrJbfuDDhgyqKnns_c1IxoyhTJ2lZMn6YQJCw64OvRwOPYKCUrClS4WGhMALaD38LmBjZMJODQA10gZmSCMTOaF0zsPDuCtmS_EPTTil2A0utajA9C64wtqRX2N5FVhwhiiuSv858BTbjQHnbF5FQFRQ8H5vjb-ZyM6HoIiV4GVFTmXsW3MQCifEiTuPJPPJ17oyvPAoe4Gb4ooPSx1XCzZAffiU0APkg5BTel94o3cAKSd8OkaAuiSc"
         }
-    </script>
+    ];
+
+    // Additional mock data for load more
+    const extraTrips = [
+        {
+            id: 7,
+            name: "Petchabun Skyline",
+            region: "north",
+            season: "Winter Peak",
+            description: "เส้นทางขอบเขาที่เชื่อมต่อระหว่างภาคเหนือและอีสาน วิวทะเลหมอกและอากาศหนาวเย็นตลอดปี",
+            image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDqvoapLHCBZz5hzHTsRUPc37bRJgf3cxZYWnP_1jDFX_FTEgEjCYMhQn6n259rv_EL0nNy_zzLCVpUEm3hRDmWfhQII8L09NCvIrj9bugQLADTriRX7yNfStnBaBo7V1btab4FENf7Pw47VjQyHM6vaDahCLDjODaGlF5PqQl0GuLqcNu5bwhcOU2tGb2MMOxI3dgWdJAd0HQTa44zS3LwQX3YhFxaktLLJ_n8gJhu1iznP5NqyEUiM2DIAqZLPddFv1jIGTix0U4i"
+        },
+        {
+            id: 8,
+            name: "Nakhon Si Thammarat Twisties",
+            region: "south",
+            season: "Green Season",
+            description: "เส้นทางเลียบเขาหลวง โค้งหักศอกและวิวป่าเขียวขจี เหมาะกับนักขี่ที่ชอบความท้าทาย",
+            image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDuRVbTZgyBFAT1V5aB1z-ePrJbfuDDhgyqKnns_c1IxoyhTJ2lZMn6YQJCw64OvRwOPYKCUrClS4WGhMALaD38LmBjZMJODQA10gZmSCMTOaF0zsPDuCtmS_EPTTil2A0utajA9C64wtqRX2N5FVhwhiiuSv858BTbjQHnbF5FQFRQ8H5vjb-ZyM6HoIiV4GVFTmXsW3MQCifEiTuPJPPJ17oyvPAoe4Gb4ooPSx1XCzZAffiU0APkg5BTel94o3cAKSd8OkaAuiSc"
+        },
+        {
+            id: 9,
+            name: "Ubon Ratchathani Mekong Ride",
+            region: "northeast",
+            season: "Sunset Glow",
+            description: "เส้นทางเลียบแม่น้ำโขง สองข้างทางวิวทุ่งนาและพระอาทิตย์ตกที่สวยงาม เหมาะกับการขี่ชิลล์",
+            image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBhEjui6Tq3IcVULyedBfulXsAGXr3wWut1jDaBKMjt19rcA1IQCVPAOxuS5r38maWq_HcIIIcvmdnVb9GnUU9vPwVgE9qhU1550tBuyJLYJ9G3ydcEx-G7UKpsefWtOjwrSgEhTxb3Siq9AtXTH5sgnR89IrFG6pfdGTZqrPIIL1eGbtOApYfr7nGr3bXtbAbiKtTCh8SmERnH1rzIE4f2I3IhUXcg2LfdKqSQ-Ni52X3_8bYLuec9A3nf0AokcjINl8o21ZbUBv-s"
+        },
+        {
+            id: 10,
+            name: "Kanchanaburi Erawan Loop",
+            region: "central",
+            season: "Rainforest Fresh",
+            description: "เส้นทางผ่านน้ำตกเอราวัณและเขื่อนศรีนครินทร์ ถนนเรียบ ร่มรื่น เหมาะกับการปั่นวันหยุด",
+            image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDuRVbTZgyBFAT1V5aB1z-ePrJbfuDDhgyqKnns_c1IxoyhTJ2lZMn6YQJCw64OvRwOPYKCUrClS4WGhMALaD38LmBjZMJODQA10gZmSCMTOaF0zsPDuCtmS_EPTTil2A0utajA9C64wtqRX2N5FVhwhiiuSv858BTbjQHnbF5FQFRQ8H5vjb-ZyM6HoIiV4GVFTmXsW3MQCifEiTuPJPPJ17oyvPAoe4Gb4ooPSx1XCzZAffiU0APkg5BTel94o3cAKSd8OkaAuiSc"
+        }
+    ];
+
+    let allTrips = [...tripsData];       // all data (original + future loaded)
+    let visibleCount = 6;                // start with 6 cards
+    const loadMoreBtn = document.getElementById('load-more-btn');
+    const tripsGrid = document.getElementById('trips-grid');
+
+    function renderTrips(limit) {
+        const tripsToShow = allTrips.slice(0, limit);
+        tripsGrid.innerHTML = tripsToShow.map(trip => `
+            <div class="group relative bg-surface-container-low rounded-xl overflow-hidden flex flex-col transition-all hover:-translate-y-2 border-b-2 border-transparent hover:border-primary">
+                <div class="relative h-44 md:h-56 overflow-hidden">
+                    <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="${trip.image}" alt="${trip.name}"/>
+                    <button aria-label="favorite route" class="favorite-btn absolute top-2 right-2 md:top-4 md:right-4 w-7 h-7 md:w-10 md:h-10 rounded-full flex items-center justify-center" onclick="this.classList.toggle('is-favorite')">
+                        <span class="material-symbols-outlined text-sm md:text-base">favorite</span>
+                    </button>
+                    <div class="absolute top-2 left-2 md:top-4 md:left-4 bg-surface-container-high/90 backdrop-blur px-2 md:px-3 py-0.5 md:py-1 rounded text-[8px] md:text-[10px] font-headline font-bold uppercase tracking-widest text-primary border-l-2 border-secondary">
+                        ${trip.season}
+                    </div>
+                </div>
+                <div class="p-3 md:p-5 flex flex-col flex-grow">
+                    <h3 class="text-sm md:text-base lg:text-lg font-semibold text-white font-headline mb-1 md:mb-2 uppercase leading-tight">${trip.name}</h3>
+                    <p class="text-neutral-400 font-body text-xs md:text-sm mb-3 md:mb-4 line-clamp-2">${trip.description}</p>
+                    <div class="mt-auto space-y-2 md:space-y-3">
+                        <a class="flex items-center justify-center gap-1 md:gap-2 w-full py-1.5 md:py-2 bg-secondary-container text-on-secondary-container rounded-lg font-headline font-bold uppercase tracking-tighter text-[10px] md:text-xs hover:brightness-110 transition-all" href="#">
+                            <span class="material-symbols-outlined text-sm">map</span>
+                            View on Google Maps
+                        </a>
+                        <button class="w-full py-1.5 md:py-2 border border-outline-variant/30 text-white rounded-lg font-headline font-bold uppercase tracking-tighter text-[10px] md:text-xs hover:bg-white/5 transition-all">
+                            Trip Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+        
+        // Hide load more button if no more data
+        if (visibleCount >= allTrips.length) {
+            loadMoreBtn.style.display = 'none';
+        } else {
+            loadMoreBtn.style.display = 'flex';
+        }
+    }
+
+    function loadMore() {
+        const newLimit = visibleCount + 4;
+        // If we need more data than currently in allTrips, add from extraTrips
+        if (newLimit > allTrips.length) {
+            // Add extra trips (up to 4 at a time)
+            const needed = newLimit - allTrips.length;
+            const toAdd = extraTrips.slice(0, needed);
+            allTrips.push(...toAdd);
+        }
+        visibleCount = Math.min(newLimit, allTrips.length);
+        renderTrips(visibleCount);
+    }
+
+    loadMoreBtn.addEventListener('click', loadMore);
+    
+    // Initial render
+    renderTrips(visibleCount);
+    
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (menuToggle && mobileMenu) {
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    }
+</script>
 </body></html>
