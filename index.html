@@ -97,14 +97,12 @@
           box-shadow: 0 0 30px rgba(105, 218, 255, 0.3);
       }
       
-      /* No-Line Rule styling */
       .no-line-card {
           border: none;
           background-color: var(--surface-container-low, #131313);
           box-shadow: 0 10px 30px -5px rgba(0,0,0,0.8);
       }
       
-      /* Scroll Reveal Animations */
       .reveal {
           opacity: 0;
           transform: translateY(30px);
@@ -115,13 +113,11 @@
           transform: translateY(0);
       }
 
-      /* Digital Font for Dashboard */
       .digital-font {
           font-family: 'Space Grotesk', monospace;
           letter-spacing: 2px;
       }
 
-      /* Mobile menu animation */
       .mobile-menu {
           transition: all 0.3s ease;
           transform-origin: top;
@@ -136,20 +132,6 @@
           transform: scaleY(1);
           pointer-events: auto;
       }
-
-      /* ปรับปรุงการแสดงผลบนมือถือ */
-      @media (max-width: 768px) {
-          .hero-headline {
-              font-size: 2.5rem;
-          }
-          .hero-headline span {
-              font-size: 2.2rem;
-          }
-          .container-padding {
-              padding-left: 1rem;
-              padding-right: 1rem;
-          }
-      }
     </style>
 </head>
 <body class="bg-background text-on-background font-body selection:bg-primary selection:text-on-primary-fixed overflow-x-hidden">
@@ -160,15 +142,11 @@
             <div class="text-xl md:text-2xl font-black italic tracking-tighter text-[#69daff] font-headline uppercase">
                 <a href="index.html">CRAFTBIKELAB</a>
             </div>
-            
-            <!-- Desktop Menu -->
             <div class="hidden md:flex gap-8 items-center">
                 <a class="font-headline tracking-tighter uppercase text-white/70 hover:text-white transition-colors" href="Shop.html">Shop</a>
                 <a class="font-headline tracking-tighter uppercase text-white/70 hover:text-white transition-colors" href="Craft.html">Craft</a>
                 <a class="font-headline tracking-tighter uppercase text-white/70 hover:text-white transition-colors" href="Trip.html">Trip</a>
             </div>
-            
-            <!-- Right Icons -->
             <div class="flex items-center gap-4 md:gap-6">
                 <button class="text-white/70 hover:text-[#69daff] transition-all duration-300 active:scale-95">
                     <span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
@@ -176,14 +154,11 @@
                 <button class="text-white/70 hover:text-[#69daff] transition-all duration-300 active:scale-95">
                     <span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
                 </button>
-                <!-- Hamburger Menu Button (Mobile) -->
                 <button id="menuToggle" class="block md:hidden text-white/70 hover:text-[#69daff] transition-colors">
                     <span class="material-symbols-outlined text-2xl">menu</span>
                 </button>
             </div>
         </div>
-        
-        <!-- Mobile Menu Dropdown -->
         <div id="mobileMenu" class="mobile-menu hidden md:hidden bg-[#0e0e0e]/95 backdrop-blur-xl border-t border-white/10 shadow-lg">
             <div class="flex flex-col py-4 px-4 gap-4">
                 <a class="font-headline tracking-tighter uppercase text-white/80 hover:text-[#69daff] transition-colors py-2" href="Shop.html">Shop</a>
@@ -191,22 +166,75 @@
                 <a class="font-headline tracking-tighter uppercase text-white/80 hover:text-[#69daff] transition-colors py-2" href="Trip.html">Trip</a>
             </div>
         </div>
-        
         <div class="bg-gradient-to-b from-[#69daff]/10 to-transparent h-[1px] w-full"></div>
     </nav>
 
     <main class="min-h-screen">
         
+        <!-- Fuel Dashboard -->
+        <section class="max-w-[1440px] mx-auto px-4 md:px-6 pt-12 md:pt-20 relative z-20 reveal">
+            <div class="bg-[#0e0e0e] rounded-xl p-4 md:p-6 shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-t border-[#69daff]/20 glow-hover transition-all duration-300">
+                <div class="flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-8">
+                    <div class="flex items-center gap-4 border-b lg:border-b-0 lg:border-r border-white/10 pb-4 lg:pb-0 pr-0 lg:pr-8 w-full lg:w-auto justify-center lg:justify-start">
+                        <div class="w-10 h-10 md:w-12 md:h-12 rounded-full kinetic-gradient-primary flex flex-col items-center justify-center text-black shadow-[0_0_15px_rgba(105,218,255,0.5)]">
+                            <span class="material-symbols-outlined text-lg md:text-xl" style="font-variation-settings: 'FILL' 1;">local_gas_station</span>
+                        </div>
+                        <div>
+                            <h3 class="font-headline font-bold uppercase tracking-widest text-[#69daff] text-base md:text-lg">ราคาน้ำมันวันนี้</h3>
+                            <p class="font-body text-white/50 text-[10px] md:text-xs">Real-time Thailand Updates</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-4 md:gap-8 w-full lg:w-auto" id="oil-price-dashboard">
+                        <div class="flex flex-col items-center justify-center cursor-default group">
+                            <span class="font-headline text-[10px] md:text-xs uppercase tracking-[0.2em] text-white mb-1 group-hover:text-white/80 transition-colors">Gasohol 95</span>
+                            <div class="flex items-end gap-1">
+                                <span class="digital-font text-xl md:text-3xl font-black text-[#69daff] text-glow-primary" id="price-g95">--.--</span>
+                                <span class="font-label text-[10px] md:text-xs text-[#69daff]/60 mb-1">THB/L</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center justify-center cursor-default group">
+                            <span class="font-headline text-[10px] md:text-xs uppercase tracking-[0.2em] text-white mb-1 group-hover:text-white/80 transition-colors">E20</span>
+                            <div class="flex items-end gap-1">
+                                <span class="digital-font text-xl md:text-3xl font-black text-[#69daff] text-glow-primary" id="price-e20">--.--</span>
+                                <span class="font-label text-[10px] md:text-xs text-[#69daff]/60 mb-1">THB/L</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center justify-center cursor-default group">
+                            <span class="font-headline text-[10px] md:text-xs uppercase tracking-[0.2em] text-white mb-1 group-hover:text-white/80 transition-colors">Diesel</span>
+                            <div class="flex items-end gap-1">
+                                <span class="digital-font text-xl md:text-3xl font-black text-[#69daff] text-glow-primary" id="price-diesel">--.--</span>
+                                <span class="font-label text-[10px] md:text-xs text-[#69daff]/60 mb-1">THB/L</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center justify-center cursor-default group">
+                            <span class="font-headline text-[10px] md:text-xs uppercase tracking-[0.2em] text-white mb-1 group-hover:text-white/80 transition-colors">E85</span>
+                            <div class="flex items-end gap-1">
+                                <span class="digital-font text-xl md:text-3xl font-black text-[#69daff] text-glow-primary" id="price-e85">--.--</span>
+                                <span class="font-label text-[10px] md:text-xs text-[#69daff]/60 mb-1">THB/L</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center justify-center cursor-default group">
+                            <span class="font-headline text-[10px] md:text-xs uppercase tracking-[0.2em] text-white mb-1 group-hover:text-white/80 transition-colors">Gasohol 91</span>
+                            <div class="flex items-end gap-1">
+                                <span class="digital-font text-xl md:text-3xl font-black text-[#69daff] text-glow-primary" id="price-gasohol91">--.--</span>
+                                <span class="font-label text-[10px] md:text-xs text-[#69daff]/60 mb-1">THB/L</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center text-white/40 text-[10px] mt-4" id="oil-update-time">กำลังโหลดข้อมูล...</div>
+            </div>
+        </section>
+
         <!-- Hero Section -->
-        <section class="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden">
+        <section class="relative min-h-[80vh] flex items-center pt-12 pb-0 overflow-hidden reveal">
             <div class="absolute inset-0 z-0">
                 <img class="w-full h-full object-cover grayscale opacity-40 mix-blend-lighten" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3_ngBBQzGCxUujk54TmwSFIz2dKiLEjk0uyRVi5HSmsCxAVN9LGYzetWSi9av_psMbtfpD9fH9vSHwQiLacYbgh5opKJHKsg84SYW9yNtk2iW7Ec0PoEEVh4ngTXWACxxTUBpV9VRBZNvHPDtw0D02F2CXPcI0MX5uL3kx-sMgMq90pUcz4OvYg7FlwRqp4f42MfVyshhjUY8B3FceOtszZff5P7wRJzgIl88vrdqvUEaZRB_ydCfp5QBKt6crx-JHurPkZyts-Nj" alt="Motorcycle Background" />
                 <div class="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"></div>
                 <div class="absolute inset-0 bg-gradient-to-r from-background via-black/50 to-transparent"></div>
             </div>
-            
             <div class="max-w-[1440px] w-full mx-auto px-4 md:px-8 relative z-10 flex flex-col justify-center">
-                <div class="max-w-4xl reveal active">
+                <div class="max-w-4xl">
                     <h1 class="text-4xl sm:text-5xl md:text-[65px] lg:text-[70px] font-black italic tracking-tighter font-headline leading-[1.1] md:leading-[0.9] text-white mb-6 uppercase text-glow-primary">
                         WHERE CRAFT <br /> 
                         <span class="text-transparent bg-clip-text kinetic-gradient-primary pr-6">MEETS THE ROAD</span>
@@ -214,138 +242,114 @@
                     <p class="text-base md:text-xl lg:text-2xl text-on-surface-variant font-medium tracking-wide font-body mb-8 md:mb-12 max-w-2xl">
                         ที่ CraftBikeLab เราไม่ใช่แค่เว็บไซต์ แต่เราคือ 'เพื่อน' ที่ช่วยคุณเลือกของแต่ง และ 'ไกด์' ที่ร่วมแชร์ประสบการณ์ท่องเที่ยว... ขอบคุณที่ให้เราเป็นส่วนหนึ่งของการเดินทางของคุณ
                     </p>
-                    
-                    <div class="flex flex-col sm:flex-row gap-3 md:gap-4">
-                        <a href="Shop.html" class="kinetic-gradient-primary px-6 md:px-8 py-3 md:py-4 rounded-lg text-black font-headline font-black tracking-tighter uppercase text-sm md:text-lg text-center shadow-[0_0_24px_rgba(105,218,255,0.4)] hover:scale-105 transition-transform active:scale-95 flex items-center justify-center gap-2">
-                            <span>Shop Gear</span>
-                            <span class="material-symbols-outlined text-base md:text-xl" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
-                        </a>
-                        <a href="Craft.html" class="bg-surface-container-high hover:bg-white/10 px-6 md:px-8 py-3 md:py-4 rounded-lg text-white font-headline font-black tracking-tighter uppercase text-sm md:text-lg text-center transition-all duration-300 active:scale-95 flex items-center justify-center gap-2">
-                            <span>Design Bike</span>
-                            <span class="material-symbols-outlined text-base md:text-xl" style="font-variation-settings: 'FILL' 1;">build</span>
-                        </a>
-                        <a href="Trip.html" class="bg-surface-container-high hover:bg-white/10 px-6 md:px-8 py-3 md:py-4 rounded-lg text-white font-headline font-black tracking-tighter uppercase text-sm md:text-lg text-center transition-all duration-300 active:scale-95 flex items-center justify-center gap-2">
-                            <span>Explore Trips</span>
-                            <span class="material-symbols-outlined text-base md:text-xl" style="font-variation-settings: 'FILL' 1;">explore</span>
-                        </a>
-                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Real-time Oil Price Dashboard -->
-        <section class="max-w-[1440px] mx-auto px-4 md:px-8 -mt-20 relative z-20 reveal">
-            <div class="bg-[#0e0e0e] rounded-xl p-4 md:p-6 shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-t border-[#69daff]/20 glow-hover transition-all duration-300">
-                <div class="flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-8">
-                    
-                    <div class="flex items-center gap-4 border-b lg:border-b-0 lg:border-r border-white/10 pb-4 lg:pb-0 pr-0 lg:pr-8 w-full lg:w-auto justify-center lg:justify-start">
-                        <div class="w-10 h-10 md:w-12 md:h-12 rounded-full kinetic-gradient-primary flex flex-col items-center justify-center text-black shadow-[0_0_15px_rgba(105,218,255,0.5)]">
-                            <span class="material-symbols-outlined text-lg md:text-xl" style="font-variation-settings: 'FILL' 1;">local_gas_station</span>
-                        </div>
-                        <div>
-                            <h3 class="font-headline font-bold uppercase tracking-widest text-[#69daff] text-xs md:text-sm">Fuel Telemetry</h3>
-                            <p class="font-body text-white/50 text-[10px] md:text-xs">Real-time Thailand Updates</p>
+        <!-- ข่าว: 2 ใหญ่ + 3 เล็ก (คงเดิม) -->
+        <section class="max-w-[1440px] mx-auto px-4 md:px-8 py-8 md:py-12 reveal">
+            <div class="flex items-center justify-between mb-6 md:mb-8">
+                <h2 class="text-2xl md:text-3xl font-black uppercase tracking-tighter font-headline text-white">ข่าวสารและกิจกรรม</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8 md:mb-10">
+                <div class="group bg-surface-container-low rounded-xl overflow-hidden no-line-card glow-hover transition-all duration-300 flex flex-col md:flex-row">
+                    <div class="relative h-48 md:h-auto md:w-2/5 overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-[#131313] to-[#262626] group-hover:scale-105 transition-transform duration-500"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-white/20 text-6xl">newspaper</span>
                         </div>
                     </div>
-                    
-                    <!-- Dashboard Indicators - Responsive flex wrap on mobile -->
-                    <div class="flex flex-wrap justify-center gap-6 md:gap-12 w-full lg:w-auto" id="oil-price-dashboard">
-                        <div class="flex flex-col items-center justify-center cursor-default group">
-                            <span class="font-headline text-[10px] md:text-xs uppercase tracking-[0.2em] text-white/40 mb-1 group-hover:text-white/80 transition-colors">Gasohol 95</span>
-                            <div class="flex items-end gap-1">
-                                <span class="digital-font text-2xl md:text-3xl font-black text-[#69daff] text-glow-primary" id="price-g95">38.95</span>
-                                <span class="font-label text-[10px] md:text-xs text-[#69daff]/60 mb-1">THB/L</span>
-                            </div>
+                    <div class="p-5 md:w-3/5 flex flex-col">
+                        <span class="text-[#69daff] font-headline text-xs font-bold uppercase tracking-widest mb-2">Featured</span>
+                        <h3 class="text-lg md:text-xl font-bold text-white font-headline mb-2 group-hover:text-[#69daff] transition-colors">CraftBikeLab เปิดตัวแคมเปญพิเศษ "Craft Your Ride"</h3>
+                        <p class="text-white/60 font-body text-sm mb-3 line-clamp-2">พบกับโปรโมชั่นจัดเต็มสำหรับนักบิดตัวจริง รับส่วนลดสูงสุด 50% เมื่อซื้อครบชุด พร้อมบริการแนะนำการแต่งรถแบบตัวต่อตัว...</p>
+                        <a href="News.html" class="text-[#69daff] hover:text-white transition-colors font-headline uppercase tracking-widest text-xs font-bold flex items-center gap-2 mt-auto">
+                            อ่านต่อ <span class="material-symbols-outlined text-sm">east</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="group bg-surface-container-low rounded-xl overflow-hidden no-line-card glow-hover transition-all duration-300 flex flex-col md:flex-row">
+                    <div class="relative h-48 md:h-auto md:w-2/5 overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-[#131313] to-[#262626] group-hover:scale-105 transition-transform duration-500"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-white/20 text-6xl">event</span>
                         </div>
-                        <div class="flex flex-col items-center justify-center cursor-default group">
-                            <span class="font-headline text-[10px] md:text-xs uppercase tracking-[0.2em] text-white/40 mb-1 group-hover:text-white/80 transition-colors">E20</span>
-                            <div class="flex items-end gap-1">
-                                <span class="digital-font text-2xl md:text-3xl font-black text-[#69daff] text-glow-primary" id="price-e20">36.84</span>
-                                <span class="font-label text-[10px] md:text-xs text-[#69daff]/60 mb-1">THB/L</span>
-                            </div>
-                        </div>
-                        <div class="flex flex-col items-center justify-center cursor-default group">
-                            <span class="font-headline text-[10px] md:text-xs uppercase tracking-[0.2em] text-white/40 mb-1 group-hover:text-white/80 transition-colors">Diesel</span>
-                            <div class="flex items-end gap-1">
-                                <span class="digital-font text-2xl md:text-3xl font-black text-[#69daff] text-glow-primary" id="price-diesel">30.94</span>
-                                <span class="font-label text-[10px] md:text-xs text-[#69daff]/60 mb-1">THB/L</span>
-                            </div>
-                        </div>
+                    </div>
+                    <div class="p-5 md:w-3/5 flex flex-col">
+                        <span class="text-[#69daff] font-headline text-xs font-bold uppercase tracking-widest mb-2">Events</span>
+                        <h3 class="text-lg md:text-xl font-bold text-white font-headline mb-2 group-hover:text-[#69daff] transition-colors">รวมพลคนรักสองล้อ Midnight Meetup ครั้งที่ 3</h3>
+                        <p class="text-white/60 font-body text-sm mb-3 line-clamp-2">พบปะนักบิดทั่วประเทศ ณ สนามวงจรกลางคืน พร้อมกิจกรรมพิเศษ การแข่งขันสกิล และของรางวัลมากมาย...</p>
+                        <a href="News.html" class="text-[#69daff] hover:text-white transition-colors font-headline uppercase tracking-widest text-xs font-bold flex items-center gap-2 mt-auto">
+                            อ่านต่อ <span class="material-symbols-outlined text-sm">east</span>
+                        </a>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- Service Highlights -->
-        <section class="max-w-[1440px] mx-auto px-4 md:px-8 py-16 md:py-32 reveal">
-            <div class="flex flex-col items-center mb-12 md:mb-16">
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tighter font-headline text-white mb-4">Master Your Ride</h2>
-                <div class="h-1 w-24 kinetic-gradient-primary rounded-full"></div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                <div class="bg-surface-container-low rounded-xl overflow-hidden no-line-card glow-hover transition-all duration-300 group flex flex-col">
+                    <div class="relative h-40 overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-[#131313] to-[#262626] group-hover:scale-105 transition-transform duration-500"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-white/20 text-5xl">engineering</span>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-grow">
+                        <span class="text-[#69daff] font-headline text-[10px] font-bold uppercase tracking-widest mb-2">Technique</span>
+                        <h3 class="text-base font-bold text-white font-headline mb-2 group-hover:text-[#69daff] transition-colors">เทคนิคการทรงตัวในโค้งหักศอก</h3>
+                        <a href="News.html" class="text-[#69daff] hover:text-white transition-colors font-headline uppercase tracking-widest text-[10px] font-bold flex items-center gap-1 mt-auto">
+                            อ่านต่อ <span class="material-symbols-outlined text-sm">east</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="bg-surface-container-low rounded-xl overflow-hidden no-line-card glow-hover transition-all duration-300 group flex flex-col">
+                    <div class="relative h-40 overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-[#131313] to-[#262626] group-hover:scale-105 transition-transform duration-500"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-white/20 text-5xl">new_releases</span>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-grow">
+                        <span class="text-[#69daff] font-headline text-[10px] font-bold uppercase tracking-widest mb-2">Industry</span>
+                        <h3 class="text-base font-bold text-white font-headline mb-2 group-hover:text-[#69daff] transition-colors">มาตรฐานไอเสียใหม่ เริ่มต้นปีหน้า</h3>
+                        <a href="News.html" class="text-[#69daff] hover:text-white transition-colors font-headline uppercase tracking-widest text-[10px] font-bold flex items-center gap-1 mt-auto">
+                            อ่านต่อ <span class="material-symbols-outlined text-sm">east</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="bg-surface-container-low rounded-xl overflow-hidden no-line-card glow-hover transition-all duration-300 group flex flex-col">
+                    <div class="relative h-40 overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-[#131313] to-[#262626] group-hover:scale-105 transition-transform duration-500"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-white/20 text-5xl">route</span>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-grow">
+                        <span class="text-[#69daff] font-headline text-[10px] font-bold uppercase tracking-widest mb-2">Trip</span>
+                        <h3 class="text-base font-bold text-white font-headline mb-2 group-hover:text-[#69daff] transition-colors">เปิดตัวเส้นทางทริปใหม่ "แดนเหนือ"</h3>
+                        <a href="News.html" class="text-[#69daff] hover:text-white transition-colors font-headline uppercase tracking-widest text-[10px] font-bold flex items-center gap-1 mt-auto">
+                            อ่านต่อ <span class="material-symbols-outlined text-sm">east</span>
+                        </a>
+                    </div>
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 auto-rows-fr">
-                
-                <!-- SHOP Card -->
-                <a href="Shop.html" class="group relative rounded-2xl overflow-hidden no-line-card glow-hover transition-all duration-500 min-h-[380px] md:h-[500px] flex flex-col">
-                    <img class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBRzohwH0x2INVX2vIOTtXbs8VwUmvmqWVgDhfRf3a6Yge-TGDYYvIZXiKYnHZnSKMMqdx9aIrSFE33P_ND1aN0ozi-vORH1dJDB8niTO1Y85d3mFMcfyFhcyDl9JdB3R-eTfusKTfLr3kRxc7XDAkao1oS5AbGEfSZcu4foL6jvj8KQFcgKhPpVatKi3CBN5mVlyJ8_ia_1D3LaLzTDwuXFzRyRt_eXMpMLG4Ed31HtwFVs-QJQHMFT0k75Uk-DFl79Gi_DHvGkVp" alt="Shop Gear" />
-                    <div class="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors duration-500"></div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-                    
-                    <div class="absolute bottom-0 left-0 p-5 md:p-8 w-full flex flex-col items-center text-center">
-                        <span class="material-symbols-outlined text-4xl md:text-5xl mb-3 md:mb-4 text-[#69daff]" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
-                        <h3 class="text-2xl md:text-3xl font-black italic tracking-tighter font-headline uppercase text-white mb-2 group-hover:text-[#69daff] transition-colors">SHOP</h3>
-                        <p class="text-white/70 font-body text-sm md:text-base opacity-100 md:opacity-0 md:group-hover:opacity-100 transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-300">
-                            Equip the finest premium parts and performance gear.
-                        </p>
-                    </div>
+            <div class="flex justify-center mt-8 md:mt-10">
+                <a href="News.html" class="kinetic-gradient-primary px-6 md:px-8 py-2 md:py-3 rounded-lg text-black font-headline font-black tracking-tighter uppercase text-sm md:text-base shadow-[0_0_24px_rgba(105,218,255,0.3)] hover:scale-105 transition-transform active:scale-95">
+                    อ่านข่าวทั้งหมด
                 </a>
-
-                <!-- CRAFT Card -->
-                <a href="Craft.html" class="group relative rounded-2xl overflow-hidden no-line-card glow-hover transition-all duration-500 min-h-[380px] md:h-[500px] flex flex-col">
-                    <img class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4oI_rwX5RFcS4KnUFmDGOMvu88XJULOXNLFbBvPWLy9IprtLEy31iQ6P056iTxbv8e0D79iQrNvnxGg3Zp1lEsXxoX3UKHmhkKPewCu16a3NytsUWxNVMIAJ5K68703Mzv0moGpATkpQJi5Ym_0kq1roqD55lXCkRpcuIHIOeDgfYsziSv7efRJTl8BghJ12rOh4D2LuK5_VSmXQmwP5McrKt4zdctC0pjIhAmdbxBR5oL-hGj-V7XyI-fskbe8ATzELl2wKvGw3j" alt="Craft Bike" />
-                    <div class="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors duration-500"></div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-                    
-                    <div class="absolute bottom-0 left-0 p-5 md:p-8 w-full flex flex-col items-center text-center">
-                        <span class="material-symbols-outlined text-4xl md:text-5xl mb-3 md:mb-4 text-[#69daff]" style="font-variation-settings: 'FILL' 1;">build</span>
-                        <h3 class="text-2xl md:text-3xl font-black italic tracking-tighter font-headline uppercase text-white mb-2 group-hover:text-[#69daff] transition-colors">CRAFT</h3>
-                        <p class="text-white/70 font-body text-sm md:text-base opacity-100 md:opacity-0 md:group-hover:opacity-100 transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-300">
-                            Build your dream configuration optimized for speed.
-                        </p>
-                    </div>
-                </a>
-
-                <!-- TRIP Card -->
-                <a href="Trip.html" class="group relative rounded-2xl overflow-hidden no-line-card glow-hover transition-all duration-500 min-h-[380px] md:h-[500px] flex flex-col">
-                    <img class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhEjui6Tq3IcVULyedBfulXsAGXr3wWut1jDaBKMjt19rcA1IQCVPAOxuS5r38maWq_HcIIIcvmdnVb9GnUU9vPwVgE9qhU1550tBuyJLYJ9G3ydcEx-G7UKpsefWtOjwrSgEhTxb3Siq9AtXTH5sgnR89IrFG6pfdGTZqrPIIL1eGbtOApYfr7nGr3bXtbAbiKtTCh8SmERnH1rzIE4f2I3IhUXcg2LfdKqSQ-Ni52X3_8bYLuec9A3nf0AokcjINl8o21ZbUBv-s" alt="Explore Trips" />
-                    <div class="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors duration-500"></div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-                    
-                    <div class="absolute bottom-0 left-0 p-5 md:p-8 w-full flex flex-col items-center text-center">
-                        <span class="material-symbols-outlined text-4xl md:text-5xl mb-3 md:mb-4 text-[#69daff]" style="font-variation-settings: 'FILL' 1;">explore</span>
-                        <h3 class="text-2xl md:text-3xl font-black italic tracking-tighter font-headline uppercase text-white mb-2 group-hover:text-[#69daff] transition-colors">TRIP</h3>
-                        <p class="text-white/70 font-body text-sm md:text-base opacity-100 md:opacity-0 md:group-hover:opacity-100 transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-300">
-                            Discover ultimate touring routes across the nation.
-                        </p>
-                    </div>
-                </a>
-
             </div>
         </section>
 
-        <!-- Featured Recommendations -->
+        <!-- Top Rated Gear: 3 ใหญ่ + 6 เล็ก (คงเดิม) -->
         <section class="py-16 md:py-24 bg-[#0e0e0e]/50 reveal">
             <div class="max-w-[1440px] mx-auto px-4 md:px-8">
-                
                 <div class="flex items-end gap-4 mb-8 md:mb-12">
                     <h2 class="text-2xl md:text-3xl font-black uppercase tracking-tighter font-headline text-glow-primary text-white">Top Rated Gear</h2>
                     <div class="h-[2px] flex-grow bg-gradient-to-r from-primary to-transparent mb-2 opacity-40"></div>
                 </div>
-
-                <!-- Shop Items -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-16 md:mb-20">
-                    
-                    <!-- Item 1 -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-10 md:mb-12">
                     <article class="bg-surface-container-low rounded-xl overflow-hidden no-line-card glow-hover transition-all duration-300 group">
                         <div class="relative h-48 md:h-56 overflow-hidden">
                             <img class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1KdyXctvZ_5IMucPOOr3sQ_VW7zB9Es4eIddgiSjGAfxf5NR8rCQOVAjGu6gIWjzllVU-2kqDdInhEIrZymoI_VvDXIZVV_flp6YkLcq9z-_K3BU230EsvdP7zMeItKOBglBTFaWTDeKn84ZP1ao6RxqYr7s2QWgykmf3IDiwbXTOBkfV64Ed1bcl8zDSZptauOO4W0DOAluN8Dz2xI2-DluC0xFJZMORkVu0VN54Q-jxYVmkvP92ONiIobOF4dRFsI2SDNLu1t9v" alt="Akrapovic Exhaust" />
@@ -361,8 +365,6 @@
                             </div>
                         </div>
                     </article>
-
-                    <!-- Item 2 -->
                     <article class="bg-surface-container-low rounded-xl overflow-hidden no-line-card glow-hover transition-all duration-300 group">
                         <div class="relative h-48 md:h-56 overflow-hidden">
                             <img class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu8xPgXWfZBIFnPhoX7Qv7ZP_fwuvZRuKrc2Wrnf2RBzLE-qKssgorVb4uQalflVF6Mkdv8vwDT7frBju9KhveARMKnZWCKR34tnbjWqv5Wk-McGivRAq7RCmDsIgEdKJbENMY7iuAoshB4Fge_DDggdPO3fK8ovAG0vX6_1X_F5dELe7sROciJO9Ju2yKWrum6ch5Gf27cxeDvhztFV88hU7cPF_nHY1AeoMsycBIuhx-Mrxc1uSK93t_JSfvxGOa5fPiPoLBifDZ" alt="Brembo Kit" />
@@ -378,8 +380,6 @@
                             </div>
                         </div>
                     </article>
-                    
-                    <!-- Item 3 -->
                     <article class="bg-surface-container-low rounded-xl overflow-hidden no-line-card glow-hover transition-all duration-300 group">
                         <div class="relative h-48 md:h-56 overflow-hidden">
                             <img class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTIiKXrRusl934DDDAAX4XWyyhXMcKP7iz-Cwruum5vFH_9OCrUtN5rJyakhydnFdaDD-WmTC2zq4pNIsjZmylIaX71dez-cvZFU3DWsIDKmmADN-n1HOw4i-mhWm9_n6hU6ZwqSBSBw5TEycJHZGujJ5YAekx6u-on_iHtndeBRXQ5BsEvSN9FZ9eB8vf16b5B3LHSVypx7xxMWrLShDWzTVpDbYegNtbdSZTw0xBLlN9ssXTUU46YtBKV87w8krJLji-wjc9V5jv" alt="Ohlins Suspension" />
@@ -395,18 +395,31 @@
                             </div>
                         </div>
                     </article>
-
                 </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-5">
+                    <div class="bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden group"><div class="relative h-32 overflow-hidden bg-gradient-to-br from-[#1a1a1a] to-[#262626] flex items-center justify-center"><span class="material-symbols-outlined text-white/20 text-4xl">motorcycle</span></div><div class="p-3"><h3 class="font-headline text-sm font-bold group-hover:text-[#69daff] transition-colors">YSS Suspension</h3><p class="font-body text-xs text-white/50">฿ 8,900</p></div></div>
+                    <div class="bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden group"><div class="relative h-32 overflow-hidden bg-gradient-to-br from-[#1a1a1a] to-[#262626] flex items-center justify-center"><span class="material-symbols-outlined text-white/20 text-4xl">brake</span></div><div class="p-3"><h3 class="font-headline text-sm font-bold group-hover:text-[#69daff] transition-colors">Brembo Pads</h3><p class="font-body text-xs text-white/50">฿ 2,500</p></div></div>
+                    <div class="bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden group"><div class="relative h-32 overflow-hidden bg-gradient-to-br from-[#1a1a1a] to-[#262626] flex items-center justify-center"><span class="material-symbols-outlined text-white/20 text-4xl">tire</span></div><div class="p-3"><h3 class="font-headline text-sm font-bold group-hover:text-[#69daff] transition-colors">Pirelli Diablo</h3><p class="font-body text-xs text-white/50">฿ 12,500</p></div></div>
+                    <div class="bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden group"><div class="relative h-32 overflow-hidden bg-gradient-to-br from-[#1a1a1a] to-[#262626] flex items-center justify-center"><span class="material-symbols-outlined text-white/20 text-4xl">helmet</span></div><div class="p-3"><h3 class="font-headline text-sm font-bold group-hover:text-[#69daff] transition-colors">Shoei Helmet</h3><p class="font-body text-xs text-white/50">฿ 24,900</p></div></div>
+                    <div class="bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden group"><div class="relative h-32 overflow-hidden bg-gradient-to-br from-[#1a1a1a] to-[#262626] flex items-center justify-center"><span class="material-symbols-outlined text-white/20 text-4xl">oil</span></div><div class="p-3"><h3 class="font-headline text-sm font-bold group-hover:text-[#69daff] transition-colors">Motul 300V</h3><p class="font-body text-xs text-white/50">฿ 1,200</p></div></div>
+                    <div class="bg-surface-container-low rounded-lg border border-outline-variant/20 overflow-hidden group"><div class="relative h-32 overflow-hidden bg-gradient-to-br from-[#1a1a1a] to-[#262626] flex items-center justify-center"><span class="material-symbols-outlined text-white/20 text-4xl">gloves</span></div><div class="p-3"><h3 class="font-headline text-sm font-bold group-hover:text-[#69daff] transition-colors">Dainese Gloves</h3><p class="font-body text-xs text-white/50">฿ 5,400</p></div></div>
+                </div>
+                <div class="flex justify-center mt-10">
+                    <a href="Shop.html" class="kinetic-gradient-primary px-6 md:px-8 py-2 md:py-3 rounded-lg text-black font-headline font-black tracking-tighter uppercase text-sm md:text-base shadow-[0_0_24px_rgba(105,218,255,0.3)] hover:scale-105 transition-transform active:scale-95">
+                        ดูสินค้าทั้งหมด
+                    </a>
+                </div>
+            </div>
+        </section>
 
-                <div class="flex items-end gap-4 mb-8 md:mb-12 mt-8 md:mt-12">
+        <!-- Popular Routes: 3 ใหญ่ + 6 เล็ก (คงเดิม) -->
+        <section class="py-16 md:py-24 reveal">
+            <div class="max-w-[1440px] mx-auto px-4 md:px-8">
+                <div class="flex items-end gap-4 mb-8 md:mb-12">
                     <h2 class="text-2xl md:text-3xl font-black uppercase tracking-tighter font-headline text-glow-primary text-white">Popular Routes</h2>
                     <div class="h-[2px] flex-grow bg-gradient-to-r from-primary to-transparent mb-2 opacity-40"></div>
                 </div>
-
-                <!-- Trip Items -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-                    
-                    <!-- Trip 1 -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-10 md:mb-12">
                     <article class="group relative bg-[#131313] rounded-xl overflow-hidden no-line-card transition-all hover:-translate-y-2 glow-hover">
                         <div class="relative h-48 overflow-hidden">
                             <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqvoapLHCBZz5hzHTsRUPc37bRJgf3cxZYWnP_1jDFX_FTEgEjCYMhQn6n259rv_EL0nNy_zzLCVpUEm3hRDmWfhQII8L09NCvIrj9bugQLADTriRX7yNfStnBaBo7V1btab4FENf7Pw47VjQyHM6vaDahCLDjODaGlF5PqQl0GuLqcNu5bwhcOU2tGb2MMOxI3dgWdJAd0HQTa44zS3LwQX3YhFxaktLLJ_n8gJhu1iznP5NqyEUiM2DIAqZLPddFv1jIGTix0U4i" alt="Mae Hong Son"/>
@@ -417,8 +430,6 @@
                             <p class="text-white/50 font-body text-xs md:text-sm line-clamp-2">The gold standard of Northern Thailand. 1,864 curves of pure joy.</p>
                         </div>
                     </article>
-
-                    <!-- Trip 2 -->
                     <article class="group relative bg-[#131313] rounded-xl overflow-hidden no-line-card transition-all hover:-translate-y-2 glow-hover">
                         <div class="relative h-48 overflow-hidden">
                             <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuRVbTZgyBFAT1V5aB1z-ePrJbfuDDhgyqKnns_c1IxoyhTJ2lZMn6YQJCw64OvRwOPYKCUrClS4WGhMALaD38LmBjZMJODQA10gZmSCMTOaF0zsPDuCtmS_EPTTil2A0utajA9C64wtqRX2N5FVhwhiiuSv858BTbjQHnbF5FQFRQ8H5vjb-ZyM6HoIiV4GVFTmXsW3MQCifEiTuPJPPJ17oyvPAoe4Gb4ooPSx1XCzZAffiU0APkg5BTel94o3cAKSd8OkaAuiSc" alt="Coastal Run"/>
@@ -429,8 +440,6 @@
                             <p class="text-white/50 font-body text-xs md:text-sm line-clamp-2">High-speed sweeping curves along the beautiful Gulf of Thailand.</p>
                         </div>
                     </article>
-
-                    <!-- Trip 3 -->
                     <article class="group relative bg-[#131313] rounded-xl overflow-hidden no-line-card transition-all hover:-translate-y-2 glow-hover">
                         <div class="relative h-48 overflow-hidden">
                             <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhEjui6Tq3IcVULyedBfulXsAGXr3wWut1jDaBKMjt19rcA1IQCVPAOxuS5r38maWq_HcIIIcvmdnVb9GnUU9vPwVgE9qhU1550tBuyJLYJ9G3ydcEx-G7UKpsefWtOjwrSgEhTxb3Siq9AtXTH5sgnR89IrFG6pfdGTZqrPIIL1eGbtOApYfr7nGr3bXtbAbiKtTCh8SmERnH1rzIE4f2I3IhUXcg2LfdKqSQ-Ni52X3_8bYLuec9A3nf0AokcjINl8o21ZbUBv-s" alt="Khao Yai Rain"/>
@@ -441,64 +450,20 @@
                             <p class="text-white/50 font-body text-xs md:text-sm line-clamp-2">Deep greens and technical handling through Thailand's premier park.</p>
                         </div>
                     </article>
-
                 </div>
-            </div>
-        </section>
-
-        <!-- Motorcycle News Feed -->
-        <section class="max-w-[1440px] mx-auto px-4 md:px-8 py-16 md:py-24 reveal">
-            <div class="flex items-center justify-between mb-8 md:mb-12">
-                <h2 class="text-2xl md:text-3xl font-black uppercase tracking-tighter font-headline text-white">Latest Transmissions</h2>
-                <button class="text-[#69daff] hover:text-white transition-colors font-headline uppercase tracking-widest text-xs md:text-sm font-bold flex items-center gap-1">
-                    All News <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                </button>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-                
-                <article class="flex flex-col group cursor-pointer">
-                    <div class="w-full h-40 md:h-48 bg-[#1a1a1a] rounded-xl overflow-hidden mb-4 relative">
-                        <div class="absolute inset-0 bg-gradient-to-br from-[#131313] to-[#262626] group-hover:scale-105 transition-transform duration-500"></div>
-                        <div class="absolute inset-0 flex items-center justify-center border border-white/5 rounded-xl">
-                            <span class="material-symbols-outlined text-white/10 text-5xl md:text-6xl">photo_camera</span>
-                        </div>
-                    </div>
-                    <span class="text-[#69daff] font-headline text-[10px] md:text-xs font-bold uppercase tracking-widest mb-2">Technique</span>
-                    <h3 class="text-lg md:text-xl font-bold text-white font-headline leading-tight border-b border-white/10 pb-3 md:pb-4 mb-3 md:mb-4 group-hover:text-[#69daff] transition-colors">Mastering the Apex: High-Speed Cornering Fundamentals</h3>
-                    <a href="#" class="text-white/50 hover:text-white transition-colors font-headline uppercase tracking-widest text-[10px] md:text-xs font-bold flex items-center gap-2 mt-auto">
-                        Read More <span class="material-symbols-outlined text-sm">east</span>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-5">
+                    <div class="bg-[#131313] rounded-lg border border-outline-variant/20 overflow-hidden group"><div class="relative h-32 overflow-hidden bg-gradient-to-br from-[#1a1a1a] to-[#262626] flex items-center justify-center"><span class="material-symbols-outlined text-white/20 text-4xl">terrain</span></div><div class="p-3"><h3 class="font-headline text-sm font-bold group-hover:text-[#69daff] transition-colors">Phu Kradueng</h3><p class="font-body text-xs text-white/50">อีสาน</p></div></div>
+                    <div class="bg-[#131313] rounded-lg border border-outline-variant/20 overflow-hidden group"><div class="relative h-32 overflow-hidden bg-gradient-to-br from-[#1a1a1a] to-[#262626] flex items-center justify-center"><span class="material-symbols-outlined text-white/20 text-4xl">forest</span></div><div class="p-3"><h3 class="font-headline text-sm font-bold group-hover:text-[#69daff] transition-colors">Doi Inthanon</h3><p class="font-body text-xs text-white/50">เหนือ</p></div></div>
+                    <div class="bg-[#131313] rounded-lg border border-outline-variant/20 overflow-hidden group"><div class="relative h-32 overflow-hidden bg-gradient-to-br from-[#1a1a1a] to-[#262626] flex items-center justify-center"><span class="material-symbols-outlined text-white/20 text-4xl">beach</span></div><div class="p-3"><h3 class="font-headline text-sm font-bold group-hover:text-[#69daff] transition-colors">Samui Ring</h3><p class="font-body text-xs text-white/50">ใต้</p></div></div>
+                    <div class="bg-[#131313] rounded-lg border border-outline-variant/20 overflow-hidden group"><div class="relative h-32 overflow-hidden bg-gradient-to-br from-[#1a1a1a] to-[#262626] flex items-center justify-center"><span class="material-symbols-outlined text-white/20 text-4xl">water</span></div><div class="p-3"><h3 class="font-headline text-sm font-bold group-hover:text-[#69daff] transition-colors">Mekong Ride</h3><p class="font-body text-xs text-white/50">อีสาน</p></div></div>
+                    <div class="bg-[#131313] rounded-lg border border-outline-variant/20 overflow-hidden group"><div class="relative h-32 overflow-hidden bg-gradient-to-br from-[#1a1a1a] to-[#262626] flex items-center justify-center"><span class="material-symbols-outlined text-white/20 text-4xl">bridge</span></div><div class="p-3"><h3 class="font-headline text-sm font-bold group-hover:text-[#69daff] transition-colors">Kwai Bridge</h3><p class="font-body text-xs text-white/50">กลาง</p></div></div>
+                    <div class="bg-[#131313] rounded-lg border border-outline-variant/20 overflow-hidden group"><div class="relative h-32 overflow-hidden bg-gradient-to-br from-[#1a1a1a] to-[#262626] flex items-center justify-center"><span class="material-symbols-outlined text-white/20 text-4xl">hiking</span></div><div class="p-3"><h3 class="font-headline text-sm font-bold group-hover:text-[#69daff] transition-colors">Phang Nga Bay</h3><p class="font-body text-xs text-white/50">ใต้</p></div></div>
+                </div>
+                <div class="flex justify-center mt-10">
+                    <a href="Trip.html" class="kinetic-gradient-primary px-6 md:px-8 py-2 md:py-3 rounded-lg text-black font-headline font-black tracking-tighter uppercase text-sm md:text-base shadow-[0_0_24px_rgba(105,218,255,0.3)] hover:scale-105 transition-transform active:scale-95">
+                        ดูเส้นทางทั้งหมด
                     </a>
-                </article>
-
-                <article class="flex flex-col group cursor-pointer">
-                    <div class="w-full h-40 md:h-48 bg-[#1a1a1a] rounded-xl overflow-hidden mb-4 relative">
-                        <div class="absolute inset-0 bg-gradient-to-br from-[#131313] to-[#262626] group-hover:scale-105 transition-transform duration-500"></div>
-                        <div class="absolute inset-0 flex items-center justify-center border border-white/5 rounded-xl">
-                            <span class="material-symbols-outlined text-white/10 text-5xl md:text-6xl">photo_camera</span>
-                        </div>
-                    </div>
-                    <span class="text-[#69daff] font-headline text-[10px] md:text-xs font-bold uppercase tracking-widest mb-2">Industry</span>
-                    <h3 class="text-lg md:text-xl font-bold text-white font-headline leading-tight border-b border-white/10 pb-3 md:pb-4 mb-3 md:mb-4 group-hover:text-[#69daff] transition-colors">New Emission Standards Shape Next-Gen Exhaust Systems</h3>
-                    <a href="#" class="text-white/50 hover:text-white transition-colors font-headline uppercase tracking-widest text-[10px] md:text-xs font-bold flex items-center gap-2 mt-auto">
-                        Read More <span class="material-symbols-outlined text-sm">east</span>
-                    </a>
-                </article>
-
-                <article class="flex flex-col group cursor-pointer">
-                    <div class="w-full h-40 md:h-48 bg-[#1a1a1a] rounded-xl overflow-hidden mb-4 relative">
-                        <div class="absolute inset-0 bg-gradient-to-br from-[#131313] to-[#262626] group-hover:scale-105 transition-transform duration-500"></div>
-                        <div class="absolute inset-0 flex items-center justify-center border border-white/5 rounded-xl">
-                            <span class="material-symbols-outlined text-white/10 text-5xl md:text-6xl">photo_camera</span>
-                        </div>
-                    </div>
-                    <span class="text-[#69daff] font-headline text-[10px] md:text-xs font-bold uppercase tracking-widest mb-2">Events</span>
-                    <h3 class="text-lg md:text-xl font-bold text-white font-headline leading-tight border-b border-white/10 pb-3 md:pb-4 mb-3 md:mb-4 group-hover:text-[#69daff] transition-colors">CraftBikeLab Midnight Meetup Announced for Next Month</h3>
-                    <a href="#" class="text-white/50 hover:text-white transition-colors font-headline uppercase tracking-widest text-[10px] md:text-xs font-bold flex items-center gap-2 mt-auto">
-                        Read More <span class="material-symbols-outlined text-sm">east</span>
-                    </a>
-                </article>
-
+                </div>
             </div>
         </section>
 
@@ -508,7 +473,6 @@
     <footer class="bg-[#0a0a0a] w-full py-8 md:py-12 px-4 md:px-8 border-t border-[#2c2c2c]">
         <div class="max-w-[1440px] mx-auto">
             <div class="flex flex-col lg:flex-row justify-between items-start gap-8 md:gap-12 mb-8 md:mb-12">
-                
                 <div class="flex-1 text-center lg:text-left w-full">
                     <div class="text-2xl md:text-3xl font-black italic tracking-tighter text-[#69daff] font-headline uppercase mb-3 text-glow-primary">
                         CRAFTBIKELAB
@@ -517,20 +481,11 @@
                         นิยามใหม่ของการแต่งรถระดับพรีเมียม
                     </p>
                     <div class="flex gap-4 justify-center lg:justify-start">
-                        <a href="#" class="text-[#69daff] hover:text-white transition-colors">
-                            <span class="material-symbols-outlined text-2xl">facebook</span>
-                        </a>
-                        <a href="#" class="text-[#69daff] hover:text-white transition-colors flex items-center">
-                            <svg class="w-6 h-6 fill-current" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/>
-                            </svg>
-                        </a>
-                        <a href="#" class="text-[#69daff] hover:text-white transition-colors">
-                            <span class="material-symbols-outlined text-2xl">smart_display</span>
-                        </a>
+                        <a href="#" class="text-[#69daff] hover:text-white transition-colors"><span class="material-symbols-outlined text-2xl">facebook</span></a>
+                        <a href="#" class="text-[#69daff] hover:text-white transition-colors flex items-center"><svg class="w-6 h-6 fill-current" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/></svg></a>
+                        <a href="#" class="text-[#69daff] hover:text-white transition-colors"><span class="material-symbols-outlined text-2xl">smart_display</span></a>
                     </div>
                 </div>
-
                 <div class="flex-1 text-center lg:text-left w-full">
                     <div class="text-[#69daff] font-headline text-base md:text-lg font-bold uppercase tracking-[0.2em] mb-4 text-glow-primary" style="font-family: 'Noto Sans Thai', sans-serif;">
                         ติดต่อเรา
@@ -546,7 +501,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="flex-[1.5] text-center lg:text-right w-full">
                     <div class="text-[#69daff] font-headline text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold italic tracking-tighter leading-tight md:leading-[1.3] lg:leading-[0.9] text-glow-primary inline-block py-4" 
                         style="font-family: 'Noto Sans Thai', sans-serif; text-shadow: 0 0 20px rgba(105, 218, 255, 0.5);">
@@ -554,7 +508,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="border-t border-white/10 pt-6 md:pt-8">
                 <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                     <div class="text-white/40 font-body text-[10px] md:text-xs uppercase tracking-widest text-center md:text-left" style="font-family: 'Noto Sans Thai', sans-serif;">
@@ -566,14 +519,8 @@
                             <a href="#" class="text-white/20 hover:text-[#69daff] transition-colors font-body text-[10px] uppercase tracking-widest" style="font-family: 'Noto Sans Thai', sans-serif;">Terms of Service</a>
                         </div>
                         <div class="flex items-center gap-4">
-                            <div class="flex items-center gap-1 opacity-50">
-                                <span class="material-symbols-outlined text-[#69daff] text-sm">verified</span>
-                                <span class="text-white text-[10px] font-headline uppercase tracking-tighter">Apex Certified</span>
-                            </div>
-                            <div class="flex items-center gap-1 opacity-50">
-                                <span class="material-symbols-outlined text-[#69daff] text-sm">security</span>
-                                <span class="text-white text-[10px] font-headline uppercase tracking-tighter">Secure Payment</span>
-                            </div>
+                            <div class="flex items-center gap-1 opacity-50"><span class="material-symbols-outlined text-[#69daff] text-sm">verified</span><span class="text-white text-[10px] font-headline uppercase tracking-tighter">Apex Certified</span></div>
+                            <div class="flex items-center gap-1 opacity-50"><span class="material-symbols-outlined text-[#69daff] text-sm">security</span><span class="text-white text-[10px] font-headline uppercase tracking-tighter">Secure Payment</span></div>
                         </div>
                     </div>
                 </div>
@@ -581,9 +528,8 @@
         </div>
     </footer>
 
-    <!-- Scripts for animations and logic -->
     <script>
-        // Scroll Reveal Animation Script
+        // Scroll Reveal Animation
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
@@ -595,41 +541,81 @@
                 }
             }
         }
-        
         window.addEventListener("scroll", reveal);
-        // Trigger reveal immediately for hero section
         reveal();
 
         // Mobile Menu Toggle
         const menuToggle = document.getElementById('menuToggle');
         const mobileMenu = document.getElementById('mobileMenu');
-        
         if (menuToggle && mobileMenu) {
             menuToggle.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
             });
         }
 
-        // Placeholder logic for Real-time Oil Price Dashboard fetching
-        // In a real application, this would fetch from an API
-        /*
-        async function fetchFuelPrices() {
+        // --------------------------------------------------------------
+        // ราคาน้ำมัน: ใช้ข้อมูลล่าสุดจาก JSON ของบางจาก (mock) และพยายาม fetch ผ่าน proxy
+        // --------------------------------------------------------------
+        
+        // ข้อมูลเริ่มต้น (อัปเดตล่าสุดจาก API วันที่ 03/04/2569)
+        const defaultPrices = {
+            'price-g95': 43.25,
+            'price-e20': 38.25,
+            'price-diesel': 44.24,
+            'price-e85': 34.99,
+            'price-gasohol91': 42.88,
+            'updateDate': '03/04/2569 05:00 น.'
+        };
+        
+        function updatePriceUI(prices, timestamp) {
+            for (const [id, val] of Object.entries(prices)) {
+                const el = document.getElementById(id);
+                if (el && typeof val === 'number') el.innerText = val.toFixed(2);
+            }
+            const timeEl = document.getElementById('oil-update-time');
+            if (timeEl && timestamp) timeEl.innerText = `อัปเดตล่าสุด: ${timestamp}`;
+        }
+        
+        async function fetchRealPrices() {
+            const proxyUrl = 'https://corsproxy.io/?url=';
+            const targetUrl = 'https://oil-price.bangchak.co.th/ApiOilPrice2/th';
             try {
-                const response = await fetch('YOUR_API_ENDPOINT_HERE');
+                const response = await fetch(proxyUrl + encodeURIComponent(targetUrl));
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 const data = await response.json();
-                document.getElementById('price-g95').innerText = data.g95;
-                document.getElementById('price-e20').innerText = data.e20;
-                document.getElementById('price-diesel').innerText = data.diesel;
+                // data.OilList เป็น string ต้อง parse JSON
+                const oilList = JSON.parse(data.OilList);
+                const newPrices = {};
+                oilList.forEach(item => {
+                    if (item.OilName === 'แก๊สโซฮอล์ 95 S EVO') newPrices['price-g95'] = item.PriceToday;
+                    if (item.OilName === 'แก๊สโซฮอล์ E20 S EVO') newPrices['price-e20'] = item.PriceToday;
+                    if (item.OilName === 'ไฮดีเซล S') newPrices['price-diesel'] = item.PriceToday;
+                    if (item.OilName === 'แก๊สโซฮอล์ E85 S EVO') newPrices['price-e85'] = item.PriceToday;
+                    if (item.OilName === 'แก๊สโซฮอล์ 91 S EVO') newPrices['price-gasohol91'] = item.PriceToday;
+                });
+                const timestamp = `${data.OilPriceDate} ${data.OilPriceTime}`;
+                updatePriceUI(newPrices, timestamp);
+                console.log('โหลดราคาน้ำมันจริงสำเร็จ', timestamp);
+                // เก็บไว้ใน localStorage เพื่อใช้ครั้งหน้า
+                localStorage.setItem('oilPrices', JSON.stringify(newPrices));
+                localStorage.setItem('oilTimestamp', timestamp);
             } catch (error) {
-                console.error("Error fetching fuel prices:", error);
+                console.warn('ไม่สามารถโหลดราคาจริงได้ ใช้ค่าเริ่มต้น', error);
+                // ใช้ค่าเริ่มต้น (default) หรือค่าที่เคยโหลดไว้
+                const cached = localStorage.getItem('oilPrices');
+                const cachedTime = localStorage.getItem('oilTimestamp');
+                if (cached && cachedTime) {
+                    updatePriceUI(JSON.parse(cached), cachedTime);
+                } else {
+                    updatePriceUI(defaultPrices, defaultPrices.updateDate);
+                }
             }
         }
         
-        // Polling every 5 minutes (300000ms)
-        setInterval(fetchFuelPrices, 300000);
-        // Initial fetch
-        // fetchFuelPrices();
-        */
+        // โหลดราคา (ลอง fetch จริงก่อน)
+        fetchRealPrices();
+        // อัปเดตทุก 1 ชั่วโมง
+        setInterval(fetchRealPrices, 3600000);
     </script>
 </body>
 </html>
