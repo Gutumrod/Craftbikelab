@@ -1,0 +1,7 @@
+คำสั่งล่ากระแสโซเชียล:
+
+1.Trend Focus: ส่องกระแสใน X (Twitter) โดยเน้นรุ่นรถที่มีใน Bike Database.xlsx - ชีต1.csv
+
+2.Content Gap: หาจุดที่คนบ่นหรือสงสัยเกี่ยวกับของแต่ง แล้วส่งข้อมูลให้ ChatGPT-4o เขียนบทความแก้ปัญหา
+
+3.Real-time Alert: หากพบดราม่าหรือข่าวใหม่ที่กระทบต่อ Master Blueprint.txt ให้แจ้ง CEO Brain ทันที

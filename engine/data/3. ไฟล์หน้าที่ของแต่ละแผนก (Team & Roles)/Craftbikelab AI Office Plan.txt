@@ -1,0 +1,32 @@
+Craftbikelab System Blueprint (March 2026)
+Input (Data Acquisition):
+
+ดึงข้อมูลสินค้าจาก API ของ Involve Asia และ Accesstrade
+
+ใช้ Web Scraping (Firecrawl + n8n) สำหรับข้อมูลที่ไม่มี API
+
+ข้อมูลเส้นทางและจุดแวะพักสำหรับโมดูล Trip (จาก Perplexity/Grok)
+
+Processing (The Craftbikelab Engine):
+
+Cleaning: กำจัดข้อมูลซ้ำซ้อน
+
+Normalizing: แปลงคำค้นหาภาษาไทย/ชื่อเล่นรถให้เป็นชื่อมาตรฐาน (เช่น "ฟอซ่า" -> "Forza 350")
+
+Logic Check: ตรวจสอบความเข้ากันได้ (Compatibility) กับฐานข้อมูลรถ 360 รุ่น เพื่อความแม่นยำ 100%
+
+Storage (Modular Database):
+
+Neon (Serverless Postgres): เก็บข้อมูล Core Data ทั้งหมด (Products, Bikes, Users)
+
+Media Storage: รูปภาพเก็บที่ Cloudinary/Uploadthing และวิดีโอเก็บที่ YouTube (Unlisted)
+
+Output (The 3 Pillars Distribution):
+
+shop.craftbikelab.com: แสดงสินค้าที่ผ่านการคัดกรองว่า "ตรงรุ่น"
+
+trip.craftbikelab.com: แนะนำเส้นทางและพิกัดแผนที่ (ไม่มีขายของ)
+
+build.craftbikelab.com: ระบบจัดสเปคตามงบประมาณ
+
+Social Media: ส่งออกคอนเทนต์อัตโนมัติไปที่ TikTok, FB, X

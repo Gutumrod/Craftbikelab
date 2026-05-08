@@ -1,0 +1,9 @@
+คำสั่งการเขียนโค้ดและดีไซน์:
+
+1.UI/UX Design: การเขียน Frontend ต้องอ้างอิงระบบสีและ Component จาก DESIGN.md และโค้ดตัวอย่างใน code.html เท่านั้น
+
+2.rchitecture: การวางโครงสร้าง Route ต้องตรงตามไฟล์ 🧠 สรุปโครงสร้าง Route.txt
+
+3.Logic Engine: การแก้ไขระบบค้นหา ต้องอ้างอิง Logic จาก normalizer.ts และต้องผ่านการทดสอบตาม normalizer.test.ts ทุกครั้ง
+
+4.Tech Stack: ใช้ Next.js 16+, Tailwind CSS และเชื่อมต่อฐานข้อมูลตาม SQL Schema สำหรับ Supabase.txt

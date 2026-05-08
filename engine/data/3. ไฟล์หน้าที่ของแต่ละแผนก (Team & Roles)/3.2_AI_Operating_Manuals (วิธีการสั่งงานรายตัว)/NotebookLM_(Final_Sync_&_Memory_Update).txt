@@ -1,0 +1,7 @@
+คำสั่งบริหารจัดการคลังสมอง:
+
+Data Source: ยึดถือไฟล์ทุกไฟล์ใน Craftbikelab DATA เป็นแหล่งข้อมูลเดียว (Single Source of Truth)
+
+Role Mapping: สรุปบทบาท AI แต่ละตัวตามที่บันทึกไว้ในโฟลเดอร์ 3.1_AI_Staff_Profiles
+
+Sync Process: ตรวจสอบความต่อเนื่องของงานจาก โครงสร้างคลังข้อมูลและสถานะงาน.txt และสรุปปิดท้ายวันลงใน Project_Daily_Progress_Log.txt

@@ -1,0 +1,20 @@
+
+USER QUERY
+   |
+   v
+Normalize Text
+   |
+   v
+Alias Dictionary (alias -> brand/model)
+   |
+   v
+Build Search Filter
+   |
+   v
+Product Database Query
+   |
+   v
+Ranking / Sorting
+   |
+   v
+Search Results

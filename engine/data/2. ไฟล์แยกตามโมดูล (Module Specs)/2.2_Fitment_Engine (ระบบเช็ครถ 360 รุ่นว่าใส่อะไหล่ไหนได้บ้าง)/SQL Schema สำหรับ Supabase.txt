@@ -1,0 +1,115 @@
+SQL Schema สำหรับ Supabase
+
+Claude แนะนำให้เก็บ
+
+product
+
+affiliate
+
+price history
+
+link status
+
+ดังนั้น schema ที่เหมาะคือ
+
+products
+create table products (
+
+id uuid primary key default gen_random_uuid(),
+
+title text not null,
+
+canonical_model text,
+
+brand text,
+
+category text,
+
+description text,
+
+image_url text,
+
+created_at timestamp default now()
+
+);
+
+ตัวอย่าง
+
+Crash Bar ADV350
+Rear Rack NMAX
+Windshield PCX160
+affiliate_links
+
+รองรับหลายร้าน
+
+create table affiliate_links (
+
+id uuid primary key default gen_random_uuid(),
+
+product_id uuid references products(id),
+
+platform text,
+
+affiliate_url text,
+
+original_url text,
+
+current_price numeric,
+
+currency text default 'THB',
+
+status text default 'active',
+
+last_checked timestamp,
+
+created_at timestamp default now()
+
+);
+
+platform example
+
+Shopee
+Lazada
+Aliexpress
+Amazon
+price_history
+
+เก็บการเปลี่ยนราคา
+
+create table price_history (
+
+id uuid primary key default gen_random_uuid(),
+
+affiliate_link_id uuid references affiliate_links(id),
+
+price numeric,
+
+checked_at timestamp default now()
+
+);
+link_health
+
+ตรวจว่าลิงก์เสียไหม
+
+create table link_health (
+
+id uuid primary key default gen_random_uuid(),
+
+affiliate_link_id uuid references affiliate_links(id),
+
+http_status int,
+
+response_time_ms int,
+
+checked_at timestamp default now()
+
+);
+โครงสร้างความสัมพันธ์
+products
+   │
+   │ 1:N
+   ▼
+affiliate_links
+   │
+   ├── price_history
+   └── link_health

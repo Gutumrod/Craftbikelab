@@ -1,0 +1,451 @@
+Master Logic สำหรับแพลตฟอร์มรวมของแต่งมอเตอร์ไซค์ ตั้งแต่การนำเข้าสินค้า → ประมวลผล → แสดงผล → วิเคราะห์ข้อมูล พร้อม Failure Simulation (จำลองข้อผิดพลาด) และ Mitigation (แนวทางป้องกัน)
+
+1. MASTER SYSTEM STRUCTURE
+
+โครงสร้างระบบระดับสูง
+
+Data Sources
+   ↓
+Product Ingestion Engine
+   ↓
+Data Cleaning Engine
+   ↓
+AI Processing Engine
+   ↓
+Product Database
+   ↓
+Search & Recommendation Engine
+   ↓
+User Interface
+   ↓
+Analytics Engine
+
+AI จะทำงานใน AI Processing Engine
+
+2. DATA SOURCE LAYER
+
+แหล่งข้อมูลสินค้า
+
+Shopee
+Lazada
+ร้านแต่งรถ
+Supplier
+User submission
+Manual upload
+Logic
+Input source
+↓
+Fetch product data
+↓
+Validate data format
+↓
+Send to ingestion engine
+Error Simulation
+Case 1
+
+ร้านค้าลบสินค้า
+
+Product exists in database
+but source product removed
+
+Problem
+
+Dead link
+
+Mitigation
+
+Daily link checker
+IF product 404
+THEN mark inactive
+Case 2
+
+ร้านค้าปรับราคา
+
+Problem
+
+Price mismatch
+
+Mitigation
+
+Scheduled price sync
+every 24h
+Case 3
+
+ข้อมูลสินค้าไม่ครบ
+
+Problem
+
+Missing image
+Missing price
+
+Mitigation
+
+Validation rule
+IF missing critical field
+THEN reject ingestion
+3. PRODUCT INGESTION ENGINE
+
+หน้าที่
+
+นำสินค้าเข้าระบบ
+Logic
+Receive product
+↓
+Check duplicate
+↓
+Check data completeness
+↓
+Assign ingestion ID
+↓
+Queue processing
+Duplicate Detection Logic
+Compare
+product name
+image hash
+store link
+
+Decision
+
+IF duplicate score > threshold
+THEN reject
+ELSE accept
+Error Simulation
+Case 1
+
+สินค้าเดียวกันหลายร้าน
+
+Example
+
+Crash bar ADV350
+
+หลายร้านขาย
+
+Problem
+
+duplicate listing
+
+Mitigation
+
+group product
+by model + category
+Case 2
+
+ชื่อสินค้าสแปม
+
+Example
+
+🔥🔥🔥Crashbar ADV350 SALE!!!
+
+Mitigation
+
+text normalization
+4. DATA CLEANING ENGINE
+
+หน้าที่
+
+normalize product data
+Logic
+Input product
+↓
+Normalize text
+↓
+Remove spam keywords
+↓
+Standardize naming
+↓
+Clean image
+
+Example
+
+Crashbar adv350
+
+normalized
+
+Crash Bar ADV350
+Error Simulation
+Case 1
+
+AI แปลชื่อผิด
+
+Example
+
+Rack
+
+AI rewrite
+
+ราวแขวน
+
+Mitigation
+
+motorcycle glossary
+5. AI PROCESSING ENGINE
+
+ประกอบด้วย AI modules
+
+Rewrite AI
+Tagging AI
+SEO AI
+Moderation AI
+5.1 Rewrite Logic
+Input product
+↓
+Generate title
+↓
+Generate description
+↓
+Check length
+↓
+Approve
+
+Error simulation
+
+Case
+
+AI hallucination
+
+Example
+
+Crash bar aluminum
+
+จริง
+
+steel
+
+Mitigation
+
+rule:
+AI cannot invent material
+unless source confirms
+5.2 Tagging Logic
+
+AI วิเคราะห์
+
+Motorcycle model
+Category
+Brand
+Compatibility
+
+Example
+
+Crash bar ADV350
+
+Output
+
+Model = ADV350
+Category = Crash bar
+
+Error simulation
+
+Case
+
+AI tag ผิดรุ่น
+
+Example
+
+Nmax rack
+
+AI tag
+
+Aerox
+
+Mitigation
+
+model dictionary validation
+6. PRODUCT DATABASE
+
+นี่คือ core ของระบบ
+
+โครงสร้างหลัก
+
+Motorcycle Table
+Product Table
+Category Table
+Brand Table
+Store Table
+Price Table
+Database Logic
+New product
+↓
+Check model exist
+↓
+IF no
+create model
+↓
+Insert product
+Error Simulation
+Case
+
+model duplicate
+
+Example
+
+ADV350
+Adv 350
+ADV-350
+
+Mitigation
+
+model normalization
+7. SEARCH ENGINE LOGIC
+
+User search
+
+ADV350 crash bar
+
+Logic
+
+Parse keyword
+↓
+Detect motorcycle model
+↓
+Detect category
+↓
+Query database
+↓
+Rank result
+
+Ranking factors
+
+relevance
+price
+popularity
+store rating
+Error Simulation
+Case
+
+keyword ambiguity
+
+Example
+
+rack
+
+Mitigation
+
+context detection
+8. RECOMMENDATION ENGINE
+
+Logic
+
+User view product
+↓
+Detect motorcycle model
+↓
+Find related categories
+↓
+Recommend products
+
+Example
+
+User view
+
+Crash bar ADV350
+
+Recommend
+
+Radiator guard
+Rear rack
+Footrest
+9. ANALYTICS ENGINE
+
+Data analysis
+
+Most searched model
+Most viewed products
+Conversion rate
+Price trend
+10. SYSTEM MONITORING
+
+ต้องมี monitoring
+
+AI output quality
+broken links
+duplicate product
+database integrity
+11. MASTER WORKFLOW
+
+Full pipeline
+
+Product source
+↓
+Ingestion
+↓
+Duplicate check
+↓
+Data cleaning
+↓
+AI rewrite
+↓
+AI tagging
+↓
+SEO generation
+↓
+Database insert
+↓
+Search indexing
+↓
+Product published
+12. GLOBAL FAILURE SCENARIOS
+Scenario 1
+
+AI rewrite พัง
+
+Mitigation
+
+fallback template
+Scenario 2
+
+database overload
+
+Mitigation
+
+search indexing cache
+Scenario 3
+
+spam seller
+
+Mitigation
+
+seller reputation score
+13. SCALING LOGIC
+
+เมื่อสินค้าเพิ่ม
+
+100 products → simple DB
+10,000 → indexing
+100,000 → search engine
+1M → distributed system
+14. LONG TERM EVOLUTION
+
+ระบบจะ evolve เป็น
+
+Motorcycle Knowledge Graph
+
+เชื่อมข้อมูล
+
+Motorcycle
+Parts
+Compatibility
+Brands
+สรุป Master Logic
+
+ระบบนี้คือ
+
+Product Data Platform
+
+AI ทำหน้าที่
+
+generate
+classify
+organize
+optimize
+
+Database ทำหน้าที่
+
+store
+connect
+serve
+
+Search engine ทำหน้าที่
+
+discover
+recommend

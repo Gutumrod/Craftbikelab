@@ -1,0 +1,9 @@
+คำสั่งปฏิบัติงาน (Standard Operating Procedure):
+
+1.วิสัยทัศน์: ทุกการตัดสินใจต้องยึดถือ craftbikelab-blueprint.docx และ สรุปโครงสร้าง 3 Sub-domains.txt เป็นบรรทัดฐานสูงสุด
+
+2.การตรวจงาน: ตรวจสอบความขัดแย้งของข้อมูลเทียบกับ Project_Daily_Progress_Log.txt เพื่อไม่ให้สั่งงานซ้ำซ้อน
+
+3.การควบคุมแบรนด์: หากมีการออกแบบหน้าตาเว็บ ให้เช็คความถูกต้องเทียบกับสไตล์ใน DESIGN.md และห้ามหลุดจากคอนเซปต์ "The Midnight Apex"
+
+4.กฎเหล็ก: ข้อมูลเทคนิคต้องมาจาก thailand_motorcycle_dataset_300.csv เท่านั้น หากไม่มีให้สั่ง "🚫 REJECTED: WRONG_DATA"

@@ -1,0 +1,369 @@
+Brand,Model,Category,Engine_CC,Transmission,Type
+Honda,,,,,
+Honda,Wave 110i (2026),Family,110,Manual,Moped
+Honda,Wave 125i (2026),Family,125,Manual,Moped
+Honda,Scoopy (2026),Scooter,110,Automatic,Fashion Scooter
+Honda,Giorno+,Scooter,125,Automatic,Fashion Scooter
+Honda,PCX160,Scooter,157,Automatic,Premium Scooter
+Honda,Click 160,Scooter,157,Automatic,Sport Scooter
+Honda,Click 125,Scooter,125,Automatic,Sport Scooter
+Honda,Lead 125 (ABS),Scooter,125,Automatic,Utility Scooter
+Honda,ADV160,Scooter,157,Automatic,Adventure Scooter
+Honda,Forza 350 (2026),Big Scooter,330,Automatic,Premium Scooter
+Honda,ADV350,Scooter,330,Automatic,Adventure Scooter
+Honda,Monkey 125,Lifestyle,125,Manual,Mini Bike
+Honda,Dax 125,Lifestyle,125,Manual,Mini Bike
+Honda,CT125,Lifestyle,125,Manual,Hunter Postie
+Honda,CB150R,Naked,150,Manual,Neo Sport Cafe
+Honda,CBR150R,Sport,150,Manual,Sport City
+Honda,CRF300L,Dual Purpose,286,Manual,Off-Road
+Honda,CRF300 Rally,Adventure,286,Manual,Light Adventure
+Honda,Rebel 300,Cruiser,286,Manual,Bobber
+Honda,CB300R,Naked,286,Manual,Neo Sport Cafe
+Honda,CL300,Scrambler,286,Manual,Modern Scrambler
+Honda,CBR500R (E-Clutch),Sport,471,Manual/Auto,Sport Performance
+Honda,CB500 Hornet,Naked,471,Manual,Street Fighter
+Honda,NX500,Adventure,471,Manual,Crossover
+Honda,Rebel 500,Cruiser,471,Manual,Bobber
+Honda,CL500,Scrambler,471,Manual,Modern Scrambler
+Honda,CBR650R (E-Clutch),Sport,649,Manual/Auto,Sport City
+Honda,CB650R (E-Clutch),Naked,649,Manual/Auto,Neo Sport Cafe
+Honda,CB750 Hornet,Naked,755,Manual,Street Fighter
+Honda,XL750 Transalp,Adventure,755,Manual,Touring Adventure
+Honda,X-ADV (2026),Adventure Scooter,745,Automatic,Crossover
+Honda,Forza 750 (2026),Big Scooter,745,Automatic,Premium Scooter
+Honda,Rebel 1100 (DCT),Cruiser,1084,Automatic,Modern Bobber
+Honda,NT1100 (2026),Touring,1084,Automatic,Sport Touring
+Honda,CRF1100L Africa Twin,Adventure,1084,Manual/DCT,Touring Adventure
+Honda,CB1000 Hornet SP,Naked,999,Manual,Hyper Naked
+Honda,CBR1000RR-R,Superbike,1000,Manual,Sport Performance
+Honda,Goldwing Tour,Touring,1833,Automatic,Luxury Touring
+Honda,UC3 (2026),EV,N/A,Automatic,Electric Scooter
+Honda,GB350C (2026),Classic,348,Manual,Modern Classic
+Yamaha,,,,,
+Yamaha,Finn (2026),Family,115,Manual,Moped
+Yamaha,Exciter 155 (2026),Family Sport,155,Manual,Underbone
+Yamaha,PG-1,Lifestyle,115,Manual,Outdoor Lifestyle
+Yamaha,Grand Filano Hybrid (2026),Scooter,125,Automatic,Fashion Scooter
+Yamaha,Fazzio (2026),Scooter,125,Automatic,Fashion Scooter
+Yamaha,GT125,Scooter,125,Automatic,Sport Scooter
+Yamaha,NMAX Turbo (2025),Scooter,155,Automatic (Y-AMT),Premium Scooter
+Yamaha,NMAX (Standard),Scooter,155,Automatic,Premium Scooter
+Yamaha,Aerox (2025),Scooter,155,Automatic,Sport Scooter
+Yamaha,Lexi 155,Scooter,155,Automatic,Premium Scooter
+Yamaha,XMAX Tech Max (2026),Big Scooter,292,Automatic,Sport Scooter
+Yamaha,XMAX 300 (Standard),Big Scooter,292,Automatic,Sport Scooter
+Yamaha,TMAX 560 (2026),Big Scooter,562,Automatic,Sport Scooter
+Yamaha,R15 Connected,Sport,155,Manual,Sport City
+Yamaha,R15M Connected,Sport,155,Manual,Sport City
+Yamaha,R3 (2026),Sport,321,Manual,Sport Performance
+Yamaha,R7,Sport,689,Manual,Supersport
+Yamaha,R9 (2026),Sport,890,Manual,Supersport
+Yamaha,R1 (Final Edition),Superbike,998,Manual,Sport Performance
+Yamaha,MT-15,Naked,155,Manual,Street Fighter
+Yamaha,MT-03,Naked,321,Manual,Street Fighter
+Yamaha,MT-07 (2026),Naked,689,Manual,Hyper Naked
+Yamaha,MT-09 (2024-2025),Naked,890,Manual,Hyper Naked
+Yamaha,MT-09 SP (2026),Naked,890,Manual,Hyper Naked
+Yamaha,MT-10 SP,Naked,998,Manual,Hyper Naked
+Yamaha,XSR155,Neo Classic,155,Manual,Sport Heritage
+Yamaha,XSR700,Neo Classic,689,Manual,Sport Heritage
+Yamaha,XSR900,Neo Classic,890,Manual,Sport Heritage
+Yamaha,XSR900 GP,Neo Classic,890,Manual,Sport Heritage
+Yamaha,SR400 (2026),Classic,399,Manual,Legendary Classic
+Yamaha,Tenere 700 (Standard),Adventure,689,Manual,Rally Adventure
+Yamaha,Tenere 700 World Raid,Adventure,689,Manual,Rally Adventure
+Yamaha,Tracer 9 GT+,Touring,890,Manual,Sport Touring
+Yamaha,Bolt R-Spec,Cruiser,942,Manual,Bobber
+Yamaha,E01 (Trial),EV,N/A,Automatic,Electric Scooter
+Suzuki,,,,,
+Suzuki,Smash Fi (Next Edition),Family,113,Manual,Moped
+Suzuki,Raider R150 (2025),Family Sport,147,Manual,Underbone
+Suzuki,Raider J Crossover,Lifestyle,113,Manual,Moped Crossover
+Suzuki,Nex Crossover,Scooter,113,Automatic,Moped Crossover
+Suzuki,Address 125 (2026),Scooter,124,Automatic,Classic Scooter
+Suzuki,Avenis 125,Scooter,124,Automatic,Sport Scooter
+Suzuki,Burgman Street 125 EX,Scooter,124,Automatic,Luxury Scooter
+Suzuki,Burgman 400,Big Scooter,400,Automatic,Premium Scooter
+Suzuki,GSX-R150,Sport,147,Manual,Sport City
+Suzuki,GSX-S150,Naked,147,Manual,Street Fighter
+Suzuki,GSX-8R (2025),Sport,776,Manual,Sport Performance
+Suzuki,GSX-8S,Naked,776,Manual,Street Fighter
+Suzuki,GSX-S1000,Naked,999,Manual,Hyper Naked
+Suzuki,GSX-S1000GT,Touring,999,Manual,Sport Touring
+Suzuki,GSX-S1000GX (2025),Crossover,999,Manual,Grand American Crossover
+Suzuki,GSX-R1000R (Final Edition),Superbike,999,Manual,Sport Performance
+Suzuki,Katana (2026),Neo Classic,999,Manual,Legendary Sport
+Suzuki,Hayabusa (Gen 3),Hyper Sport,1340,Manual,Ultimate Sport
+Suzuki,SV650,Naked,645,Manual,V-Twin Roadster
+Suzuki,SV650X,Cafe Racer,645,Manual,V-Twin Cafe Racer
+Suzuki,V-Strom 250SX,Adventure,249,Manual,Light Adventure
+Suzuki,V-Strom 650XT,Adventure,645,Manual,Touring Adventure
+Suzuki,V-Strom 800DE,Adventure,776,Manual,Dual Purpose
+Suzuki,V-Strom 800RE,Adventure,776,Manual,Road Explorer
+Suzuki,V-Strom 1050DE,Adventure,1037,Manual,Touring Adventure
+Kawasaki,,,,,
+Kawasaki,Ninja 250,Sport,249,Manual,Sport City
+Kawasaki,Ninja 400 (2025),Sport,399,Manual,Sport Performance
+Kawasaki,Ninja 500 (2026),Sport,451,Manual,Sport Performance
+Kawasaki,Ninja 650 (2026),Sport,649,Manual,Sport Touring
+Kawasaki,Ninja ZX-4RR,Sport,399,Manual,Super Sport (4 Cyl)
+Kawasaki,Ninja ZX-6R (2025),Sport,636,Manual,Super Sport
+Kawasaki,Ninja ZX-10R,Superbike,998,Manual,Sport Performance
+Kawasaki,Ninja H2,Superbike,998,Manual,Supercharged Hypersport
+Kawasaki,Z125 Pro,Mini Bike,125,Manual,Mini Bike
+Kawasaki,Z250,Naked,249,Manual,Street Fighter
+Kawasaki,Z400,Naked,399,Manual,Street Fighter
+Kawasaki,Z500 (2026),Naked,451,Manual,Street Fighter
+Kawasaki,Z650 (2026),Naked,649,Manual,Street Fighter
+Kawasaki,Z900 (2025-2026),Naked,948,Manual,Hyper Naked
+Kawasaki,Z H2 SE,Naked,998,Manual,Hyper Naked (Supercharged)
+Kawasaki,Z650RS,Neo Classic,649,Manual,Retro Sport
+Kawasaki,Z900RS / Cafe,Neo Classic,948,Manual,Retro Sport
+Kawasaki,W175 (2026),Classic,177,Manual,Vintage Classic
+Kawasaki,W800,Classic,773,Manual,Vintage Classic
+Kawasaki,Meguro K3,Classic,773,Manual,Heritage Classic
+Kawasaki,Eliminator 400,Cruiser,399,Manual,Modern Cruiser
+Kawasaki,Eliminator 500 (2026),Cruiser,451,Manual,Modern Cruiser
+Kawasaki,Vulcan S,Cruiser,649,Manual,Sport Cruiser
+Kawasaki,Versys-X 300,Adventure,296,Manual,Light Adventure
+Kawasaki,Versys 650 (2026),Adventure,649,Manual,Touring Adventure
+Kawasaki,Versys 1100 (2025-2026),Adventure,1099,Manual,Touring Adventure
+Kawasaki,KLX150 (2025),Dual Purpose,144,Manual,Off-Road
+Kawasaki,KLX230 / SE,Dual Purpose,233,Manual,Off-Road
+Kawasaki,KLX250,Dual Purpose,249,Manual,Off-Road
+Kawasaki,KLX110R,Off-Road,112,Manual,Kid's Dirt Bike
+Kawasaki,Ninja e-1,EV,N/A,Automatic,Electric Sport
+Kawasaki,Z e-1,EV,N/A,Automatic,Electric Naked
+Vespa,,,,,
+Vespa,LX 125 i-Get (2026),Scooter,125,Automatic,Entry Classic
+Vespa,S 125 i-Get,Scooter,125,Automatic,Sport Classic
+Vespa,Primavera 150 i-Get ABS,Scooter,155,Automatic,Heritage Classic
+Vespa,Primavera S 150 i-Get ABS,Scooter,155,Automatic,Sport Heritage
+Vespa,Sprint 150 i-Get ABS (2026),Scooter,155,Automatic,Sport Classic
+Vespa,Sprint S 150 i-Get ABS,Scooter,155,Automatic,Sport Classic
+Vespa,Sprint S 150 TFT (2026),Scooter,155,Automatic,Modern Sport Classic
+Vespa,GTS Super 150 i-Get ABS,Scooter,155,Automatic,Large Body Classic
+Vespa,GTS Super Sport 300 HPE,Big Scooter,278,Automatic,High Performance Classic
+Vespa,GTS Super Tech 300 HPE,Big Scooter,278,Automatic,Tech Premium Classic
+Vespa,GTV 300 HPE (2026),Big Scooter,278,Automatic,Racing Heritage
+Vespa,Primavera Mickey Mouse Ed.,Scooter,155,Automatic,Limited Edition
+Vespa,946 Dragon (Limited),Scooter,155,Automatic,Ultra Premium
+Vespa,Elettrica,EV,N/A,Automatic,Electric Scooter
+Lambretta,,,,,
+Brand,Model,Category,Engine_CC,Transmission,Type
+Lambretta,V125 Special,Scooter,124,Automatic,Classic Scooter
+Lambretta,V200 Special (2026),Scooter,169,Automatic,Classic Scooter
+Lambretta,X200 (Smart Key),Scooter,184,Automatic,Modern Classic
+Lambretta,X300 (Standard),Scooter,275,Automatic,Modern Classic
+Lambretta,X300 SR (Monochrome),Scooter,275,Automatic,Modern Classic
+Lambretta,X300 SR (2026 Edition),Scooter,275,Automatic,Modern Classic
+Lambretta,X7 (EV Concept/2026),EV,N/A,Automatic,Electric Scooter
+Lambretta,G350 Series II,Scooter,330,Automatic,Premium Classic
+Lambretta,Elettra (EV 2026),EV,N/A,Automatic,High-End Electric
+GPX,,,,,
+GPX,Drone 150 (4V - 2026),Scooter,150,Automatic,Sport Scooter
+GPX,Drone 150 (Keyless),Scooter,150,Automatic,Sport Scooter
+GPX,Tuscany 150 (2026),Scooter,150,Automatic,Classic Scooter
+GPX,Tuscany 150 (Smart Key),Scooter,150,Automatic,Classic Scooter
+GPX,Demon GR200R (Da Phukhet Ed.),Sport,198,Manual,Sport City
+GPX,Demon GR200R (4V),Sport,198,Manual,Sport City
+GPX,GTM250 (2026),Cafe Racer,250,Manual,Modern Classic
+GPX,Legend 250 Twin III,Classic,234,Manual,Classic Custom
+GPX,Legend 150 Fi,Classic,150,Manual,Classic Custom
+GPX,Rock 110 (2025-2026),Family,110,Manual,Modern Classic Moped
+GPX,POPZ 125,Family,125,Manual,Fashion Moped
+GPX,DZ3 (Standard),Big Scooter,278,Automatic,Sport Scooter
+GPX,DZ3 (Sport),Big Scooter,278,Automatic,Sport Scooter
+Royal Enfield,,,,,
+Royal Enfield,Hunter 350,Modern Classic,349,Manual,Roadster
+Royal Enfield,Classic 350 (2026),Classic,349,Manual,Vintage Classic
+Royal Enfield,Meteor 350,Cruiser,349,Manual,Cruiser
+Royal Enfield,Bullet 350 (New Gen),Classic,349,Manual,Legendary Classic
+Royal Enfield,Himalayan 450 (2025-2026),Adventure,452,Manual,Dual Purpose
+Royal Enfield,Guerrilla 450 (2026),Modern Classic,452,Manual,Roadster
+Royal Enfield,Scram 411,Scrambler,411,Manual,Urban Scrambler
+Royal Enfield,Interceptor 650 (2026),Classic,648,Manual,Modern Classic
+Royal Enfield,Continental GT 650,Cafe Racer,648,Manual,Cafe Racer
+Royal Enfield,Super Meteor 650,Cruiser,648,Manual,Cruiser
+Royal Enfield,Shotgun 650,Custom,648,Manual,Bobber Style
+Royal Enfield,Bear 650 (2026),Scrambler,648,Manual,Scrambler
+Royal Enfield,Classic 650 (2026),Classic,648,Manual,Vintage Classic
+Triumph,,,,,
+Triumph,Speed 400,Modern Classic,398,Manual,Roadster
+Triumph,Scrambler 400 X,Scrambler,398,Manual,Scrambler
+Triumph,Tracker 400 (2026),Modern Classic,398,Manual,Flat Track
+Triumph,Thruxton 400 (2026),Modern Classic,398,Manual,Cafe Racer
+Triumph,Trident 660,Naked,660,Manual,Roadster
+Triumph,Daytona 660,Sport,660,Manual,Sport Performance
+Triumph,Tiger Sport 660,Touring,660,Manual,Sport Touring
+Triumph,Trident 800 (2026),Naked,798,Manual,Hyper Naked
+Triumph,Street Triple 765 R,Naked,765,Manual,Street Fighter
+Triumph,Street Triple 765 RS,Naked,765,Manual,Street Fighter
+Triumph,Street Triple 765 Moto2 Ed.,Naked,765,Manual,Limited Sport
+Triumph,Speed Twin 900,Modern Classic,900,Manual,Modern Classic
+Triumph,Bonneville T100,Classic,900,Manual,Vintage Classic
+Triumph,Scrambler 900,Scrambler,900,Manual,Scrambler
+Triumph,Bonneville T120 / Black,Classic,1200,Manual,Modern Classic
+Triumph,Bonneville Bobber,Cruiser,1200,Manual,Bobber
+Triumph,Bonneville Speedmaster,Cruiser,1200,Manual,Classic Cruiser
+Triumph,Speed Twin 1200 / RS,Modern Classic,1200,Manual,Performance Classic
+Triumph,Scrambler 1200 X / XE,Scrambler,1200,Manual,Adventure Scrambler
+Triumph,Tiger 900 GT / GT Pro,Adventure,888,Manual,Touring Adventure
+Triumph,Tiger 900 Rally Pro,Adventure,888,Manual,Rally Adventure
+Triumph,Tiger 900 Aragon Edition,Adventure,888,Manual,Limited Adventure
+Triumph,Tiger 1200 GT Pro / Explorer,Adventure,1160,Manual,Luxury Adventure
+Triumph,Tiger 1200 Rally Pro / Explorer,Adventure,1160,Manual,Off-Road Adventure
+Triumph,Rocket 3 R Storm (2026),Cruiser,2458,Manual,Muscle Roadster
+Triumph,Rocket 3 GT Storm (2026),Cruiser,2458,Manual,Muscle Cruiser
+Triumph,Speed Triple 1200 RS / RR,Naked,1160,Manual,Hyper Naked
+Ducati,,,,,
+Ducati,Monster 937 / Plus,Naked,937,Manual,Street Fighter
+Ducati,Monster SP,Naked,937,Manual,Performance Naked
+Ducati,Monster 30° Anniversario,Naked,937,Manual,Limited Edition
+Ducati,Hypermotard 698 Mono,Motard,659,Manual,Single-Cylinder Supermoto
+Ducati,Hypermotard 698 Mono RVE,Motard,659,Manual,Supermoto Performance
+Ducati,Hypermotard 950 / SP,Motard,937,Manual,Fun Bike
+Ducati,Scrambler Icon (Next Gen),Scrambler,803,Manual,Modern Classic
+Ducati,Scrambler Full Throttle,Scrambler,803,Manual,Flat Track Style
+Ducati,Scrambler Nightshift,Scrambler,803,Manual,Cafe Racer Style
+Ducati,Multistrada V2 S,Adventure,937,Manual,Touring Adventure
+Ducati,Multistrada V4 / V4 S,Adventure,1158,Manual,High Performance Touring
+Ducati,Multistrada V4 Rally,Adventure,1158,Manual,Globetrotter Adventure
+Ducati,Multistrada V4 RS (2025-2026),Adventure,1103,Manual,Superbike Touring
+Ducati,DesertX,Adventure,937,Manual,Rally Adventure
+Ducati,DesertX Rally (2026),Adventure,937,Manual,Off-Road Performance
+Ducati,Panigale V2,Sport,955,Manual,Supersport
+Ducati,Panigale V2 Bayliss,Sport,955,Manual,Limited Sport
+Ducati,Panigale V4 (2025-2026),Superbike,1103,Manual,World Class Superbike
+Ducati,Panigale V4 S (New Gen),Superbike,1103,Manual,Racing Performance
+Ducati,Panigale V4 R,Superbike,998,Manual,WSBK Homologation
+Ducati,SuperSport 950 S,Sport,937,Manual,Sport Touring
+Ducati,Streetfighter V2,Naked,955,Manual,Performance Naked
+Ducati,Streetfighter V4 / V4 S,Naked,1103,Manual,Hyper Naked
+Ducati,Streetfighter V4 SP2,Naked,1103,Manual,Ultimate Naked
+Ducati,Diavel V4,Cruiser,1158,Manual,Mega Cruiser
+Ducati,Diavel for Bentley (Limited),Cruiser,1158,Manual,Ultra Luxury
+Ducati,XDiavel Nera / S,Cruiser,1262,Manual,Techno Cruiser
+BMW,,,,,
+BMW,G 310 R,Naked,313,Manual,Roadster
+BMW,G 310 GS,Adventure,313,Manual,Light Adventure
+BMW,F 800 GS (2025-2026),Adventure,895,Manual,Adventure Touring
+BMW,F 900 GS,Adventure,895,Manual,Off-Road Adventure
+BMW,F 900 GS Adventure,Adventure,895,Manual,Touring Adventure
+BMW,F 900 R,Naked,895,Manual,Roadster
+BMW,F 900 XR,Adventure,895,Manual,Adventure Sport
+BMW,S 1000 RR (2025-2026),Superbike,999,Manual,Sport Performance
+BMW,S 1000 R,Naked,999,Manual,Hyper Naked
+BMW,S 1000 XR,Adventure,999,Manual,Adventure Sport
+BMW,M 1000 RR,Superbike,999,Manual,Racing Performance
+BMW,M 1000 R,Naked,999,Manual,Hyper Naked
+BMW,R 12 nineT,Neo Classic,1170,Manual,Heritage Roadster
+BMW,R 12,Cruiser,1170,Manual,Heritage Cruiser
+BMW,R 1300 GS,Adventure,1300,Manual/ASA,Touring Adventure
+BMW,R 1300 GS Adventure (2026),Adventure,1300,Manual/ASA,Touring Adventure
+BMW,R 1250 RT,Touring,1254,Manual,Luxury Touring
+BMW,R 18 (Standard/Classic),Cruiser,1802,Manual,Heritage Cruiser
+BMW,R 18 Roctane / B / Trans.,Cruiser,1802,Manual,Luxury Cruiser
+BMW,K 1600 B / Grand America,Touring,1649,Manual,Luxury Touring
+BMW,C 400 X (2025-2026),Scooter,350,Automatic,Urban Mobility
+BMW,C 400 GT (2025-2026),Scooter,350,Automatic,Premium Scooter
+BMW,CE 02 (2025-2026),EV,N/A,Automatic,Electric Parkourer
+BMW,CE 04,EV,N/A,Automatic,Electric Scooter
+Harley-Davidson,,,,,
+Harley-Davidson,Nightster,Sport,975,Manual,Modern Sportster
+Harley-Davidson,Nightster Special,Sport,975,Manual,Modern Sportster
+Harley-Davidson,Sportster S,Sport,1252,Manual,Performance Custom
+Harley-Davidson,Softail Standard,Cruiser,1745,Manual,Classic Bobber
+Harley-Davidson,Street Bob 114,Cruiser,1868,Manual,Stripped-down Bobber
+Harley-Davidson,Fat Bob 114,Cruiser,1868,Manual,Performance Cruiser
+Harley-Davidson,Low Rider S,Cruiser,1923,Manual,West Coast Style
+Harley-Davidson,Low Rider ST,Cruiser,1923,Manual,Sport Touring
+Harley-Davidson,Fat Boy 114,Cruiser,1868,Manual,Icon Cruiser
+Harley-Davidson,Breakout 117,Cruiser,1923,Manual,Long & Low Chopper
+Harley-Davidson,Heritage Classic 114,Cruiser,1868,Manual,Vintage Touring
+Harley-Davidson,Hydra-Glide Revival,Cruiser,1868,Manual,Icons Collection
+Harley-Davidson,Road King Special,Touring,1868,Manual,Custom Bagger
+Harley-Davidson,Street Glide (2025-2026),Touring,1923,Manual,Grand American Touring
+Harley-Davidson,Road Glide (2025-2026),Touring,1923,Manual,Grand American Touring
+Harley-Davidson,Street Glide Limited (2026),Touring,1923,Manual,Luxury Touring
+Harley-Davidson,Road Glide Limited (2026),Touring,1923,Manual,Luxury Touring
+Harley-Davidson,Ultra Limited,Touring,1868,Manual,Premium Touring
+Harley-Davidson,Pan America 1250 Special,Adventure,1252,Manual,Adventure Touring
+Harley-Davidson,Pan America 1250 ST (2026),Adventure,1252,Manual,Sport Adventure
+Harley-Davidson,CVO Street Glide (2026),CVO,1977,Manual,Custom Vehicle Ops
+Harley-Davidson,CVO Road Glide (2026),CVO,1977,Manual,Custom Vehicle Ops
+Harley-Davidson,CVO Street Glide ST (2026),CVO,1977,Manual,High Performance CVO
+Harley-Davidson,CVO Road Glide ST (2026),CVO,1977,Manual,High Performance CVO
+Zontes,,,,,
+Zontes,350D,Scooter,349,Automatic,Sport Scooter
+Zontes,350E,Big Scooter,349,Automatic,Premium Scooter
+Zontes,368D,Scooter,368,Automatic,Sport Scooter
+Zontes,368G,Adventure Scooter,368,Automatic,ADV Scooter
+Zontes,368K,Big Scooter,368,Automatic,Luxury Scooter
+KTM,,,,,
+KTM,200 Duke (Gen 3),Naked,199,Manual,Street Fighter
+KTM,390 Duke (2025-2026),Naked,399,Manual,Corner Rocket
+KTM,790 Duke,Naked,799,Manual,The Scalpel
+KTM,990 Duke (2026),Naked,947,Manual,The Sniper
+KTM,1390 Super Duke R Evo,Naked,1350,Manual,The Beast
+KTM,RC 200,Sport,199,Manual,Sport City
+KTM,RC 390 (Gen 3),Sport,399,Manual,Sport Performance
+KTM,250 Adventure,Adventure,249,Manual,Light Adventure
+KTM,390 Adventure SW (2026),Adventure,399,Manual,Dual Purpose
+KTM,790 Adventure,Adventure,799,Manual,Touring Adventure
+KTM,890 Adventure R,Adventure,889,Manual,Off-Road Adventure
+KTM,1290 Super Adventure S / R,Adventure,1301,Manual,Touring Endurance
+KTM,1390 Super Adventure S (2026),Adventure,1350,Manual,Touring Endurance
+KTM,450 Rally Replica,Adventure,449,Manual,Factory Rally
+KTM,250 SX-F,Off-Road,250,Manual,Motocross
+KTM,300 EXC TPI,Off-Road,293,Manual,Enduro
+KTM,350 EXC-F Six Days,Off-Road,350,Manual,Enduro
+Aprilia,,,,,
+Aprilia,RS 457,Sport,457,Manual,Sport Performance
+Aprilia,RS 660,Sport,659,Manual,Supersport
+Aprilia,Tuono 660,Naked,659,Manual,Sport Naked
+Aprilia,Tuareg 660,Adventure,659,Manual,Rally Adventure
+Aprilia,SR GT 200,Scooter,174,Automatic,Urban Adventure
+Aprilia,RSV4 Factory,Superbike,1099,Manual,Racing Performance
+EV (Electric Vehicle),,,,,
+Deco,Purra,Scooter,110cc,Automatic,Fashion Scooter
+Deco,Luciano,Scooter,110cc,Automatic,Classic Scooter
+Deco,Hannah,Scooter,110cc,Automatic,Entry Scooter
+Deco,Sofia,Scooter,110cc,Automatic,Classic Scooter
+Deco,Vigor,Scooter,125cc,Automatic,Sport Scooter
+Deco,Super Ace,Sport,150cc,Automatic,Naked Sport
+AJ EV,Saber Tiger,Scooter,150cc+,Automatic,High-Speed Scooter
+AJ EV,T9,Scooter,125cc,Automatic,Utility Scooter
+AJ EV,C-Like,Scooter,110cc,Automatic,Urban Scooter
+Zeeho,AE8 / AE8+,Scooter,155cc+,Automatic,High-Tech Scooter
+Zeeho,AE6+,Scooter,125cc,Automatic,Compact Scooter
+Zeeho,City Sport,Lifestyle,110cc,Automatic,Minimalist Bike
+Felo,FW06,Sport,155cc+,Automatic,Sport Scooter
+Felo,FW07,Sport,155cc+,Automatic,Moto-E Style
+Felo,FW03,Lifestyle,110cc,Automatic,Fun Bike (Off-road)
+Smartech,Felo FW01,Scooter,110cc,Automatic,Urban Scooter
+Honda,UC3 (2026),Scooter,110cc,Automatic,Urban EV
+Honda,Benly e:,Scooter,110cc,Automatic,Cargo Scooter
+Yamaha,E01,Scooter,155cc,Automatic,Premium Scooter
+BMW,CE 02,Lifestyle,125cc,Automatic,Electric Parkourer
+BMW,CE 04,Big Scooter,400cc+,Automatic,Futuristic Scooter
+Malaguti,,,,,
+Malaguti,Madison 150,Scooter,149,Automatic,Sport Premium Scooter
+Malaguti,Madison 150 (2026),Scooter,149,Automatic,Sport Premium Scooter
+Malaguti,Mission 200,Scooter,181,Automatic,Urban Sport Scooter
+Malaguti,Drakon 125,Naked,124,Manual,Street Fighter
+Indian,,,,,
+Indian,Scout Sixty,Cruiser,999,Manual,Entry Cruiser
+Indian,Scout Bobber,Cruiser,1133,Manual,Bobber
+Indian,Scout Classic,Classic,1133,Manual,Vintage Classic
+Indian,101 Scout (2025-2026),Sport,1250,Manual,Performance Cruiser
+Indian,Sport Scout (2025-2026),Sport,1250,Manual,West Coast Style
+Indian,Chief Dark Horse,Cruiser,1811,Manual,Steel Frame Cruiser
+Indian,Chief Bobber Dark Horse,Cruiser,1811,Manual,Classic Bobber
+Indian,Sport Chief,Sport,1890,Manual,Performance Cruiser
+Indian,Chieftain Dark Horse,Touring,1890,Manual,Bagger
+Indian,Indian Challenger,Touring,1768,Manual,Performance Bagger
+Indian,Indian Pursuit,Touring,1768,Manual,Luxury Touring
+Indian,Roadmaster,Touring,1890,Manual,Ultra Luxury Touring
+Indian,FTR 1200 / S / R Carbon,Sport,1203,Manual,Flat Tracker

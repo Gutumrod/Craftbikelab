@@ -1,0 +1,7 @@
+คำสั่งรีเซิร์จข้อมูล:
+
+1.Trip Module: หาพิกัด Google Map และ POI โดยเน้นความจริงใจตามที่ระบุใน สรุปโครงสร้าง 3 Sub-domains.txt
+
+2.Technical Check: หากสเปครถใน thailand_motorcycle_dataset_300.csv ไม่เป็นปัจจุบัน ให้หาข้อมูลใหม่และแจ้งเพื่ออัปเดตไฟล์
+
+3.Competitor Insight: ค้นหาแนวทางตลาดมอเตอร์ไซค์โดยอ้างอิงจาก Craftbikelab Platform Strategy & Architecture.txt

@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #000000;
+  --foreground: #ffffff;
+}
+
+html {
+  background: #000000;
+}
+
+body {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: var(--font-manrope), var(--font-noto-sans-thai), sans-serif;
+  min-height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-headline,
+.font-label,
+.font-kanit {
+  font-family: var(--font-space-grotesk), var(--font-noto-sans-thai), sans-serif;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+.glass-panel {
+  background: rgba(26, 26, 26, 0.65);
+  backdrop-filter: blur(20px);
+}
+
+.kinetic-gradient-primary {
+  background: linear-gradient(135deg, #69daff 0%, #00cffc 100%);
+}
+
+.kinetic-gradient-secondary {
+  background: linear-gradient(135deg, #ff7350 0%, #b42800 100%);
+}
+
+.text-glow-primary {
+  text-shadow: 0 0 15px rgba(105, 218, 255, 0.4);
+}
+
+.glow-hover:hover {
+  box-shadow: 0 0 30px rgba(105, 218, 255, 0.3);
+}
+
+.no-line-card {
+  border: none;
+  background-color: #131313;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.8);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.digital-font {
+  font-family: var(--font-space-grotesk), var(--font-noto-sans-thai), sans-serif;
+  letter-spacing: 2px;
+}
+
+.mobile-menu {
+  transform-origin: top;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu.hidden {
+  opacity: 0;
+  transform: scaleY(0);
+  pointer-events: none;
+}
+
+.mobile-menu:not(.hidden) {
+  opacity: 1;
+  transform: scaleY(1);
+  pointer-events: auto;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}

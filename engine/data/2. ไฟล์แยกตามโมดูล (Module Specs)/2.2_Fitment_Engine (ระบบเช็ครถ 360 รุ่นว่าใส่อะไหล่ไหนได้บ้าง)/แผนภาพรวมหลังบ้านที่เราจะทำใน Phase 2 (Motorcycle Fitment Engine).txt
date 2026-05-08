@@ -1,0 +1,165 @@
+สรุปภาพรวมโปรเจกต์ Craftbikelab
+
+จากไฟล์ทั้งหมด ผมสรุป Architecture ปัจจุบันได้แบบนี้
+
+Craftbikelab Platform Architecture
+Frontend
+Next.js 15
+Tailwind
+SearchBar.tsx
+
+หน้าที่
+
+รับ query
+
+call search API
+
+แสดงสินค้า
+
+Search Engine Core
+
+ประกอบด้วย
+
+Query
+↓
+Normalizer
+↓
+Alias Dataset
+↓
+Canonical Model
+↓
+Database Query
+↓
+Ranking
+Normalizer (ปัจจุบัน)
+
+จาก normalizer.py
+
+ทำแค่
+
+lowercase
+remove -
+remove _
+remove spaces
+
+ข้อจำกัด
+
+ไม่ตัดคำ
+
+ไม่มี stopwords
+
+ไม่มี fuzzy match
+
+Claude แนะนำให้เพิ่ม
+
+tokenizer
+stopwords
+fuzzy matching
+Data Layer
+
+ฐานข้อมูลหลัก
+
+Supabase (PostgreSQL)
+
+เก็บ
+
+products
+affiliate_links
+price_history
+link_health
+Data Ingestion (AI modules)
+
+Pipeline ตาม blueprint
+
+Crawler
+↓
+Cleaner
+↓
+Classifier
+↓
+Ranking
+↓
+Search
+จุดแข็งของโปรเจกต์นี้
+
+1️⃣ Pain Point ชัด
+
+คนหาของแต่งแล้วไม่รู้ว่า
+
+รุ่นรถรองรับไหม
+
+2️⃣ Alias Dataset เยอะ
+
+คนไทยเรียกรถมั่วมาก เช่น
+
+ฟอซ่า
+ฟอสซ่า
+forza
+forza350
+
+คุณแก้ด้วย alias dataset
+
+3️⃣ AI-ready Architecture
+
+สามารถเพิ่ม
+
+AI product ranking
+AI search suggestion
+AI fitment engine
+
+ได้ทันที
+
+จุดที่ควรปรับปรุง
+1) Normalizer ยังง่ายเกิน
+
+ควรเพิ่ม
+
+stopwords
+tokenization
+fuzzy matching
+2) Model Fitment System
+
+สินค้า 1 ชิ้นต้องรองรับหลายรุ่น
+
+ควรมี table
+
+product_fitment
+3) Search Ranking
+
+ต้องมี
+
+click rate
+conversion rate
+
+เพื่อจัดอันดับสินค้า
+
+Step ต่อไปที่ควรทำ
+
+ผมแนะนำ 3 งานสำคัญที่สุดก่อน
+
+Step 1
+
+สร้าง table
+
+models
+aliases
+
+เพื่อ map รถ
+
+Step 2
+
+สร้าง
+
+model_normalizer.ts
+
+เวอร์ชัน production
+
+Step 3
+
+ทำ
+
+Motorcycle Fitment Engine
+
+เพราะนี่คือ
+
+Core moat ของ Craftbikelab

@@ -1,0 +1,40 @@
+# CraftBikeLab Git ignore
+
+# Node / Next.js
+web/node_modules/
+web/.next/
+web/.turbo/
+node_modules/
+.next/
+.turbo/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+web/.env
+web/.env.*
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Clerk temp / local runtime files
+web/.clerk/.tmp/
+
+# Claude local config
+.claude/settings.local.json
+
+# Logs / cache
+*.log
+coverage/
+dist/

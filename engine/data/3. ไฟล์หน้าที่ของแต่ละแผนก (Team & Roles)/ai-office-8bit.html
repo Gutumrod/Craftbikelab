@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 8-Bit AI Office - Pixel Art Edition</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background: #0f0f23;
+            color: #00ff00;
+            overflow-x: hidden;
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+        }
+        
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 255, 0, 0.03),
+                rgba(0, 255, 0, 0.03) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+        .crt-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.3) 100%);
+            pointer-events: none;
+            z-index: 999;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00; }
+            to { text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00; }
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            color: #00ff00;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        
+        .header p {
+            font-size: 0.6rem;
+            color: #00ff00;
+            opacity: 0.8;
+        }
+        
+        .pixel-border {
+            border: 4px solid #00ff00;
+            box-shadow: 
+                0 0 0 4px #0f0f23,
+                0 0 0 8px #00ff00,
+                0 0 20px #00ff00;
+        }
+        
+        /* Tab System */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 15px 25px;
+            background: #1a1a3e;
+            border: 3px solid #00ff00;
+            color: #00ff00;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.5rem;
+            text-transform: uppercase;
+            position: relative;
+        }
+        
+        .tab:hover {
+            background: #00ff00;
+            color: #0f0f23;
+            box-shadow: 0 0 20px #00ff00;
+        }
+        
+        .tab.active {
+            background: #00ff00;
+            color: #0f0f23;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .panel {
+            display: none;
+        }
+        
+        .panel.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Office Layout */
+        .office-container {
+            background: #1a1a3e;
+            padding: 30px;
+            position: relative;
+        }
+        
+        .office-title {
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            color: #00ff00;
+        }
+        
+        .office-grid {
+            display: grid;
+            gap: 20px;
+        }
+        
+        /* CEO Office */
+        .ceo-room {
+            background: linear-gradient(45deg, #ff006e 0%, #8338ec 100%);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            border: 4px solid #00ff00;
+        }
+        
+        .ceo-room::before {
+            content: '👑';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            animation: bounce 1s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+        
+        .ceo-name {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0 #000;
+        }
+        
+        .ceo-title {
+            font-size: 0.6rem;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+        
+        .ceo-role {
+            font-size: 0.5rem;
+            color: #ffff00;
+            line-height: 1.6;
+        }
+        
+        /* Departments */
+        .departments {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .department {
+            background: #2a2a5e;
+            border: 3px solid #00ff00;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .dept-header {
+            font-size: 0.7rem;
+            color: #00ff00;
+            margin-bottom: 20px;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #00ff00;
+        }
+        
+        .ai-character {
+            background: #1a1a3e;
+            border: 2px solid #00ff00;
+            padding: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .ai-character:hover {
+            background: #00ff00;
+            color: #0f0f23;
+            transform: translateX(10px);
+        }
+        
+        .ai-character::before {
+            content: attr(data-emoji);
+            position: absolute;
+            left: -30px;
+            font-size: 1.5rem;
+            animation: walk 2s infinite;
+        }
+        
+        @keyframes walk {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .ai-name {
+            font-size: 0.7rem;
+            color: #00ffff;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        .ai-model {
+            font-size: 0.5rem;
+            color: #ff00ff;
+            margin-bottom: 8px;
+        }
+        
+        .ai-role {
+            font-size: 0.45rem;
+            color: #00ff00;
+            line-height: 1.4;
+        }
+        
+        /* Employee Cards */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        
+        .pixel-card {
+            background: #1a1a3e;
+            border: 4px solid #00ff00;
+            padding: 25px;
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .pixel-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px #00ff00;
+        }
+        
+        .pixel-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00ff00, #00ffff, #ff00ff, #00ff00);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .pixel-card:hover::before {
+            opacity: 0.5;
+            animation: rotate 4s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { filter: hue-rotate(0deg); }
+            to { filter: hue-rotate(360deg); }
+        }
+        
+        .card-avatar {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .card-name {
+            font-size: 0.8rem;
+            color: #00ffff;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        
+        .card-model {
+            font-size: 0.6rem;
+            color: #ff00ff;
+            text-align: center;
+            margin-bottom: 15px;
+            padding: 5px;
+            background: rgba(255, 0, 255, 0.2);
+            border: 1px solid #ff00ff;
+        }
+        
+        .card-info {
+            margin-top: 15px;
+        }
+        
+        .info-item {
+            margin-bottom: 12px;
+            padding: 10px;
+            background: rgba(0, 255, 0, 0.1);
+            border-left: 3px solid #00ff00;
+        }
+        
+        .info-label {
+            font-size: 0.5rem;
+            color: #ffff00;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            font-size: 0.45rem;
+            color: #00ff00;
+            line-height: 1.5;
+        }
+        
+        /* Timeline */
+        .timeline-container {
+            background: #1a1a3e;
+            padding: 30px;
+        }
+        
+        .timeline-controls {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .pixel-btn {
+            padding: 15px 30px;
+            background: #00ff00;
+            color: #0f0f23;
+            border: none;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.5rem;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: all 0.3s;
+            box-shadow: 4px 4px 0 #008800;
+        }
+        
+        .pixel-btn:hover {
+            background: #00ffff;
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 #008888;
+        }
+        
+        .pixel-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 #008800;
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        .timeline-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.5s;
+        }
+        
+        .timeline-step.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .step-time {
+            min-width: 120px;
+            font-size: 0.6rem;
+            color: #ffff00;
+            text-align: right;
+            margin-right: 20px;
+        }
+        
+        .step-connector {
+            width: 40px;
+            height: 3px;
+            background: #00ff00;
+            margin-right: 20px;
+        }
+        
+        .step-content {
+            flex: 1;
+            background: #2a2a5e;
+            border: 3px solid #00ff00;
+            padding: 20px;
+        }
+        
+        .step-title {
+            font-size: 0.6rem;
+            color: #00ffff;
+            margin-bottom: 10px;
+        }
+        
+        .step-desc {
+            font-size: 0.45rem;
+            color: #00ff00;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .step-actor {
+            font-size: 0.5rem;
+            color: #ff00ff;
+            display: inline-block;
+            padding: 5px 10px;
+            background: rgba(255, 0, 255, 0.2);
+            border: 1px solid #ff00ff;
+        }
+        
+        /* Pixel Grid Background */
+        .pixel-grid {
+            background-image: 
+                linear-gradient(rgba(0, 255, 0, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        /* Loading Animation */
+        .loading {
+            text-align: center;
+            font-size: 0.6rem;
+            color: #00ff00;
+            padding: 20px;
+        }
+        
+        .loading::after {
+            content: '...';
+            animation: dots 1.5s infinite;
+        }
+        
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.2rem; }
+            .header p { font-size: 0.5rem; }
+            .tab { font-size: 0.4rem; padding: 10px 15px; }
+            .departments { grid-template-columns: 1fr; }
+            .cards-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="scanlines"></div>
+    <div class="crt-effect"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>🎮 AI OFFICE</h1>
+            <p>PIXEL ART EDITION - LEVEL 1</p>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" onclick="showPanel('office')">
+                🏢 OFFICE MAP
+            </div>
+            <div class="tab" onclick="showPanel('employees')">
+                👾 AI PROFILES
+            </div>
+            <div class="tab" onclick="showPanel('timeline')">
+                ⏰ DAILY QUEST
+            </div>
+        </div>
+        
+        <!-- PANEL 1: OFFICE MAP -->
+        <div id="office" class="panel active">
+            <div class="office-container pixel-border pixel-grid">
+                <div class="office-title">═══ AI COMPANY HEADQUARTERS ═══</div>
+                
+                <div class="office-grid">
+                    <!-- CEO Office -->
+                    <div class="ceo-room">
+                        <div class="ceo-name">🧠 CLAUDE OPUS 4.5</div>
+                        <div class="ceo-title">━━━ CEO / PRODUCT INTELLIGENCE ENGINE ━━━</div>
+                        <div class="ceo-role">
+                            ANALYZES ALL DATA<br>
+                            DECIDES PRODUCT STRATEGY<br>
+                            DIRECTS ALL DEPARTMENTS
+                        </div>
+                    </div>
+                    
+                    <!-- Departments -->
+                    <div class="departments">
+                        <!-- Data Department -->
+                        <div class="department pixel-grid">
+                            <div class="dept-header">🕵️ DATA ACQUISITION DEPT</div>
+                            
+                            <div class="ai-character" data-emoji="🕷️">
+                                <div class="ai-name">FIRECRAWL AGENT</div>
+                                <div class="ai-model">► API: Firecrawl v1</div>
+                                <div class="ai-role">CRAWLS: Shopee/Lazada/TikTok<br>OUTPUT: Raw product data</div>
+                            </div>
+                            
+                            <div class="ai-character" data-emoji="🧹">
+                                <div class="ai-name">CLAUDE HAIKU 4.5</div>
+                                <div class="ai-model">► MODEL: Fast Cleaner</div>
+                                <div class="ai-role">CLEANS: Duplicates, errors<br>OUTPUT: Validated data</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Operations Department -->
+                        <div class="department pixel-grid">
+                            <div class="dept-header">⚙️ CORE OPERATIONS DEPT</div>
+                            
+                            <div class="ai-character" data-emoji="🏷️">
+                                <div class="ai-name">GEMINI 2.0 FLASH</div>
+                                <div class="ai-model">► MODEL: Classifier</div>
+                                <div class="ai-role">CATEGORIZES: Auto product<br>OUTPUT: Tagged items</div>
+                            </div>
+                            
+                            <div class="ai-character" data-emoji="🔥">
+                                <div class="ai-name">GPT-4o</div>
+                                <div class="ai-model">► MODEL: Deal Analyzer</div>
+                                <div class="ai-role">FINDS: Best deals + discounts<br>OUTPUT: Deal scores</div>
+                            </div>
+                            
+                            <div class="ai-character" data-emoji="🏆">
+                                <div class="ai-name">CLAUDE SONNET 4.5</div>
+                                <div class="ai-model">► MODEL: Ranking Engine</div>
+                                <div class="ai-role">RANKS: Products by Intelligence<br>OUTPUT: Priority list</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Marketing Department -->
+                        <div class="department pixel-grid">
+                            <div class="dept-header">📢 MARKETING & SEO DEPT</div>
+                            
+                            <div class="ai-character" data-emoji="🎯">
+                                <div class="ai-name">GPT-4o MINI</div>
+                                <div class="ai-model">► MODEL: Campaign Manager</div>
+                                <div class="ai-role">MANAGES: 11.11, 12.12 events<br>OUTPUT: Campaign pages</div>
+                            </div>
+                            
+                            <div class="ai-character" data-emoji="🔎">
+                                <div class="ai-name">PERPLEXITY API</div>
+                                <div class="ai-model">► MODEL: Search AI</div>
+                                <div class="ai-role">DISCOVERS: SEO keywords<br>OUTPUT: Keyword list</div>
+                            </div>
+                            
+                            <div class="ai-character" data-emoji="✍️">
+                                <div class="ai-name">GEMINI 1.5 PRO</div>
+                                <div class="ai-model">► MODEL: Content Writer</div>
+                                <div class="ai-role">WRITES: Product reviews<br>OUTPUT: SEO articles</div>
+                            </div>
+                        </div>
+                        
+                        <!-- CX Department -->
+                        <div class="department pixel-grid">
+                            <div class="dept-header">🖥️ CUSTOMER EXPERIENCE DEPT</div>
+                            
+                            <div class="ai-character" data-emoji="🔍">
+                                <div class="ai-name">MEILISEARCH</div>
+                                <div class="ai-model">► ENGINE: Search v1.8</div>
+                                <div class="ai-role">SEARCHES: Fast product lookup<br>OUTPUT: Results < 100ms</div>
+                            </div>
+                            
+                            <div class="ai-character" data-emoji="💡">
+                                <div class="ai-name">LLAMA 3.1</div>
+                                <div class="ai-model">► MODEL: Recommender</div>
+                                <div class="ai-role">RECOMMENDS: Personalized items<br>OUTPUT: Suggestions</div>
+                            </div>
+                            
+                            <div class="ai-character" data-emoji="🌐">
+                                <div class="ai-name">CLAUDE SONNET 4.5</div>
+                                <div class="ai-model">► MODEL: Frontend Dev</div>
+                                <div class="ai-role">BUILDS: Next.js website<br>OUTPUT: Web pages</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- PANEL 2: EMPLOYEE PROFILES -->
+        <div id="employees" class="panel">
+            <div class="cards-container" id="employeeCards">
+                <!-- Cards generated by JavaScript -->
+            </div>
+        </div>
+        
+        <!-- PANEL 3: TIMELINE -->
+        <div id="timeline" class="panel">
+            <div class="timeline-container pixel-border">
+                <div class="office-title">═══ DAILY WORKFLOW QUEST ═══</div>
+                
+                <div class="timeline-controls">
+                    <button class="pixel-btn" onclick="startTimeline()">▶ START</button>
+                    <button class="pixel-btn" onclick="resetTimeline()">↺ RESET</button>
+                </div>
+                
+                <div class="timeline" id="timelineSteps">
+                    <!-- Timeline generated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // AI Employee Data
+        const aiEmployees = [
+            {
+                emoji: '🕷️',
+                name: 'Firecrawl Agent',
+                model: 'Firecrawl API v1',
+                dept: 'Data Acquisition',
+                role: 'Crawler System',
+                description: 'ดึงข้อมูลสินค้าจาก Shopee, Lazada, TikTok Shop',
+                input: 'Platform URLs + Search queries',
+                output: 'Raw product data (name, price, image, link)',
+                tools: ['Firecrawl API', 'n8n Workflow', 'HTTP Requests'],
+                kpi: 'Crawl 100-500 products/day within free tier',
+                cost: '500 credits/month (Free)'
+            },
+            {
+                emoji: '🧹',
+                name: 'Claude Haiku 4.5',
+                model: 'Anthropic Claude Haiku',
+                dept: 'Data Acquisition',
+                role: 'Data Cleaner',
+                description: 'ทำความสะอาดข้อมูล ลบสินค้าซ้ำ แก้ข้อมูลผิด',
+                input: 'Raw product data',
+                output: 'Clean, validated, deduplicated data',
+                tools: ['Claude API', 'Validation Rules', 'Dedup Logic'],
+                kpi: '95%+ accuracy in duplicate removal',
+                cost: 'Free tier sufficient'
+            },
+            {
+                emoji: '🏷️',
+                name: 'Gemini 2.0 Flash',
+                model: 'Google Gemini 2.0 Flash',
+                dept: 'Core Operations',
+                role: 'Product Classifier',
+                description: 'ใช้ AI จัดหมวดหมู่สินค้าอัตโนมัติ',
+                input: 'Product name + description',
+                output: 'Category tags + confidence score',
+                tools: ['Gemini API', 'Prompt Templates', 'Category Rules'],
+                kpi: '90%+ classification accuracy, 1500 req/day',
+                cost: 'Free (1,500 requests/day)'
+            },
+            {
+                emoji: '🔥',
+                name: 'GPT-4o',
+                model: 'OpenAI GPT-4o',
+                dept: 'Core Operations',
+                role: 'Deal Discovery Engine',
+                description: 'วิเคราะห์หาดีลที่ดีที่สุด ส่วนลดสูง',
+                input: 'Product data + pricing history',
+                output: 'Deal score + ranking',
+                tools: ['GPT-4o API', 'Price Analysis', 'Discount Calculator'],
+                kpi: 'Find 20+ deals/day with >30% discount',
+                cost: '$5-10/month'
+            },
+            {
+                emoji: '🏆',
+                name: 'Claude Sonnet 4.5',
+                model: 'Anthropic Claude Sonnet',
+                dept: 'Core Operations',
+                role: 'Product Ranking Engine',
+                description: 'จัดอันดับสินค้าตาม Intelligence Score',
+                input: 'Deal scores + click data + commission',
+                output: 'Final product rankings',
+                tools: ['Claude API', 'Weighted Algorithm', 'Analytics'],
+                kpi: 'Top 20 products with >5% CTR',
+                cost: 'Pay per use'
+            },
+            {
+                emoji: '🎯',
+                name: 'GPT-4o Mini',
+                model: 'OpenAI GPT-4o Mini',
+                dept: 'Marketing & SEO',
+                role: 'Campaign Engine',
+                description: 'จัดการหน้า campaign 11.11, 12.12, Black Friday',
+                input: 'Event schedule + featured products',
+                output: 'Campaign pages + banners',
+                tools: ['GPT-4o Mini', 'Template System', 'Image Gen'],
+                kpi: 'Update campaigns within 1 hour of event start',
+                cost: '$2-5/month'
+            },
+            {
+                emoji: '🔎',
+                name: 'Perplexity API',
+                model: 'Perplexity Search AI',
+                dept: 'Marketing & SEO',
+                role: 'Keyword Discovery',
+                description: 'ค้นหา keyword ที่ search volume สูง',
+                input: 'Product categories + trends',
+                output: 'Target keyword list + volume',
+                tools: ['Perplexity API', 'Google Trends', 'SEO Tools'],
+                kpi: '50 keywords/month with >1000 searches',
+                cost: 'Free tier available'
+            },
+            {
+                emoji: '✍️',
+                name: 'Gemini 1.5 Pro',
+                model: 'Google Gemini 1.5 Pro',
+                dept: 'Marketing & SEO',
+                role: 'Content Generator',
+                description: 'เขียนบทความรีวิว buying guide ภาษาไทย',
+                input: 'Keywords + product data',
+                output: 'SEO articles (800-1500 words)',
+                tools: ['Gemini API', 'Content Templates', 'SEO Optimization'],
+                kpi: '10 articles/day, 1500 free requests/day',
+                cost: 'Free tier'
+            },
+            {
+                emoji: '🔍',
+                name: 'Meilisearch',
+                model: 'Meilisearch v1.8',
+                dept: 'Customer Experience',
+                role: 'Search Engine',
+                description: 'ค้นหาสินค้าแบบเร็ว แม่นยำ',
+                input: 'User search query',
+                output: 'Relevant products < 100ms',
+                tools: ['Meilisearch', 'Fuzzy Search', 'Filters'],
+                kpi: 'Search response time < 100ms',
+                cost: 'Free (self-hosted)'
+            },
+            {
+                emoji: '💡',
+                name: 'Llama 3.1',
+                model: 'Meta Llama 3.1 70B',
+                dept: 'Customer Experience',
+                role: 'Recommendation Engine',
+                description: 'แนะนำสินค้าตามพฤติกรรมผู้ใช้',
+                input: 'User click history + behavior',
+                output: 'Personalized product suggestions',
+                tools: ['Llama Model', 'Collaborative Filtering', 'Analytics'],
+                kpi: 'Recommendation CTR > 8%',
+                cost: 'Free (open source)'
+            },
+            {
+                emoji: '🌐',
+                name: 'Claude Sonnet 4.5',
+                model: 'Anthropic Claude Sonnet',
+                dept: 'Customer Experience',
+                role: 'Website Frontend',
+                description: 'พัฒนาเว็บไซต์ Next.js ที่สวยงาม',
+                input: 'Design requirements + data',
+                output: 'Next.js web pages',
+                tools: ['Claude API', 'Next.js', 'Tailwind CSS', 'Vercel'],
+                kpi: 'Page load time < 2 seconds',
+                cost: 'Pay per use'
+            },
+            {
+                emoji: '🧠',
+                name: 'Claude Opus 4.5',
+                model: 'Anthropic Claude Opus',
+                dept: 'CEO Office',
+                role: 'Product Intelligence',
+                description: 'วิเคราะห์ข้อมูลทั้งหมด ตัดสินใจกลยุทธ์',
+                input: 'All analytics + performance data',
+                output: 'Strategic decisions + priorities',
+                tools: ['Claude API', 'Advanced Analytics', 'ML Models'],
+                kpi: 'Revenue optimization + growth strategy',
+                cost: 'Premium tier'
+            }
+        ];
+        
+        // Workflow Timeline
+        const workflowSteps = [
+            { time: '06:00', title: '🕷️ FIRECRAWL START', desc: 'ดึงข้อมูลสินค้าใหม่ 100-500 รายการ', actor: 'Firecrawl Agent' },
+            { time: '07:00', title: '🧹 DATA CLEANING', desc: 'Claude Haiku ทำความสะอาด ลบซ้ำ', actor: 'Claude Haiku 4.5' },
+            { time: '08:00', title: '🏷️ AI CLASSIFICATION', desc: 'Gemini จัดหมวดหมู่อัตโนมัติ', actor: 'Gemini 2.0 Flash' },
+            { time: '09:00', title: '🔥 DEAL DISCOVERY', desc: 'GPT-4o วิเคราะห์หาดีลที่ดีที่สุด', actor: 'GPT-4o' },
+            { time: '10:00', title: '🧠 CEO ANALYSIS', desc: 'Claude Opus วิเคราะห์ performance', actor: 'Claude Opus 4.5' },
+            { time: '11:00', title: '🏆 PRODUCT RANKING', desc: 'Claude Sonnet จัดอันดับสินค้า', actor: 'Claude Sonnet 4.5' },
+            { time: '12:00', title: '🎯 CAMPAIGN UPDATE', desc: 'GPT-4o Mini update event pages', actor: 'GPT-4o Mini' },
+            { time: '13:00', title: '🔎 KEYWORD RESEARCH', desc: 'Perplexity หา SEO keywords', actor: 'Perplexity API' },
+            { time: '14:00', title: '✍️ CONTENT WRITING', desc: 'Gemini Pro เขียนบทความ 10 ชิ้น', actor: 'Gemini 1.5 Pro' },
+            { time: '15:00', title: '🔍 SEARCH INDEX', desc: 'Meilisearch sync ข้อมูลใหม่', actor: 'Meilisearch' },
+            { time: '16:00', title: '💡 TRAIN RECOMMENDER', desc: 'Llama เรียนรู้จาก click data', actor: 'Llama 3.1' },
+            { time: '17:00', title: '🌐 DEPLOY WEBSITE', desc: 'Claude Sonnet deploy to Vercel', actor: 'Claude Sonnet 4.5' },
+            { time: '18:00', title: '📊 ANALYTICS REPORT', desc: 'ส่งข้อมูลกลับไป CEO Brain', actor: 'Analytics System' }
+        ];
+        
+        // Generate Employee Cards
+        function generateCards() {
+            const container = document.getElementById('employeeCards');
+            container.innerHTML = '';
+            
+            aiEmployees.forEach(emp => {
+                const card = document.createElement('div');
+                card.className = 'pixel-card';
+                card.innerHTML = `
+                    <div class="card-avatar">${emp.emoji}</div>
+                    <div class="card-name">${emp.name}</div>
+                    <div class="card-model">MODEL: ${emp.model}</div>
+                    <div class="card-info">
+                        <div class="info-item">
+                            <div class="info-label">🏢 DEPARTMENT</div>
+                            <div class="info-value">${emp.dept}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">💼 ROLE</div>
+                            <div class="info-value">${emp.role}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">📝 DESCRIPTION</div>
+                            <div class="info-value">${emp.description}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">📥 INPUT</div>
+                            <div class="info-value">${emp.input}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">📤 OUTPUT</div>
+                            <div class="info-value">${emp.output}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">🛠️ TOOLS</div>
+                            <div class="info-value">${emp.tools.join(' · ')}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">📊 KPI</div>
+                            <div class="info-value">${emp.kpi}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">💰 COST</div>
+                            <div class="info-value">${emp.cost}</div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+        
+        // Generate Timeline
+        function generateTimeline() {
+            const container = document.getElementById('timelineSteps');
+            container.innerHTML = '';
+            
+            workflowSteps.forEach(step => {
+                const stepEl = document.createElement('div');
+                stepEl.className = 'timeline-step';
+                stepEl.innerHTML = `
+                    <div class="step-time">${step.time}</div>
+                    <div class="step-connector"></div>
+                    <div class="step-content">
+                        <div class="step-title">${step.title}</div>
+                        <div class="step-desc">${step.desc}</div>
+                        <div class="step-actor">AI: ${step.actor}</div>
+                    </div>
+                `;
+                container.appendChild(stepEl);
+            });
+        }
+        
+        // Timeline Animation
+        let timelineInterval;
+        function startTimeline() {
+            const steps = document.querySelectorAll('.timeline-step');
+            steps.forEach(s => s.classList.remove('active'));
+            
+            let index = 0;
+            timelineInterval = setInterval(() => {
+                if (index < steps.length) {
+                    steps[index].classList.add('active');
+                    steps[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    index++;
+                } else {
+                    clearInterval(timelineInterval);
+                }
+            }, 600);
+        }
+        
+        function resetTimeline() {
+            clearInterval(timelineInterval);
+            document.querySelectorAll('.timeline-step').forEach(s => s.classList.remove('active'));
+        }
+        
+        // Panel Switching
+        function showPanel(panelId) {
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            
+            document.getElementById(panelId).classList.add('active');
+            event.target.classList.add('active');
+            
+            if (panelId === 'employees') generateCards();
+            if (panelId === 'timeline') generateTimeline();
+        }
+        
+        // Initialize
+        generateTimeline();
+    </script>
+</body>
+</html>

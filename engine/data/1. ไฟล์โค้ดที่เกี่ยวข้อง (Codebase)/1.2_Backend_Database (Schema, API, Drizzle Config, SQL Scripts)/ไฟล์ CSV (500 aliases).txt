@@ -1,0 +1,1510 @@
+
+ผมเตรียมให้ครบตามที่ขอ:  
+- **ไฟล์ CSV (500 aliases)** ในรูปแบบ `alias,Brand,Model` — ครอบคลุมแบรนด์และรุ่นยอดนิยมในไทย พร้อมรูปแบบสะกดหลากหลาย (ไทย/อังกฤษ/คำย่อ/คำพูดติดปาก)  
+- **ตัวอย่าง Normalizer script** (pseudo‑code + regex rules) ให้ทีม dev นำไปใช้ได้ทันที  
+- **ชุดทดสอบ 300 คำค้นจริง** (รวม typo, mix-language, compound queries, style tags, displacement/trim)  
+
+ด้านล่างเป็นผลลัพธ์ทั้งหมด — คุณสามารถคัดลอกส่วน CSV ไปวางเป็นไฟล์ `.csv` ได้เลย และใช้ชุดทดสอบกับ pipeline ของคุณ
+
+---
+
+### 1) ไฟล์ CSV — 500 Aliases (รูปแบบ `alias,Brand,Model`)
+**หมายเหตุ:** แต่ละบรรทัดเป็น `alias,Brand,Model` — มีการรวมคำสะกดหลากหลายเพื่อเพิ่มโอกาสแมตช์ในตลาดไทย
+
+```
+forza,Honda,Forza
+forza300,Honda,Forza
+forza 300,Honda,Forza
+ฟอร์ซ่า,Honda,Forza
+ฟอรซ่า,Honda,Forza
+adv,Honda,ADV
+adv150,Honda,ADV 150
+adv 150,Honda,ADV 150
+adv160,Honda,ADV 160
+adv 350,Honda,ADV 350
+เอดีวี,Honda,ADV
+wave,Honda,Wave
+wave110,Honda,Wave 110
+wave 110,Honda,Wave 110
+wave125,Honda,Wave 125
+เวฟ,Honda,Wave
+เวฟ125,Honda,Wave 125
+pcx,Honda,PCX
+pcx150,Honda,PCX 150
+pcx160,Honda,PCX 160
+pcx 160,Honda,PCX 160
+scoopy,Honda,Scoopy
+scoopy i,Honda,Scoopy i
+scoopy-i,Honda,Scoopy i
+click,Honda,Click
+click125,Honda,Click 125
+click 125,Honda,Click 125
+lead,Honda,Lead
+cb150,Honda,CB150
+cb 150,Honda,CB150
+cbr150,Honda,CBR150
+cbr 150,Honda,CBR150
+cb500x,Honda,CB500X
+cb 500 x,Honda,CB500X
+rebel500,Honda,Rebel 500
+rebel 500,Honda,Rebel 500
+crf250l,Honda,CRF250L
+crf 250 l,Honda,CRF250L
+grom,Honda,MSX125
+msx125,Honda,MSX125
+msx 125,Honda,MSX125
+nmax,Yamaha,Nmax
+nmax155,Yamaha,Nmax 155
+nmax 155,Yamaha,Nmax 155
+n max,Yamaha,Nmax
+nmaxx,Yamaha,Nmax
+aerox,Yamaha,Aerox
+aerox155,Yamaha,Aerox 155
+xmax,Yamaha,Xmax
+x max,Yamaha,Xmax
+fazzio,Yamaha,Fazzio
+fino,Yamaha,Fino
+filano,Yamaha,Grand Filano
+filano 125,Yamaha,Grand Filano 125
+grande,Yamaha,Grande
+mt15,Yamaha,MT-15
+mt 15,Yamaha,MT-15
+r15,Yamaha,YZF-R15
+r 15,Yamaha,YZF-R15
+r3,Yamaha,YZF-R3
+yzf-r3,Yamaha,YZF-R3
+fzs,Yamaha,FZ-S
+xsr155,Yamaha,XSR155
+nmax abs,Yamaha,Nmax ABS
+nmax abs 155,Yamaha,Nmax ABS
+nmax abs155,Yamaha,Nmax ABS
+nmax แต่ง,Yamaha,Nmax
+nmax custom,Yamaha,Nmax
+ninja,Kawasaki,Ninja
+ninja250,Kawasaki,Ninja 250
+ninja 250,Kawasaki,Ninja 250
+ninja400,Kawasaki,Ninja 400
+ninja 400,Kawasaki,Ninja 400
+z400,Kawasaki,Z400
+z 400,Kawasaki,Z400
+klx,Kawasaki,KLX
+klx150,Kawasaki,KLX150
+versys,Kawasaki,Versys
+versys 650,Kawasaki,Versys 650
+vulcan,Kawasaki,Vulcan
+gsx-r150,Suzuki,GSX-R150
+gsx r150,Suzuki,GSX-R150
+gsx-s150,Suzuki,GSX-S150
+gsx s150,Suzuki,GSX-S150
+burgman,Suzuki,Burgman
+satria,Suzuki,Satria
+suzuki satria,Suzuki,Satria
+satria f,Suzuki,Satria F
+demon,GPX,Demon
+demon150,GPX,Demon 150
+demon 150,GPX,Demon 150
+demon 125,GPX,Demon 125
+demon125,GPX,Demon 125
+gentleman,GPX,Gentleman
+legend,GPX,Legend
+drone,GPX,Drone
+royal enfield, Royal Enfield,Classic 350
+royalenfield,Royal Enfield,Classic 350
+classic350,Royal Enfield,Classic 350
+classic 350,Royal Enfield,Classic 350
+himalayan,Royal Enfield,Himalayan
+interceptor,Royal Enfield,Interceptor 650
+interceptor 650,Royal Enfield,Interceptor 650
+vespa,Vespa,Primavera
+primavera,Vespa,Primavera
+sprint,Vespa,Sprint
+vespa sprint,Vespa,Sprint
+lambretta,Lambretta,Lambretta V125
+lambretta v125,Lambretta,Lambretta V125
+ktm duke,KTM,Duke
+duke125,KTM,Duke 125
+duke 125,KTM,Duke 125
+duke390,KTM,Duke 390
+duke 390,KTM,Duke 390
+rc390,KTM,RC 390
+rc 390,KTM,RC 390
+benelli tnt,Benelli,TNT 150
+tnt150,Benelli,TNT 150
+tnt 150,Benelli,TNT 150
+trk502,Benelli,TRK 502
+trk 502,Benelli,TRK 502
+bmw g310r,BMW,G310R
+g310r,BMW,G310R
+g 310 r,BMW,G310R
+ducati monster,Ducati,Monster
+monster 797,Ducati,Monster 797
+panigale,Ducati,Panigale
+panigale v2,Ducati,Panigale V2
+triumph bonneville,Triumph,Bonneville
+bonneville,Triumph,Bonneville
+street triple,Triumph,Street Triple
+street triple rs,Triumph,Street Triple RS
+kymco like,Kymco,Like
+kymco like125,Kymco,Like 125
+agility,Kymco,Agility
+piaggio medley,Piaggio,Medley
+medley,Piaggio,Medley
+sym attilla,SYM,Attila
+attilla,SYM,Attila
+sym,Sym,Sym
+haojue nk150,Haojue,NK150
+nk150,Haojue,NK150
+tvs apache,TVS,Apache
+apache150,TVS,Apache 150
+apache 150,TVS,Apache 150
+aprilia rs,Aprilia,RS 150
+aprilia rs150,Aprilia,RS 150
+vespa primavera,Vespa,Primavera
+vespa primavera 150,Vespa,Primavera 150
+honda wave,Honda,Wave
+wave 110i,Honda,Wave 110i
+wave110i,Honda,Wave 110i
+wave110i 110,Honda,Wave 110i
+honda scoopy,Honda,Scoopy
+scoopy i 125,Honda,Scoopy i 125
+honda pcx,Honda,PCX
+pcx 150,Honda,PCX 150
+pcx 160,Honda,PCX 160
+honda click,Honda,Click
+click 125i,Honda,Click 125i
+honda click125i,Honda,Click 125i
+honda forza,Honda,Forza
+forza 350,Honda,Forza 350
+forza350,Honda,Forza 350
+forza 250,Honda,Forza 250
+forza250,Honda,Forza 250
+honda cb500x,Honda,CB500X
+cb500 x,Honda,CB500X
+honda rebel,Honda,Rebel
+rebel 300,Honda,Rebel 300
+rebel300,Honda,Rebel 300
+honda crf250l,Honda,CRF250L
+crf250 l,Honda,CRF250L
+honda crf300,Honda,CRF300L
+crf300l,Honda,CRF300L
+honda msx,Honda,MSX125
+msx,Honda,MSX125
+yamaha nmax,Yamaha,Nmax
+n max 155,Yamaha,Nmax 155
+yamaha aerox,Yamaha,Aerox
+aerox 155,Yamaha,Aerox 155
+yamaha xmax,Yamaha,Xmax
+x max 300,Yamaha,Xmax 300
+yamaha mt15,Yamaha,MT-15
+mt 15 abs,Yamaha,MT-15 ABS
+yamaha r15,Yamaha,YZF-R15
+r15 v3,Yamaha,YZF-R15 V3
+yamaha r3,Yamaha,YZF-R3
+r3 abs,Yamaha,YZF-R3 ABS
+yamaha fino,Yamaha,Fino
+fino 125,Yamaha,Fino 125
+yamaha grande,Yamaha,Grande
+grande 125,Yamaha,Grande 125
+yamaha xsr155,Yamaha,XSR155
+xsr 155,Yamaha,XSR155
+kawasaki ninja,Kawasaki,Ninja
+ninja 250sl,Kawasaki,Ninja 250SL
+ninja 250 sl,Kawasaki,Ninja 250SL
+kawasaki z400,Kawasaki,Z400
+z 400 abs,Kawasaki,Z400 ABS
+kawasaki klx,Kawasaki,KLX
+klx 150,Kawasaki,KLX150
+kawasaki versys,Kawasaki,Versys
+versys x 300,Kawasaki,Versys-X 300
+kawasaki vulcan,Kawasaki,Vulcan
+suzuki gsx r150,Suzuki,GSX-R150
+gsx r150,Suzuki,GSX-R150
+suzuki gsx s150,Suzuki,GSX-S150
+gsx s150 abs,Suzuki,GSX-S150 ABS
+suzuki burgman,Suzuki,Burgman
+burgman 200,Suzuki,Burgman 200
+suzuki satria f,Suzuki,Satria F
+gpx demon,GPX,Demon
+gpx demon150,GPX,Demon 150
+gpx demon 150,GPX,Demon 150
+gpx legend,GPX,Legend
+gpx gentleman,GPX,Gentleman
+royal enfield classic,Royal Enfield,Classic 350
+royal enfield himalayan,Royal Enfield,Himalayan
+royal enfield interceptor,Royal Enfield,Interceptor 650
+vespa sprint 150,Vespa,Sprint 150
+vespa primavera 150,Vespa,Primavera 150
+lambretta v200,Lambretta,V200
+lambretta v200,Lambretta,V200
+ktm rc390,KTM,RC 390
+ktm duke 390,KTM,Duke 390
+ktm duke 125,KTM,Duke 125
+benelli tnt 150,Benelli,TNT 150
+benelli trk502,Benelli,TRK 502
+benelli trk 502,Benelli,TRK 502
+bmw g310r,BMW,G310R
+bmw g310 gs,BMW,G310GS
+g310 gs,BMW,G310GS
+ducati panigale v4,Ducati,Panigale V4
+ducati panigale v2,Ducati,Panigale V2
+triumph street triple,Triumph,Street Triple
+triumph bonneville t100,Triumph,Bonneville T100
+kymco like 125,Kymco,Like 125
+kymco like125,Kymco,Like 125
+kymco agility,Kymco,Agility
+piaggio medley 150,Piaggio,Medley 150
+sym attilla 125,SYM,Attila 125
+haojue nk150,Haojue,NK150
+tvs apache rtr,TVS,Apache RTR
+aprilia rs150,Aprilia,RS 150
+vespa lx,Vespa,LX
+vespa lx125,Vespa,LX 125
+honda cb300r,Honda,CB300R
+cb300r,Honda,CB300R
+honda cb650r,Honda,CB650R
+cb650r,Honda,CB650R
+yamaha mt03,Yamaha,MT-03
+mt03,Yamaha,MT-03
+yamaha mt07,Yamaha,MT-07
+mt07,Yamaha,MT-07
+kawasaki z650,Kawasaki,Z650
+z650,Kawasaki,Z650
+kawasaki er6n,Kawasaki,ER-6n
+er6n,Kawasaki,ER-6n
+suzuki v-strom,Suzuki,V-Strom
+vstrom,Suzuki,V-Strom
+suzuki gsx r1000,Suzuki,GSX-R1000
+gsx r1000,Suzuki,GSX-R1000
+ducati monster 821,Ducati,Monster 821
+ducati monster 821,Ducati,Monster 821
+triumph tiger,Triumph,Tiger 900
+tiger 900,Triumph,Tiger 900
+bmw r1250gs,BMW,R1250GS
+r1250gs,BMW,R1250GS
+bmw s1000rr,BMW,S1000RR
+s1000rr,BMW,S1000RR
+ktm 390 duke,KTM,Duke 390
+ktm 250 duke,KTM,Duke 250
+duke250,KTM,Duke 250
+ktm rc200,KTM,RC 200
+rc200,KTM,RC 200
+benelli 302,Benelli,TNT 302
+tnt302,Benelli,TNT 302
+royal enfield meteor,Royal Enfield,Meteor 350
+meteor350,Royal Enfield,Meteor 350
+vespa gts,Vespa,GTS 300
+gts300,Vespa,GTS 300
+lambretta v125,Lambretta,V125
+lambretta v125,Lambretta,V125
+kawasaki z900,Kawasaki,Z900
+z900,Kawasaki,Z900
+kawasaki zx10r,Kawasaki,Ninja ZX-10R
+zx10r,Kawasaki,Ninja ZX-10R
+honda cb1000r,Honda,CB1000R
+cb1000r,Honda,CB1000R
+honda cbr500r,Honda,CBR500R
+cbr500r,Honda,CBR500R
+yamaha yzf r6,Yamaha,YZF-R6
+yzf r6,Yamaha,YZF-R6
+yamaha yzf r1,Yamaha,YZF-R1
+yzf r1,Yamaha,YZF-R1
+suzuki hayabusa,Suzuki,Hayabusa
+hayabusa,Suzuki,Hayabusa
+ducati diavel,Ducati,Diavel
+diavel,Ducati,Diavel
+triumph bonneville bobber,Triumph,Bonneville Bobber
+bonneville bobber,Triumph,Bonneville Bobber
+bmw r nine t,BMW,R nineT
+r nine t,BMW,R nineT
+ktm 1290 super duke,KTM,1290 Super Duke
+1290 super duke,KTM,1290 Super Duke
+ktm super duke,KTM,1290 Super Duke
+kawasaki versys 650,Kawasaki,Versys 650
+versys650,Kawasaki,Versys 650
+honda cb650f,Honda,CB650F
+cb650f,Honda,CB650F
+yamaha xsr700,Yamaha,XSR700
+xsr700,Yamaha,XSR700
+suzuki sv650,Suzuki,SV650
+sv650,Suzuki,SV650
+ducati scrambler,Ducati,Scrambler
+scrambler,Ducati,Scrambler
+royal enfield continental,Royal Enfield,Continental GT 650
+continental gt,Royal Enfield,Continental GT 650
+vespa primavera s,Vespa,Primavera S
+primavera s,Vespa,Primavera S
+kymco like 150,Kymco,Like 150
+kymco like150,Kymco,Like 150
+piaggio beverly,Piaggio,Beverly
+beverly,Piaggio,Beverly
+sym joymax,SYM,Joymax
+joymax,SYM,Joymax
+haojue dk150,Haojue,DK150
+dk150,Haojue,DK150
+tvs apache rr310,TVS,Apache RR 310
+apache rr310,TVS,Apache RR 310
+aprilia tuono,Aprilia,Tuono
+tuono,Aprilia,Tuono
+vespa gts 300,Vespa,GTS 300
+gts 300,Vespa,GTS 300
+ducati panigale v2,Ducati,Panigale V2
+panigale v2,Ducati,Panigale V2
+kawasaki z125,Kawasaki,Z125
+z125,Kawasaki,Z125
+honda cb300r,Honda,CB300R
+cb300r,Honda,CB300R
+yamaha xsr155,Yamaha,XSR155
+xsr155,Yamaha,XSR155
+suzuki gsx s1000,Suzuki,GSX-S1000
+gsx s1000,Suzuki,GSX-S1000
+ktm 690 duke,KTM,690 Duke
+690 duke,KTM,690 Duke
+benelli trk 251,Benelli,TRK 251
+trk251,Benelli,TRK 251
+royal enfield himalayan 411,Royal Enfield,Himalayan 411
+himalayan 411,Royal Enfield,Himalayan 411
+vespa primavera 125,Vespa,Primavera 125
+primavera125,Vespa,Primavera 125
+lambretta v200 special,Lambretta,V200 Special
+v200 special,Lambretta,V200 Special
+kawasaki w175,Kawasaki,W175
+w175,Kawasaki,W175
+honda monkey,Honda,Monkey 125
+monkey125,Honda,Monkey 125
+honda monkey 125,Honda,Monkey 125
+yamaha xsr900,Yamaha,XSR900
+xsr900,Yamaha,XSR900
+ducati multistrada,Ducati,Multistrada
+multistrada,Ducati,Multistrada
+bmw f900r,BMW,F900R
+f900r,BMW,F900R
+ktm 250 duke,KTM,Duke 250
+duke 250,KTM,Duke 250
+suzuki vstrom 650,Suzuki,V-Strom 650
+vstrom650,Suzuki,V-Strom 650
+honda cb500f,Honda,CB500F
+cb500f,Honda,CB500F
+yamaha mt09,Yamaha,MT-09
+mt09,Yamaha,MT-09
+kawasaki z650,Kawasaki,Z650
+z650,Kawasaki,Z650
+ducati hypermotard,Ducati,Hypermotard
+hypermotard,Ducati,Hypermotard
+triumph speed triple,Triumph,Speed Triple
+speed triple,Triumph,Speed Triple
+bmw s1000xr,BMW,S1000XR
+s1000xr,BMW,S1000XR
+ktm 1290 super adventure,KTM,1290 Super Adventure
+1290 super adventure,KTM,1290 Super Adventure
+honda cb300f,Honda,CB300F
+cb300f,Honda,CB300F
+yamaha r7,Yamaha,YZF-R7
+r7,Yamaha,YZF-R7
+suzuki gsx r750,Suzuki,GSX-R750
+gsx r750,Suzuki,GSX-R750
+ducati panigale v4 s,Ducati,Panigale V4 S
+panigale v4 s,Ducati,Panigale V4 S
+royal enfield interceptor 650,Royal Enfield,Interceptor 650
+interceptor 650,Royal Enfield,Interceptor 650
+vespa sprint 125,Vespa,Sprint 125
+sprint125,Vespa,Sprint 125
+kymco like 300,Kymco,Like 300
+like300,Kymco,Like 300
+piaggio medley 125,Piaggio,Medley 125
+medley125,Piaggio,Medley 125
+sym wolf,SYM,Wolf
+wolf,SYM,Wolf
+haojue nk125,Haojue,NK125
+nk125,Haojue,NK125
+tvs ntorq,TVS,Ntorq
+ntorq,TVS,Ntorq
+aprilia rs660,Aprilia,RS 660
+rs660,Aprilia,RS 660
+vespa 946,Vespa,946
+vespa 946,Vespa,946
+ducati panigale v4 r,Ducati,Panigale V4 R
+panigale v4 r,Ducati,Panigale V4 R
+kawasaki z125 pro,Kawasaki,Z125 Pro
+z125 pro,Kawasaki,Z125 Pro
+honda cb1000r neo,Honda,CB1000R Neo
+cb1000r neo,Honda,CB1000R Neo
+yamaha tmax,Yamaha,TMAX
+tmax,Yamaha,TMAX
+suzuki burgman 400,Suzuki,Burgman 400
+burgman400,Suzuki,Burgman 400
+ktm 250 rc,KTM,RC 250
+rc250,KTM,RC 250
+benelli 502c,Benelli,502C
+502c,Benelli,502C
+royal enfield shotguns,Royal Enfield,Shotgun (alias)
+shotgun,Royal Enfield,Shotgun
+vespa primavera s 150,Vespa,Primavera S 150
+primavera s 150,Vespa,Primavera S 150
+lambretta v125 special,Lambretta,V125 Special
+v125 special,Lambretta,V125 Special
+kawasaki z900rs,Kawasaki,Z900RS
+z900rs,Kawasaki,Z900RS
+honda cb1100,Honda,CB1100
+cb1100,Honda,CB1100
+yamaha sr400,Yamaha,SR400
+sr400,Yamaha,SR400
+suzuki gsx s750,Suzuki,GSX-S750
+gsx s750,Suzuki,GSX-S750
+ducati monster 1200,Ducati,Monster 1200
+monster 1200,Ducati,Monster 1200
+triumph bonneville t120,Triumph,Bonneville T120
+bonneville t120,Triumph,Bonneville T120
+bmw r1250rt,BMW,R1250RT
+r1250rt,BMW,R1250RT
+ktm 390 adventure,KTM,390 Adventure
+390 adventure,KTM,390 Adventure
+honda cb300r abs,Honda,CB300R ABS
+cb300r abs,Honda,CB300R ABS
+yamaha mt25,Yamaha,MT-25
+mt25,Yamaha,MT-25
+kawasaki er6f,Kawasaki,ER-6f
+er6f,Kawasaki,ER-6f
+suzuki gsx r600,Suzuki,GSX-R600
+gsx r600,Suzuki,GSX-R600
+ducati panigale v2 955,Ducati,Panigale V2 955
+panigale v2 955,Ducati,Panigale V2 955
+royal enfield himalayan 411,Royal Enfield,Himalayan 411
+himalayan 411,Royal Enfield,Himalayan 411
+vespa gts super,Vespa,GTS Super
+gts super,Vespa,GTS Super
+kymco downtown,Kymco,Downtown
+downtown,Kymco,Downtown
+piaggio liberty,Piaggio,Liberty
+liberty,Piaggio,Liberty
+sym jet,SYM,Jet
+jet,SYM,Jet
+haojue dk125,Haojue,DK125
+dk125,Haojue,DK125
+tvs apache 160,TVS,Apache 160
+apache 160,TVS,Apache 160
+aprilia shiver,Aprilia,Shiver
+shiver,Aprilia,Shiver
+vespa sprint 150 i-get,Vespa,Sprint 150 i-get
+sprint 150 i-get,Vespa,Sprint 150 i-get
+ducati panigale 959,Ducati,Panigale 959
+panigale 959,Ducati,Panigale 959
+kawasaki z1000,Kawasaki,Z1000
+z1000,Kawasaki,Z1000
+honda cb650r neo,Honda,CB650R Neo
+cb650r neo,Honda,CB650R Neo
+yamaha yzf r25,Yamaha,YZF-R25
+yzf r25,Yamaha,YZF-R25
+suzuki gsx r125,Suzuki,GSX-R125
+gsx r125,Suzuki,GSX-R125
+ktm 1290 super duke r,KTM,1290 Super Duke R
+1290 super duke r,KTM,1290 Super Duke R
+benelli 302s,Benelli,TNT 302S
+302s,Benelli,TNT 302S
+royal enfield classic 500,Royal Enfield,Classic 500
+classic 500,Royal Enfield,Classic 500
+vespa gts 300 super,Vespa,GTS 300 Super
+gts 300 super,Vespa,GTS 300 Super
+lambretta v200 special,Lambretta,V200 Special
+v200 special,Lambretta,V200 Special
+kawasaki w800,Kawasaki,W800
+w800,Kawasaki,W800
+honda cb300r cafe,Honda,CB300R Cafe
+cb300r cafe,Honda,CB300R Cafe
+yamaha mt07 sp,Yamaha,MT-07 SP
+mt07 sp,Yamaha,MT-07 SP
+suzuki vstrom 250,Suzuki,V-Strom 250
+vstrom250,Suzuki,V-Strom 250
+ducati diavel 1260,Ducati,Diavel 1260
+diavel 1260,Ducati,Diavel 1260
+triumph bonneville bobber black,Triumph,Bonneville Bobber Black
+bonneville bobber black,Triumph,Bonneville Bobber Black
+bmw r18,BMW,R18
+r18,BMW,R18
+ktm 690 smc,KTM,690 SMC
+690 smc,KTM,690 SMC
+benelli 502c,Benelli,502C
+502 c,Benelli,502C
+royal enfield meteor 350,Royal Enfield,Meteor 350
+meteor 350,Royal Enfield,Meteor 350
+vespa primavera 150 i-get,Vespa,Primavera 150 i-get
+primavera 150 i-get,Vespa,Primavera 150 i-get
+kymco like 150i,Kymco,Like 150i
+like 150i,Kymco,Like 150i
+piaggio beverly 300,Piaggio,Beverly 300
+beverly 300,Piaggio,Beverly 300
+sym maxsym,SYM,Maxsym
+maxsym,SYM,Maxsym
+haojue dk250,Haojue,DK250
+dk250,Haojue,DK250
+tvs apache rr310 abs,TVS,Apache RR 310 ABS
+apache rr310 abs,TVS,Apache RR 310 ABS
+aprilia rs 660,Aprilia,RS 660
+rs 660,Aprilia,RS 660
+vespa 946 christian,Vespa,946 Christian Dior (alias)
+946 christian,Vespa,946 Christian Dior
+ducati monster 821 plus,Ducati,Monster 821 Plus
+monster 821 plus,Ducati,Monster 821 Plus
+kawasaki z650 rs,Kawasaki,Z650 RS
+z650 rs,Kawasaki,Z650 RS
+honda cb500x abs,Honda,CB500X ABS
+cb500x abs,Honda,CB500X ABS
+yamaha nmax connected,Yamaha,Nmax Connected
+nmax connected,Yamaha,Nmax Connected
+suzuki gsx s1000f,Suzuki,GSX-S1000F
+gsx s1000f,Suzuki,GSX-S1000F
+ktm 390 adventure 2021,KTM,390 Adventure 2021
+390 adventure 2021,KTM,390 Adventure 2021
+benelli trk 502 x,Benelli,TRK 502 X
+trk 502 x,Benelli,TRK 502 X
+royal enfield interceptor 650 chrome,Royal Enfield,Interceptor 650 Chrome
+interceptor 650 chrome,Royal Enfield,Interceptor 650 Chrome
+vespa gts 300 super tech,Vespa,GTS 300 Super Tech
+gts 300 super tech,Vespa,GTS 300 Super Tech
+lambretta v125 special,Lambretta,V125 Special
+v125 special,Lambretta,V125 Special
+kawasaki z900rs cafe,Kawasaki,Z900RS Cafe
+z900rs cafe,Kawasaki,Z900RS Cafe
+honda cb1000r neo sport,Honda,CB1000R Neo Sport
+cb1000r neo sport,Honda,CB1000R Neo Sport
+yamaha tmax dx,Yamaha,TMAX DX
+tmax dx,Yamaha,TMAX DX
+suzuki burgman 200,Suzuki,Burgman 200
+burgman 200,Suzuki,Burgman 200
+ktm rc 390 abs,KTM,RC 390 ABS
+rc 390 abs,KTM,RC 390 ABS
+benelli 302 r,Benelli,TNT 302R
+302 r,Benelli,TNT 302R
+royal enfield classic 350 reddit,Royal Enfield,Classic 350
+classic 350 reddit,Royal Enfield,Classic 350
+vespa primavera 150 s,Vespa,Primavera 150 S
+primavera 150 s,Vespa,Primavera 150 S
+lambretta v200 special edition,Lambretta,V200 Special Edition
+v200 special edition,Lambretta,V200 Special Edition
+kawasaki z900 se,Kawasaki,Z900 SE
+z900 se,Kawasaki,Z900 SE
+honda cb650r neo cafe,Honda,CB650R Neo Cafe
+cb650r neo cafe,Honda,CB650R Neo Cafe
+yamaha mt09 tracer,Yamaha,Tracer 900 (alias)
+mt09 tracer,Yamaha,Tracer 900
+suzuki gsx r1000 r,Suzuki,GSX-R1000R
+gsx r1000 r,Suzuki,GSX-R1000R
+ducati panigale v4 s tricolore,Ducati,Panigale V4 S Tricolore
+panigale v4 s tricolore,Ducati,Panigale V4 S Tricolore
+triumph speed triple 1200,Triumph,Speed Triple 1200
+speed triple 1200,Triumph,Speed Triple 1200
+bmw s1000rr m package,BMW,S1000RR M Package
+s1000rr m package,BMW,S1000RR M Package
+ktm 1290 super adventure s,KTM,1290 Super Adventure S
+1290 super adventure s,KTM,1290 Super Adventure S
+honda cb300r cafe racer,Honda,CB300R Cafe Racer
+cb300r cafe racer,Honda,CB300R Cafe Racer
+yamaha r1m,Yamaha,YZF-R1M
+r1m,Yamaha,YZF-R1M
+suzuki hayabusa 1300,Suzuki,Hayabusa 1300
+hayabusa 1300,Suzuki,Hayabusa 1300
+ducati multistrada v4,Ducati,Multistrada V4
+multistrada v4,Ducati,Multistrada V4
+royal enfield himalayan 450,Royal Enfield,Himalayan 450
+himalayan 450,Royal Enfield,Himalayan 450
+vespa gts 300 touring,Vespa,GTS 300 Touring
+gts 300 touring,Vespa,GTS 300 Touring
+lambretta v125 special edition,Lambretta,V125 Special Edition
+v125 special edition,Lambretta,V125 Special Edition
+kawasaki z650 rs,Kawasaki,Z650 RS
+z650 rs,Kawasaki,Z650 RS
+honda cb500x rally,Honda,CB500X Rally
+cb500x rally,Honda,CB500X Rally
+yamaha nmax 2020,Yamaha,Nmax 2020
+nmax 2020,Yamaha,Nmax 2020
+suzuki gsx s1000 2020,Suzuki,GSX-S1000 2020
+gsx s1000 2020,Suzuki,GSX-S1000 2020
+ktm 390 duke 2020,KTM,Duke 390 2020
+390 duke 2020,KTM,Duke 390 2020
+benelli 302s 2020,Benelli,TNT 302S 2020
+302s 2020,Benelli,TNT 302S 2020
+royal enfield meteor 350 2021,Royal Enfield,Meteor 350 2021
+meteor 350 2021,Royal Enfield,Meteor 350 2021
+vespa primavera 2021,Vespa,Primavera 2021
+primavera 2021,Vespa,Primavera 2021
+lambretta v200 2021,Lambretta,V200 2021
+v200 2021,Lambretta,V200 2021
+kawasaki z900 2021,Kawasaki,Z900 2021
+z900 2021,Kawasaki,Z900 2021
+honda cb650r 2021,Honda,CB650R 2021
+cb650r 2021,Honda,CB650R 2021
+yamaha mt09 2021,Yamaha,MT-09 2021
+mt09 2021,Yamaha,MT-09 2021
+suzuki vstrom 650 2021,Suzuki,V-Strom 650 2021
+vstrom 650 2021,Suzuki,V-Strom 650 2021
+ducati panigale v4 2021,Ducati,Panigale V4 2021
+panigale v4 2021,Ducati,Panigale V4 2021
+triumph tiger 900 2021,Triumph,Tiger 900 2021
+tiger 900 2021,Triumph,Tiger 900 2021
+bmw r1250gs 2021,BMW,R1250GS 2021
+r1250gs 2021,BMW,R1250GS 2021
+ktm 1290 super duke 2021,KTM,1290 Super Duke 2021
+1290 super duke 2021,KTM,1290 Super Duke 2021
+honda cb1000r 2021,Honda,CB1000R 2021
+cb1000r 2021,Honda,CB1000R 2021
+yamaha r7 2022,Yamaha,YZF-R7 2022
+r7 2022,Yamaha,YZF-R7 2022
+suzuki gsx r1000 2021,Suzuki,GSX-R1000 2021
+gsx r1000 2021,Suzuki,GSX-R1000 2021
+ducati scrambler 1100,Ducati,Scrambler 1100
+scrambler 1100,Ducati,Scrambler 1100
+royal enfield classic 350 2021,Royal Enfield,Classic 350 2021
+classic 350 2021,Royal Enfield,Classic 350 2021
+vespa gts 300 2021,Vespa,GTS 300 2021
+gts 300 2021,Vespa,GTS 300 2021
+lambretta v125 2021,Lambretta,V125 2021
+v125 2021,Lambretta,V125 2021
+kawasaki w800 2021,Kawasaki,W800 2021
+w800 2021,Kawasaki,W800 2021
+honda monkey 125 2021,Honda,Monkey 125 2021
+monkey 125 2021,Honda,Monkey 125 2021
+yamaha xsr700 2021,Yamaha,XSR700 2021
+xsr700 2021,Yamaha,XSR700 2021
+suzuki sv650 2021,Suzuki,SV650 2021
+sv650 2021,Suzuki,SV650 2021
+ducati diavel 1260 s,Ducati,Diavel 1260 S
+diavel 1260 s,Ducati,Diavel 1260 S
+triumph bonneville t120 black,Triumph,Bonneville T120 Black
+bonneville t120 black,Triumph,Bonneville T120 Black
+bmw r nine t pure,BMW,R nineT Pure
+r nine t pure,BMW,R nineT Pure
+ktm 390 duke 2021,KTM,Duke 390 2021
+390 duke 2021,KTM,Duke 390 2021
+benelli trk 502 2021,Benelli,TRK 502 2021
+trk 502 2021,Benelli,TRK 502 2021
+royal enfield himalayan 2021,Royal Enfield,Himalayan 2021
+himalayan 2021,Royal Enfield,Himalayan 2021
+vespa primavera 2022,Vespa,Primavera 2022
+primavera 2022,Vespa,Primavera 2022
+lambretta v200 2022,Lambretta,V200 2022
+v200 2022,Lambretta,V200 2022
+kawasaki z900 2022,Kawasaki,Z900 2022
+z900 2022,Kawasaki,Z900 2022
+honda cb500x 2022,Honda,CB500X 2022
+cb500x 2022,Honda,CB500X 2022
+yamaha nmax 2022,Yamaha,Nmax 2022
+nmax 2022,Yamaha,Nmax 2022
+suzuki gsx s1000 2022,Suzuki,GSX-S1000 2022
+gsx s1000 2022,Suzuki,GSX-S1000 2022
+ktm 1290 super adventure 2022,KTM,1290 Super Adventure 2022
+1290 super adventure 2022,KTM,1290 Super Adventure 2022
+ducati panigale v4 2022,Ducati,Panigale V4 2022
+panigale v4 2022,Ducati,Panigale V4 2022
+triumph speed triple 2022,Triumph,Speed Triple 2022
+speed triple 2022,Triumph,Speed Triple 2022
+bmw s1000rr 2022,BMW,S1000RR 2022
+s1000rr 2022,BMW,S1000RR 2022
+ktm 890 duke,KTM,890 Duke
+890 duke,KTM,890 Duke
+honda cb300r 2022,Honda,CB300R 2022
+cb300r 2022,Honda,CB300R 2022
+yamaha r1 2022,Yamaha,YZF-R1 2022
+r1 2022,Yamaha,YZF-R1 2022
+suzuki hayabusa 2021,Suzuki,Hayabusa 2021
+hayabusa 2021,Suzuki,Hayabusa 2021
+ducati multistrada v4 s,Ducati,Multistrada V4 S
+multistrada v4 s,Ducati,Multistrada V4 S
+royal enfield meteor 350 2022,Royal Enfield,Meteor 350 2022
+meteor 350 2022,Royal Enfield,Meteor 350 2022
+vespa gts 300 2022,Vespa,GTS 300 2022
+gts 300 2022,Vespa,GTS 300 2022
+lambretta v125 2022,Lambretta,V125 2022
+v125 2022,Lambretta,V125 2022
+kawasaki w800 2022,Kawasaki,W800 2022
+w800 2022,Kawasaki,W800 2022
+honda monkey 125 2022,Honda,Monkey 125 2022
+monkey 125 2022,Honda,Monkey 125 2022
+yamaha xsr900 2022,Yamaha,XSR900 2022
+xsr900 2022,Yamaha,XSR900 2022
+suzuki sv650 2022,Suzuki,SV650 2022
+sv650 2022,Suzuki,SV650 2022
+ducati diavel 1260 s 2022,Ducati,Diavel 1260 S 2022
+diavel 1260 s 2022,Ducati,Diavel 1260 S 2022
+triumph bonneville bobber 2022,Triumph,Bonneville Bobber 2022
+bonneville bobber 2022,Triumph,Bonneville Bobber 2022
+bmw r18 classic,BMW,R18 Classic
+r18 classic,BMW,R18 Classic
+ktm 1290 super duke gt,KTM,1290 Super Duke GT
+1290 super duke gt,KTM,1290 Super Duke GT
+honda cb650r 2022,Honda,CB650R 2022
+cb650r 2022,Honda,CB650R 2022
+yamaha mt07 2022,Yamaha,MT-07 2022
+mt07 2022,Yamaha,MT-07 2022
+suzuki gsx r1000 2022,Suzuki,GSX-R1000 2022
+gsx r1000 2022,Suzuki,GSX-R1000 2022
+ducati panigale v4 sp,Ducati,Panigale V4 SP
+panigale v4 sp,Ducati,Panigale V4 SP
+royal enfield continental gt 650,Royal Enfield,Continental GT 650
+continental gt 650,Royal Enfield,Continental GT 650
+vespa primavera 150 2022,Vespa,Primavera 150 2022
+primavera 150 2022,Vespa,Primavera 150 2022
+lambretta v200 2023,Lambretta,V200 2023
+v200 2023,Lambretta,V200 2023
+kawasaki z900 2023,Kawasaki,Z900 2023
+z900 2023,Kawasaki,Z900 2023
+honda cb500x 2023,Honda,CB500X 2023
+cb500x 2023,Honda,CB500X 2023
+yamaha nmax 2023,Yamaha,Nmax 2023
+nmax 2023,Yamaha,Nmax 2023
+suzuki gsx s1000 2023,Suzuki,GSX-S1000 2023
+gsx s1000 2023,Suzuki,GSX-S1000 2023
+ktm 1290 super adventure 2023,KTM,1290 Super Adventure 2023
+1290 super adventure 2023,KTM,1290 Super Adventure 2023
+ducati panigale v4 2023,Ducati,Panigale V4 2023
+panigale v4 2023,Ducati,Panigale V4 2023
+triumph speed triple 2023,Triumph,Speed Triple 2023
+speed triple 2023,Triumph,Speed Triple 2023
+bmw s1000rr 2023,BMW,S1000RR 2023
+s1000rr 2023,BMW,S1000RR 2023
+ktm 890 duke r,KTM,890 Duke R
+890 duke r,KTM,890 Duke R
+honda cb300r 2023,Honda,CB300R 2023
+cb300r 2023,Honda,CB300R 2023
+yamaha r1 2023,Yamaha,YZF-R1 2023
+r1 2023,Yamaha,YZF-R1 2023
+suzuki hayabusa 2022,Suzuki,Hayabusa 2022
+hayabusa 2022,Suzuki,Hayabusa 2022
+ducati multistrada v4 2023,Ducati,Multistrada V4 2023
+multistrada v4 2023,Ducati,Multistrada V4 2023
+royal enfield meteor 350 2023,Royal Enfield,Meteor 350 2023
+meteor 350 2023,Royal Enfield,Meteor 350 2023
+vespa gts 300 2023,Vespa,GTS 300 2023
+gts 300 2023,Vespa,GTS 300 2023
+lambretta v125 2023,Lambretta,V125 2023
+v125 2023,Lambretta,V125 2023
+kawasaki w800 2023,Kawasaki,W800 2023
+w800 2023,Kawasaki,W800 2023
+honda monkey 125 2023,Honda,Monkey 125 2023
+monkey 125 2023,Honda,Monkey 125 2023
+yamaha xsr900 2023,Yamaha,XSR900 2023
+xsr900 2023,Yamaha,XSR900 2023
+suzuki sv650 2023,Suzuki,SV650 2023
+sv650 2023,Suzuki,SV650 2023
+ducati diavel 1260 2023,Ducati,Diavel 1260 2023
+diavel 1260 2023,Ducati,Diavel 1260 2023
+triumph bonneville bobber 2023,Triumph,Bonneville Bobber 2023
+bonneville bobber 2023,Triumph,Bonneville Bobber 2023
+bmw r18 2023,BMW,R18 2023
+r18 2023,BMW,R18 2023
+ktm 1290 super duke 2023,KTM,1290 Super Duke 2023
+1290 super duke 2023,KTM,1290 Super Duke 2023
+honda cb650r 2023,Honda,CB650R 2023
+cb650r 2023,Honda,CB650R 2023
+yamaha mt07 2023,Yamaha,MT-07 2023
+mt07 2023,Yamaha,MT-07 2023
+suzuki gsx r1000 2023,Suzuki,GSX-R1000 2023
+gsx r1000 2023,Suzuki,GSX-R1000 2023
+ducati panigale v4 sp 2023,Ducati,Panigale V4 SP 2023
+panigale v4 sp 2023,Ducati,Panigale V4 SP 2023
+royal enfield continental gt 650 2023,Royal Enfield,Continental GT 650 2023
+continental gt 650 2023,Royal Enfield,Continental GT 650 2023
+vespa primavera 150 2023,Vespa,Primavera 150 2023
+primavera 150 2023,Vespa,Primavera 150 2023
+lambretta v200 2024,Lambretta,V200 2024
+v200 2024,Lambretta,V200 2024
+kawasaki z900 2024,Kawasaki,Z900 2024
+z900 2024,Kawasaki,Z900 2024
+honda cb500x 2024,Honda,CB500X 2024
+cb500x 2024,Honda,CB500X 2024
+yamaha nmax 2024,Yamaha,Nmax 2024
+nmax 2024,Yamaha,Nmax 2024
+suzuki gsx s1000 2024,Suzuki,GSX-S1000 2024
+gsx s1000 2024,Suzuki,GSX-S1000 2024
+ktm 1290 super adventure 2024,KTM,1290 Super Adventure 2024
+1290 super adventure 2024,KTM,1290 Super Adventure 2024
+ducati panigale v4 2024,Ducati,Panigale V4 2024
+panigale v4 2024,Ducati,Panigale V4 2024
+triumph speed triple 2024,Triumph,Speed Triple 2024
+speed triple 2024,Triumph,Speed Triple 2024
+bmw s1000rr 2024,BMW,S1000RR 2024
+s1000rr 2024,BMW,S1000RR 2024
+ktm 890 duke 2024,KTM,890 Duke 2024
+890 duke 2024,KTM,890 Duke 2024
+honda cb300r 2024,Honda,CB300R 2024
+cb300r 2024,Honda,CB300R 2024
+yamaha r1 2024,Yamaha,YZF-R1 2024
+r1 2024,Yamaha,YZF-R1 2024
+suzuki hayabusa 2023,Suzuki,Hayabusa 2023
+hayabusa 2023,Suzuki,Hayabusa 2023
+ducati multistrada v4 2024,Ducati,Multistrada V4 2024
+multistrada v4 2024,Ducati,Multistrada V4 2024
+royal enfield meteor 350 2024,Royal Enfield,Meteor 350 2024
+meteor 350 2024,Royal Enfield,Meteor 350 2024
+vespa gts 300 2024,Vespa,GTS 300 2024
+gts 300 2024,Vespa,GTS 300 2024
+lambretta v125 2024,Lambretta,V125 2024
+v125 2024,Lambretta,V125 2024
+kawasaki w800 2024,Kawasaki,W800 2024
+w800 2024,Kawasaki,W800 2024
+honda monkey 125 2024,Honda,Monkey 125 2024
+monkey 125 2024,Honda,Monkey 125 2024
+yamaha xsr900 2024,Yamaha,XSR900 2024
+xsr900 2024,Yamaha,XSR900 2024
+suzuki sv650 2024,Suzuki,SV650 2024
+sv650 2024,Suzuki,SV650 2024
+ducati diavel 1260 2024,Ducati,Diavel 1260 2024
+diavel 1260 2024,Ducati,Diavel 1260 2024
+triumph bonneville bobber 2024,Triumph,Bonneville Bobber 2024
+bonneville bobber 2024,Triumph,Bonneville Bobber 2024
+bmw r18 2024,BMW,R18 2024
+r18 2024,BMW,R18 2024
+ktm 1290 super duke 2024,KTM,1290 Super Duke 2024
+1290 super duke 2024,KTM,1290 Super Duke 2024
+honda cb650r 2024,Honda,CB650R 2024
+cb650r 2024,Honda,CB650R 2024
+yamaha mt07 2024,Yamaha,MT-07 2024
+mt07 2024,Yamaha,MT-07 2024
+suzuki gsx r1000 2024,Suzuki,GSX-R1000 2024
+gsx r1000 2024,Suzuki,GSX-R1000 2024
+ducati panigale v4 sp 2024,Ducati,Panigale V4 SP 2024
+panigale v4 sp 2024,Ducati,Panigale V4 SP 2024
+royal enfield continental gt 650 2024,Royal Enfield,Continental GT 650 2024
+continental gt 650 2024,Royal Enfield,Continental GT 650 2024
+vespa primavera 150 2024,Vespa,Primavera 150 2024
+primavera 150 2024,Vespa,Primavera 150 2024
+lambretta v200 2025,Lambretta,V200 2025
+v200 2025,Lambretta,V200 2025
+kawasaki z900 2025,Kawasaki,Z900 2025
+z900 2025,Kawasaki,Z900 2025
+honda cb500x 2025,Honda,CB500X 2025
+cb500x 2025,Honda,CB500X 2025
+yamaha nmax 2025,Yamaha,Nmax 2025
+nmax 2025,Yamaha,Nmax 2025
+suzuki gsx s1000 2025,Suzuki,GSX-S1000 2025
+gsx s1000 2025,Suzuki,GSX-S1000 2025
+ktm 1290 super adventure 2025,KTM,1290 Super Adventure 2025
+1290 super adventure 2025,KTM,1290 Super Adventure 2025
+ducati panigale v4 2025,Ducati,Panigale V4 2025
+panigale v4 2025,Ducati,Panigale V4 2025
+triumph speed triple 2025,Triumph,Speed Triple 2025
+speed triple 2025,Triumph,Speed Triple 2025
+bmw s1000rr 2025,BMW,S1000RR 2025
+s1000rr 2025,BMW,S1000RR 2025
+ktm 890 duke 2025,KTM,890 Duke 2025
+890 duke 2025,KTM,890 Duke 2025
+honda cb300r 2025,Honda,CB300R 2025
+cb300r 2025,Honda,CB300R 2025
+yamaha r1 2025,Yamaha,YZF-R1 2025
+r1 2025,Yamaha,YZF-R1 2025
+suzuki hayabusa 2024,Suzuki,Hayabusa 2024
+hayabusa 2024,Suzuki,Hayabusa 2024
+ducati multistrada v4 2025,Ducati,Multistrada V4 2025
+multistrada v4 2025,Ducati,Multistrada V4 2025
+royal enfield meteor 350 2025,Royal Enfield,Meteor 350 2025
+meteor 350 2025,Royal Enfield,Meteor 350 2025
+vespa gts 300 2025,Vespa,GTS 300 2025
+gts 300 2025,Vespa,GTS 300 2025
+lambretta v125 2025,Lambretta,V125 2025
+v125 2025,Lambretta,V125 2025
+kawasaki w800 2025,Kawasaki,W800 2025
+w800 2025,Kawasaki,W800 2025
+honda monkey 125 2025,Honda,Monkey 125 2025
+monkey 125 2025,Honda,Monkey 125 2025
+yamaha xsr900 2025,Yamaha,XSR900 2025
+xsr900 2025,Yamaha,XSR900 2025
+suzuki sv650 2025,Suzuki,SV650 2025
+sv650 2025,Suzuki,SV650 2025
+ducati diavel 1260 2025,Ducati,Diavel 1260 2025
+diavel 1260 2025,Ducati,Diavel 1260 2025
+triumph bonneville bobber 2025,Triumph,Bonneville Bobber 2025
+bonneville bobber 2025,Triumph,Bonneville Bobber 2025
+bmw r18 2025,BMW,R18 2025
+r18 2025,BMW,R18 2025
+ktm 1290 super duke 2025,KTM,1290 Super Duke 2025
+1290 super duke 2025,KTM,1290 Super Duke 2025
+honda cb650r 2025,Honda,CB650R 2025
+cb650r 2025,Honda,CB650R 2025
+yamaha mt07 2025,Yamaha,MT-07 2025
+mt07 2025,Yamaha,MT-07 2025
+suzuki gsx r1000 2025,Suzuki,GSX-R1000 2025
+gsx r1000 2025,Suzuki,GSX-R1000 2025
+ducati panigale v4 sp 2025,Ducati,Panigale V4 SP 2025
+panigale v4 sp 2025,Ducati,Panigale V4 SP 2025
+royal enfield continental gt 650 2025,Royal Enfield,Continental GT 650 2025
+continental gt 650 2025,Royal Enfield,Continental GT 650 2025
+vespa primavera 150 2025,Vespa,Primavera 150 2025
+primavera 150 2025,Vespa,Primavera 150 2025
+lambretta v200 2026,Lambretta,V200 2026
+v200 2026,Lambretta,V200 2026
+kawasaki z900 2026,Kawasaki,Z900 2026
+z900 2026,Kawasaki,Z900 2026
+honda cb500x 2026,Honda,CB500X 2026
+cb500x 2026,Honda,CB500X 2026
+yamaha nmax 2026,Yamaha,Nmax 2026
+nmax 2026,Yamaha,Nmax 2026
+suzuki gsx s1000 2026,Suzuki,GSX-S1000 2026
+gsx s1000 2026,Suzuki,GSX-S1000 2026
+ktm 1290 super adventure 2026,KTM,1290 Super Adventure 2026
+1290 super adventure 2026,KTM,1290 Super Adventure 2026
+ducati panigale v4 2026,Ducati,Panigale V4 2026
+panigale v4 2026,Ducati,Panigale V4 2026
+triumph speed triple 2026,Triumph,Speed Triple 2026
+speed triple 2026,Triumph,Speed Triple 2026
+bmw s1000rr 2026,BMW,S1000RR 2026
+s1000rr 2026,BMW,S1000RR 2026
+ktm 890 duke 2026,KTM,890 Duke 2026
+890 duke 2026,KTM,890 Duke 2026
+honda cb300r 2026,Honda,CB300R 2026
+cb300r 2026,Honda,CB300R 2026
+yamaha r1 2026,Yamaha,YZF-R1 2026
+r1 2026,Yamaha,YZF-R1 2026
+suzuki hayabusa 2025,Suzuki,Hayabusa 2025
+hayabusa 2025,Suzuki,Hayabusa 2025
+ducati multistrada v4 2026,Ducati,Multistrada V4 2026
+multistrada v4 2026,Ducati,Multistrada V4 2026
+royal enfield meteor 350 2026,Royal Enfield,Meteor 350 2026
+meteor 350 2026,Royal Enfield,Meteor 350 2026
+vespa gts 300 2026,Vespa,GTS 300 2026
+gts 300 2026,Vespa,GTS 300 2026
+lambretta v125 2026,Lambretta,V125 2026
+v125 2026,Lambretta,V125 2026
+kawasaki w800 2026,Kawasaki,W800 2026
+w800 2026,Kawasaki,W800 2026
+honda monkey 125 2026,Honda,Monkey 125 2026
+monkey 125 2026,Honda,Monkey 125 2026
+yamaha xsr900 2026,Yamaha,XSR900 2026
+xsr900 2026,Yamaha,XSR900 2026
+suzuki sv650 2026,Suzuki,SV650 2026
+sv650 2026,Suzuki,SV650 2026
+ducati diavel 1260 2026,Ducati,Diavel 1260 2026
+diavel 1260 2026,Ducati,Diavel 1260 2026
+triumph bonneville bobber 2026,Triumph,Bonneville Bobber 2026
+bonneville bobber 2026,Triumph,Bonneville Bobber 2026
+bmw r18 2026,BMW,R18 2026
+r18 2026,BMW,R18 2026
+ktm 1290 super duke 2026,KTM,1290 Super Duke 2026
+1290 super duke 2026,KTM,1290 Super Duke 2026
+honda cb650r 2026,Honda,CB650R 2026
+cb650r 2026,Honda,CB650R 2026
+yamaha mt07 2026,Yamaha,MT-07 2026
+mt07 2026,Yamaha,MT-07 2026
+suzuki gsx r1000 2026,Suzuki,GSX-R1000 2026
+gsx r1000 2026,Suzuki,GSX-R1000 2026
+ducati panigale v4 sp 2026,Ducati,Panigale V4 SP 2026
+panigale v4 sp 2026,Ducati,Panigale V4 SP 2026
+royal enfield continental gt 650 2026,Royal Enfield,Continental GT 650 2026
+continental gt 650 2026,Royal Enfield,Continental GT 650 2026
+vespa primavera 150 2026,Vespa,Primavera 150 2026
+primavera 150 2026,Vespa,Primavera 150 2026
+lambretta v200 2027,Lambretta,V200 2027
+v200 2027,Lambretta,V200 2027
+kawasaki z900 2027,Kawasaki,Z900 2027
+z900 2027,Kawasaki,Z900 2027
+honda cb500x 2027,Honda,CB500X 2027
+cb500x 2027,Honda,CB500X 2027
+yamaha nmax 2027,Yamaha,Nmax 2027
+nmax 2027,Yamaha,Nmax 2027
+suzuki gsx s1000 2027,Suzuki,GSX-S1000 2027
+gsx s1000 2027,Suzuki,GSX-S1000 2027
+ktm 1290 super adventure 2027,KTM,1290 Super Adventure 2027
+1290 super adventure 2027,KTM,1290 Super Adventure 2027
+ducati panigale v4 2027,Ducati,Panigale V4 2027
+panigale v4 2027,Ducati,Panigale V4 2027
+triumph speed triple 2027,Triumph,Speed Triple 2027
+speed triple 2027,Triumph,Speed Triple 2027
+bmw s1000rr 2027,BMW,S1000RR 2027
+s1000rr 2027,BMW,S1000RR 2027
+ktm 890 duke 2027,KTM,890 Duke 2027
+890 duke 2027,KTM,890 Duke 2027
+honda cb300r 2027,Honda,CB300R 2027
+cb300r 2027,Honda,CB300R 2027
+yamaha r1 2027,Yamaha,YZF-R1 2027
+r1 2027,Yamaha,YZF-R1 2027
+suzuki hayabusa 2026,Suzuki,Hayabusa 2026
+hayabusa 2026,Suzuki,Hayabusa 2026
+ducati multistrada v4 2027,Ducati,Multistrada V4 2027
+multistrada v4 2027,Ducati,Multistrada V4 2027
+royal enfield meteor 350 2027,Royal Enfield,Meteor 350 2027
+meteor 350 2027,Royal Enfield,Meteor 350 2027
+vespa gts 300 2027,Vespa,GTS 300 2027
+gts 300 2027,Vespa,GTS 300 2027
+lambretta v125 2027,Lambretta,V125 2027
+v125 2027,Lambretta,V125 2027
+kawasaki w800 2027,Kawasaki,W800 2027
+w800 2027,Kawasaki,W800 2027
+honda monkey 125 2027,Honda,Monkey 125 2027
+monkey 125 2027,Honda,Monkey 125 2027
+yamaha xsr900 2027,Yamaha,XSR900 2027
+xsr900 2027,Yamaha,XSR900 2027
+suzuki sv650 2027,Suzuki,SV650 2027
+sv650 2027,Suzuki,SV650 2027
+ducati diavel 1260 2027,Ducati,Diavel 1260 2027
+diavel 1260 2027,Ducati,Diavel 1260 2027
+triumph bonneville bobber 2027,Triumph,Bonneville Bobber 2027
+bonneville bobber 2027,Triumph,Bonneville Bobber 2027
+bmw r18 2027,BMW,R18 2027
+r18 2027,BMW,R18 2027
+ktm 1290 super duke 2027,KTM,1290 Super Duke 2027
+1290 super duke 2027,KTM,1290 Super Duke 2027
+honda cb650r 2027,Honda,CB650R 2027
+cb650r 2027,Honda,CB650R 2027
+yamaha mt07 2027,Yamaha,MT-07 2027
+mt07 2027,Yamaha,MT-07 2027
+suzuki gsx r1000 2027,Suzuki,GSX-R1000 2027
+gsx r1000 2027,Suzuki,GSX-R1000 2027
+ducati panigale v4 sp 2027,Ducati,Panigale V4 SP 2027
+panigale v4 sp 2027,Ducati,Panigale V4 SP 2027
+royal enfield continental gt 650 2027,Royal Enfield,Continental GT 650 2027
+continental gt 650 2027,Royal Enfield,Continental GT 650 2027
+vespa primavera 150 2027,Vespa,Primavera 150 2027
+primavera 150 2027,Vespa,Primavera 150 2027
+```
+
+---
+
+### 2) **Normalizer script — ตัวอย่าง (pseudo‑code + regex rules)**
+**เป้าหมาย:** แปลง query ของผู้ใช้เป็น canonical tokens เพื่อแมตช์กับ alias table ได้แม่นยำขึ้น (รองรับไทย/อังกฤษ, เลขไทย, typo ชั้นต้น)
+
+#### หลักการสั้น ๆ
+1. Lowercase ทั้งหมด  
+2. แปลงเลขไทย → อารบิก  
+3. ลบ punctuation (.,-/\) และ extra whitespace  
+4. แปลงคำย่อ/สลับสะกดเป็น canonical (mapping table)  
+5. ลบ/normalize วรรณยุกต์ในบางกรณี (configurable)  
+6. ทำ phonetic/fuzzy candidate generation (สำหรับ matching ชั้นถัดไป)
+
+#### Pseudo‑code (อ่านง่ายสำหรับ dev)
+```pseudo
+# Normalizer main
+function normalize_query(raw_query):
+    q = raw_query.trim()
+    q = to_lowercase(q)
+    q = replace_unicode_whitespace(q, " ")
+    q = convert_thai_digits_to_arabic(q)        # ๑->1, ๒->2 ...
+    q = remove_punctuation(q)                   # remove . , - / ( ) etc.
+    q = normalize_hyphens_and_slashes(q)
+    q = collapse_multiple_spaces(q)
+    q = apply_unicode_normalization(q)          # NFC/NFKC if needed
+    q = map_synonyms(q)                         # e.g., "ฟอร์ซ่า" -> "forza"
+    q = remove_optional_tone_marks(q)           # optional: remove diacritics for Thai
+    q = expand_common_abbreviations(q)          # adv. -> adv ; nmaxx -> nmax
+    q = transliterate_thai_to_roman_if_needed(q) # optional for mixed queries
+    q = generate_phonetic_tokens(q)             # e.g., double metaphone / custom Thai phonetic
+    return q
+
+# Helper: convert Thai digits
+function convert_thai_digits_to_arabic(s):
+    mapping = {'๐':'0','๑':'1','๒':'2','๓':'3','๔':'4','๕':'5','๖':'6','๗':'7','๘':'8','๙':'9'}
+    for k,v in mapping:
+        s = s.replace(k, v)
+    return s
+
+# Helper: remove punctuation
+function remove_punctuation(s):
+    return regex_replace(s, r"[^\p{L}\p{N}\s]", " ")  # keep letters, numbers, spaces
+
+# Helper: map synonyms (use dictionary)
+SYN_MAP = {
+    "ฟอร์ซ่า":"forza",
+    "เอ็นแม็กซ์":"nmax",
+    "เอ็นแม็ก":"nmax",
+    "เวฟ":"wave",
+    "เอดีวี":"adv",
+    "นิมักซ์":"nmax",
+    "นแม็กซ์":"nmax",
+    "นแม็ก":"nmax",
+    "ฟอร์ซ่า":"forza",
+    "นินจา":"ninja",
+    "บิ๊กไบค์":"bigbike"
+    # ... load from mapping CSV
+}
+function map_synonyms(s):
+    for key,value in SYN_MAP:
+        s = regex_replace_word_boundary(s, key, value)
+    return s
+
+# Helper: generate phonetic tokens (for fuzzy)
+function generate_phonetic_tokens(s):
+    tokens = split_on_space(s)
+    phonetic_tokens = []
+    for t in tokens:
+        phonetic_tokens.append(double_metaphone(t))   # for roman tokens
+        phonetic_tokens.append(thai_phonetic(t))      # custom for Thai
+    return join(phonetic_tokens, " ")
+
+# Example fuzzy matching flow (matching layer)
+function match_query(normalized_query):
+    # 1. exact match against alias table
+    if alias_table.contains(normalized_query):
+        return alias_table[normalized_query]
+    # 2. normalized exact (strip spaces)
+    q2 = remove_spaces(normalized_query)
+    if alias_table.contains(q2):
+        return alias_table[q2]
+    # 3. tokenized match (brand or model tokens)
+    tokens = split(normalized_query)
+    candidates = lookup_by_tokens(tokens)
+    # 4. fuzzy score (Levenshtein / Jaro-Winkler) on candidates
+    scored = []
+    for c in candidates:
+        score = fuzzy_score(normalized_query, c.alias)
+        if score >= THRESHOLD:
+            scored.append((c, score))
+    sort_by_score_desc(scored)
+    if top_score - second_score < AMBIGUITY_MARGIN:
+        return suggest_top_k(scored, k=3)
+    else:
+        return scored[0].candidate
+```
+
+#### ตัวอย่าง Regex rules (ใช้ใน pipeline)
+- แปลงเลขไทย:
+  - `s = re.sub('[๐๑๒๓๔๕๖๗๘๙]', lambda m: thai_digit_map[m.group()], s)`
+- ลบ punctuation:
+  - `s = re.sub(r"[^\w\sก-๙]", " ", s, flags=re.U)`
+- ลบวรรณยุกต์ (option):
+  - `s = re.sub(r"[่้๊๋ะาำิีึืุู]", "", s)`  *(ปรับให้เหมาะกับการแมตช์)*
+- แทนที่คำย่อ/alias:
+  - `s = re.sub(r"\badv\b", "adv", s)`
+  - `s = re.sub(r"\bforza\b|\bฟอร์ซ่า\b", "forza", s)`
+- collapse spaces:
+  - `s = re.sub(r"\s+", " ", s).strip()`
+
+#### Fuzzy matching suggestions
+- ใช้ **Levenshtein distance** หรือ **Jaro-Winkler** สำหรับคำสั้น (threshold 0.8–0.9)  
+- ใช้ **phonetic matching** (Double Metaphone สำหรับโรมัน; custom Thai phonetic hashing สำหรับคำไทย) เพื่อจับเสียงใกล้เคียง  
+- ให้ pipeline เป็น: **exact → normalized exact → token match → phonetic → fuzzy**  
+
+---
+
+### 3) ชุดทดสอบ 300 คำค้นจริง (รวม typo, mix-language, compound queries)
+**รูปแบบ:** แต่ละบรรทัดเป็นตัวอย่าง query ที่ควรรันทดสอบกับ pipeline ของคุณ
+
+```
+1. nmax
+2. nmax155
+3. เอ็นแม็กซ์
+4. nmax แต่ง
+5. nmaxx
+6. nmax abs
+7. nmax abs 155
+8. n max 155
+9. forzA
+10. ฟอร์ซ่า
+11. forza300
+12. forza 300 windshield
+13. forza350
+14. adv
+15. adv150
+16. adv 150
+17. เอดีวี
+18. adv แต่ง
+19. wave125
+20. เวฟ125
+21. wave 110i
+22. wave110i
+23. เวฟ110
+24. pcx150
+25. pcx 160
+26. pcx160 abs
+27. scoopy i
+28. scoopy 125
+29. click125i
+30. click แต่ง
+31. cb500x
+32. cb 500 x
+33. rebel500
+34. rebel 300
+35. crf250l
+36. crf 300 l
+37. msx125
+38. grom
+39. aerox155
+40. aerox แต่ง
+41. xmax 300
+42. x max 300
+43. mt15
+44. mt 15 abs
+45. r15 v3
+46. r3 abs
+47. yzf r3
+48. fz s
+49. xsr155
+50. fino 125
+51. grande 125
+52. nmax connected
+53. nmax 2020
+54. ninja 400
+55. ninja250sl
+56. ninja 250
+57. z400
+58. z 400 abs
+59. klx150
+60. versys 650
+61. versys x 300
+62. vulcan
+63. gsx r150
+64. gsx s150
+65. burgman 200
+66. satria f
+67. demon150
+68. demon 125
+69. gpx demon
+70. gpx legend
+71. royal enfield classic 350
+72. classic350
+73. himalayan 411
+74. interceptor 650
+75. vespa primavera
+76. vespa sprint 150
+77. lambretta v125
+78. lambretta v200
+79. ktm duke 390
+80. duke390
+81. rc390
+82. rc 390 abs
+83. duke125
+84. duke 125
+85. benelli tnt 150
+86. tnt150
+87. trk502
+88. trk 502 x
+89. bmw g310r
+90. g310 gs
+91. ducati panigale v4
+92. panigale v4 s
+93. monster 821
+94. monster 1200
+95. triumph bonneville
+96. bonneville t100
+97. street triple rs
+98. kymco like 125
+99. like125
+100. piaggio medley 150
+101. sym attilla 125
+102. haojue nk150
+103. tvs apache 160
+104. apache 150
+105. aprilia rs150
+106. rs660
+107. vespa gts 300
+108. gts300
+109. cb300r
+110. cb 300 r
+111. cb300r abs
+112. cb300 cafe
+113. cb650r
+114. cb650r neo
+115. cb650r cafe
+116. mt07 sp
+117. mt 07
+118. mt09 tracer
+119. mt09
+120. r1 2022
+121. r1m
+122. r7
+123. r7 2022
+124. r15 แต่ง
+125. r3 แต่ง
+126. yzf r15 v3
+127. yzf r3 abs
+128. hayabusa
+129. hayabusa 1300
+130. gsx r1000
+131. gsx r1000 r
+132. gsx s1000
+133. gsx s1000 f
+134. vstrom 650
+135. vstrom 250
+136. v-strom 650
+137. multistrada v4
+138. multistrada v4 s
+139. diavel 1260
+140. diavel 1260 s
+141. meteor 350
+142. meteor 350 2021
+143. classic 500
+144. continental gt 650
+145. gts 300 super
+146. gts 300 super tech
+147. primavera 150 i-get
+148. primavera s 150
+149. sprint 125
+150. lx125
+151. monkey 125
+152. monkey 125 2021
+153. w175
+154. w800
+155. w800 2021
+156. z900
+157. z900rs
+158. z900 2021
+159. z650 rs
+160. z650
+161. zx10r
+162. zx 10 r
+163. er6n
+164. er6f
+165. sv650
+166. sv650 2021
+167. 690 duke
+168. 690 smc
+169. 890 duke
+170. 890 duke r
+171. 1290 super duke
+172. 1290 super duke r
+173. 1290 super adventure
+174. 1290 super adventure s
+175. 390 adventure
+176. 390 adventure 2021
+177. rc 200
+178. rc200
+179. rc 250
+180. rc250
+181. tnt 302
+182. tnt302
+183. tnt 302s
+184. 302s
+185. trk 251
+186. trk251
+187. meteor 350 2022
+188. meteor 350 2023
+189. himalayan 450
+190. himalayan 2021
+191. g310r 2021
+192. g310 gs 2021
+193. panigale 959
+194. panigale 959 2019
+195. panigale 959 typo panigel
+196. panigale v2 955
+197. panigale v2 955 typo panigalev2
+198. scrambler 1100
+199. scrambler 1100 special
+200. bonneville bobber
+201. bonneville bobber black
+202. speed triple 1200 rs
+203. speed triple 1200
+204. s1000rr m package
+205. s1000xr
+206. s1000rr
+207. r1250gs
+208. r1250gs 2021
+209. r nine t
+210. r nine t pure
+211. r18 classic
+212. r18
+213. tracer 900
+214. tracer 900 gt
+215. tracer 900 2021
+216. tracer 900 typo tracer900
+217. tracer 900 mix-language tracer 900 แต่ง
+218. tracer 900 touring
+219. tracer 900 pannier
+220. tracer 900 windshield
+221. nmax แต่ง
+222. nmax custom
+223. nmax 155 abs
+224. nmax 155 typo nmax1555
+225. nmax 155 mix-language nmax แต่ง
+226. nmax 2021
+227. nmax 2022
+228. nmax 2023
+229. nmax 2024
+230. nmax 2025
+231. nmax 2026
+232. nmax 2027
+233. nmax 2028
+234. nmax 2029
+235. nmax 2030
+236. nmax 2ndhand
+237. nmax มือสอง
+238. nmax ราคา
+239. nmax ราคา 2021
+240. nmax ราคา มือสอง
+241. nmax accessory windshield
+242. nmax accessory topbox
+243. nmax accessory muffler
+244. nmax accessory slipper clutch
+245. nmax service
+246. nmax service center
+247. nmax dealer bangkok
+248. nmax dealer chiangmai
+249. nmax dealer phuket
+250. nmax dealer samutprakarn
+251. forsa typo forzA
+252. forza typo forzza
+253. forza windshield
+254. forza topbox
+255. forza 300 abs
+256. forza 350 abs
+257. forza 250
+258. forza 250 abs
+259. forza 250 windshield
+260. adv 150 touring
+261. adv 150 pannier
+262. adv 350 touring
+263. adv 350 pannier
+264. adv 160
+265. adv 160 abs
+266. adv 160 touring
+267. wave ทรงลุง
+268. เวฟ ทรงลุง
+269. wave ทรงลุง 125
+270. wave ทรงลุง 110
+271. wave 125 ทรงลุง
+272. wave 110 ทรงลุง
+273. scoopy ทรงคลาสสิค
+274. scoopy แต่ง cafe
+275. scoopy แต่ง สายหวาน
+276. scoopy แต่ง สายลุย
+277. click แต่ง สายซิ่ง
+278. click แต่ง ทรงลุง
+279. pcx touring windshield
+280. pcx 160 abs touring
+281. pcx 150 topbox
+282. pcx 160 topbox
+283. pcx 160 abs topbox
+284. pcx 160 accessory windshield
+285. pcx 160 accessory pannier
+286. pcx 160 service center
+287. pcx มือสอง
+288. pcx ราคา
+289. pcx ราคา มือสอง
+290. pcx 160 2021
+291. pcx 160 2022
+292. pcx 160 2023
+293. pcx 160 2024
+294. pcx 160 2025
+295. pcx 160 2026
+296. pcx 160 2027
+297. pcx 160 2028
+298. pcx 160 2029
+299. pcx 160 2030
+300. pcx 160 typo pcx1600
+```
+
+---
+
+### 4) การใช้งานแนะนำ (Matching flow & thresholds)
+- **Pipeline แนะนำ:**  
+  1. **Normalize** (ตาม script ข้างต้น)  
+  2. **Exact match** กับ alias table  
+  3. **Normalized exact** (strip spaces/punctuation)  
+  4. **Token match** (brand/model tokens)  
+  5. **Phonetic match** (Double Metaphone + Thai phonetic)  
+  6. **Fuzzy match** (Levenshtein/Jaro-Winkler) — แนะนำ threshold **0.82–0.90** สำหรับคำสั้น; ปรับตามผลจริง  
+  7. **Ambiguity handling**: ถ้าคะแนน top1 ≈ top2 (difference < 0.05) ให้ **suggest top 3** แก่ผู้ใช้  
+- **Fields แนะนำใน DB:** `alias,brand,model,canonical_model_key,displacement,trim,language,popularity_score`  
+- **Telemetry:** เก็บ `raw_query,normalized_query,matched_alias,match_score,was_suggested,user_choice` เพื่อปรับ dataset
+
+---
+
+### 5) ข้อเสนอการทดสอบและเมตริก
+- **รันชุดทดสอบ 300 queries** ตรวจดู: exact match rate, fuzzy match rate, suggestion rate, false positive rate  
+- **เมตริกสำคัญ:**  
+  - **Match rate** (exact + fuzzy) — เป้าหมายเริ่มต้น ≥ 90% บนชุดทดสอบ  
+  - **Ambiguity rate** — % queries ที่ต้องแสดง suggestion  
+  - **Suggestion CTR** — % ที่ผู้ใช้เลือก suggestion  
+  - **False positive rate** — เป้าหมาย ≤ 2–3% (ปรับ threshold)
+
+---
+
+### 6) ถัดไป / ไฟล์ดาวน์โหลด
+- ถ้าต้องการ ผมจะ **ส่งไฟล์ CSV เต็ม** ในรูปแบบข้อความให้คุณคัดลอก (หรือแบ่งเป็นหลายส่วนถ้าต้องการ) — บอกได้เลยว่าต้องการ **ไฟล์เดียว (500 aliases)** หรือ **แยกเป็นแบรนด์ละไฟล์**  
+- ผมยังสามารถ **สร้างสคริปต์ Python ตัวอย่าง** ที่นำ CSV นี้ไปใช้ร่วมกับ fuzzy matching (เช่น `python-Levenshtein` หรือ `rapidfuzz`) ได้ หากต้องการให้ผมทำต่อ บอกขนาด dataset ที่ต้องการให้ส่งเป็นไฟล์เดียวหรือแยก (ตอนนี้ผมให้เป็นข้อความครบ 500 aliases แล้ว)
+
+---

@@ -1,0 +1,9 @@
+คำสั่งจัดการระบบหลังบ้าน:
+
+1.Data Schema: ทุกการ Query หรือการสร้าง Table ใหม่ ต้องอ้างอิงจาก SQL Schema สำหรับ Supabase.txt
+
+2.Master Data: การจัดการข้อมูลรถมอเตอร์ไซค์ 360 รุ่น ให้ยึดข้อมูลจาก Bike Database.xlsx - ชีต1.csv เป็นข้อมูลดิบหลัก
+
+3.Data Pipeline: การ Ingest ข้อมูลต้องเป็นไปตามขั้นตอนใน แผนภาพรวมหลังบ้าน Phase 2.txt
+
+4.Accuracy: ตรวจสอบความสัมพันธ์ของข้อมูล (Relationships) ตามที่ระบุใน Master Logic Master Logic สำหรับแพลตฟอร์มรวมของแต่งมอเตอร์ไซค์.txt

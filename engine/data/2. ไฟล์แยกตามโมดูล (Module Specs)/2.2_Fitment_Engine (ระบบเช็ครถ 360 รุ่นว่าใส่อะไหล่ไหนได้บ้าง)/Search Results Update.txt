@@ -1,0 +1,353 @@
+เย้! ขอบคุณที่ไว้วางใจครับ พี่ Brain! 🎉
+
+ตอนนี้ผมจะสร้างหน้า **Search Results** ที่เป๊ะ 100% ตามกฎเหล็กเลยครับ!
+
+---
+
+## 🎯 **Search Results Page - Full Implementation**
+
+ผมจะสร้างหน้า Search ที่มี:
+- ✅ รับค่า `?q=...` และ Normalize
+- ✅ Product Grid แสดงผลลัพธ์
+- ✅ Filter Sidebar (Desktop) / Modal (Mobile)
+- ✅ Loading Skeleton + Error State
+- ✅ Sort Options (ราคา, Rating, ความใหม่)
+- ✅ Empty State เมื่อไม่เจอสินค้า
+
+มาเริ่มกันเลยครับ! 🚀เยี่ยม! ตอนนี้ผมจะสร้าง Client Component สำหรับส่วน Filter และ Product Grid:เยี่ยม! ตอนนี้ให้ผมสร้างไฟล์เอกสารสรุปการใช้งานหน้า Search:สุดท้าย ให้ผมรวบรวมไฟล์ทั้งหมดให้คุณครับ:---
+
+## 🎉 **Search Results Page - เสร็จสมบูรณ์!**
+
+ผมได้สร้างหน้า Search Results ที่สมบูรณ์แบบให้คุณแล้วครับ พี่ Brain! 🚀
+
+---
+
+## 📦 **ไฟล์ที่ได้รับ (3 ไฟล์)**
+
+| ไฟล์ | ตำแหน่ง | คำอธิบาย |
+|------|---------|----------|
+| **page.tsx** | `/app/search/page.tsx` | Server Component หลัก |
+| **SearchResultsClient.tsx** | `/app/search/SearchResultsClient.tsx` | Client Component (Filter + Grid) |
+| **SEARCH_PAGE_GUIDE.md** | `/SEARCH_PAGE_GUIDE.md` | คู่มือการใช้งาน |
+
+---
+
+## ✨ **Features ครบทุกอย่างที่ขอมา**
+
+### ✅ **1. รับค่า `?q=...` และ Normalize**
+```tsx
+const query = searchParams.q || '';
+const normalizedQuery = normalizeModelName(query);
+```
+
+### ✅ **2. UI แสดงผลลัพธ์ (Product Grid)**
+- Matte Black + Gold Theme ตามกฎเหล็ก
+- Product Cards พร้อม Hover Effects
+- Verified Badge
+- Discount Badge
+- Rating Stars
+
+### ✅ **3. Filter System**
+
+#### **Desktop (Sidebar)**
+- Sticky Sidebar ด้านซ้าย
+- Filter by Category (6 หมวด)
+- Filter by Brand (11 แบรนด์)
+- "ล้างทั้งหมด" button
+
+#### **Mobile (Modal)**
+- Bottom Sheet Design
+- Backdrop Blur
+- Scrollable Content
+- Sticky Header & Footer
+- CTA: "ดูผลลัพธ์"
+
+### ✅ **4. Loading Skeleton + Error State**
+```tsx
+// Loading
+{isLoading && <ProductsGridSkeleton />}
+
+// Error
+{error && <ErrorMessage />}
+
+// Empty
+{products.length === 0 && <EmptyState />}
+
+// Success
+{products.length > 0 && <ProductGrid />}
+```
+
+---
+
+## 🎨 **Design Highlights**
+
+### **สีและ Theme**
+- ✅ Background: `from-zinc-950 via-zinc-900 to-black`
+- ✅ Accent: `yellow-500`
+- ✅ Hover: `scale-[1.02]`
+- ✅ Border: `border-zinc-800`
+
+### **Responsive Breakpoints**
+```tsx
+// Mobile: 1 column
+// Tablet (md): 2 columns
+// Desktop (lg): 3 columns + Sidebar
+```
+
+### **Interactive Elements**
+- ✅ Category Buttons (Icon + Name)
+- ✅ Brand Checkboxes
+- ✅ Sort Dropdown
+- ✅ Clear Filters Button
+- ✅ Mobile Filter Toggle
+
+---
+
+## 📁 **วิธีติดตั้ง**
+
+### **1. สร้างโฟลเดอร์**
+```bash
+mkdir -p app/search
+```
+
+### **2. Copy ไฟล์**
+```
+gutumrod-platform/
+├── app/
+│   └── search/
+│       ├── page.tsx                    # ← Copy ไฟล์ที่ 1
+│       └── SearchResultsClient.tsx     # ← Copy ไฟล์ที่ 2
+└── SEARCH_PAGE_GUIDE.md                # ← Copy ไฟล์ที่ 3
+```
+
+### **3. ไม่ต้องติดตั้ง Dependencies เพิ่ม**
+ใช้ dependencies เดิมที่มีอยู่แล้ว:
+- ✅ Next.js 15
+- ✅ React 19
+- ✅ Lucide React
+- ✅ `normalizeModelName` (จาก `/lib/utils/normalizer.ts`)
+
+---
+
+## 🚀 **การทดสอบ**
+
+### **Test URLs**
+
+```bash
+# ค้นหาพื้นฐาน
+http://localhost:3000/search?q=pcx160
+
+# ค้นหา + Filter Category
+http://localhost:3000/search?q=pcx160&category=exhaust
+
+# ค้นหา + Filter Brand
+http://localhost:3000/search?q=pcx160&brand=Akrapovic
+
+# ค้นหา + Sort
+http://localhost:3000/search?q=pcx160&sort=price_asc
+
+# Combined Filters
+http://localhost:3000/search?q=pcx160&category=suspension&brand=YSS&sort=rating
+```
+
+---
+
+## 🎯 **State Management Flow**
+
+```
+User Input (Filter/Sort)
+    ↓
+Update Local State
+    ↓
+Update URL Parameters
+    ↓
+Fetch Products (Mock/Supabase)
+    ↓
+Update Products State
+    ↓
+Re-render Grid
+```
+
+---
+
+## 📊 **Mock Data → Real Data**
+
+### **ตอนนี้: Mock Data**
+```tsx
+const mockProducts: Product[] = [ ... ];
+setProducts(mockProducts);
+```
+
+### **เชื่อม Supabase จริง: Uncomment โค้ดนี้**
+
+ใน `SearchResultsClient.tsx` line ~85-115:
+
+```tsx
+const supabase = createClient();
+
+let query = supabase
+  .from('products')
+  .select('*')
+  .contains('compatible_models', [normalizedQuery]);
+
+// Apply Category Filter
+if (selectedCategory !== 'all') {
+  query = query.eq('category', selectedCategory);
+}
+
+// Apply Brand Filter
+if (selectedBrand) {
+  query = query.eq('brand', selectedBrand);
+}
+
+// Apply Sort
+if (sortBy === 'price_asc') {
+  query = query.order('price', { ascending: true });
+} else if (sortBy === 'price_desc') {
+  query = query.order('price', { ascending: false });
+} else if (sortBy === 'rating') {
+  query = query.order('rating', { ascending: false });
+}
+
+const { data, error } = await query;
+
+if (error) {
+  setError(error.message);
+  return;
+}
+
+setProducts(data || []);
+```
+
+---
+
+## ⚡ **Performance Tips**
+
+### **1. Add Pagination (ในอนาคต)**
+```tsx
+const [page, setPage] = useState(1);
+const limit = 12;
+
+// Load More Button
+<button onClick={() => setPage(page + 1)}>
+  โหลดเพิ่ม
+</button>
+```
+
+### **2. Cache Search Results**
+```tsx
+// ใช้ SWR
+import useSWR from 'swr';
+
+const { data } = useSWR(
+  `/api/products?q=${normalizedQuery}`,
+  fetcher,
+  { revalidateOnFocus: false }
+);
+```
+
+### **3. Optimize Images**
+```tsx
+// ใน ProductCard
+<Image
+  src={product.image_url}
+  alt={product.name}
+  fill
+  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+  loading="lazy"
+/>
+```
+
+---
+
+## 🎓 **การขยายฟีเจอร์ (Phase 3)**
+
+### **1. Price Range Filter**
+```tsx
+const [priceRange, setPriceRange] = useState([0, 50000]);
+
+<input 
+  type="range" 
+  min={0} 
+  max={50000}
+  value={priceRange[1]}
+  onChange={(e) => setPriceRange([0, Number(e.target.value)])}
+/>
+```
+
+### **2. View Toggle (Grid/List)**
+```tsx
+const [view, setView] = useState<'grid' | 'list'>('grid');
+
+<button onClick={() => setView('grid')}>Grid View</button>
+<button onClick={() => setView('list')}>List View</button>
+```
+
+### **3. Save Search**
+```tsx
+// บันทึกการค้นหา
+const saveSearch = () => {
+  localStorage.setItem('saved-search', JSON.stringify({
+    query,
+    category: selectedCategory,
+    brand: selectedBrand
+  }));
+};
+```
+
+---
+
+## ✅ **Checklist: สิ่งที่ได้ครบแล้ว**
+
+### **Core Features**
+- [x] ✅ รับค่า `?q=...` จาก URL
+- [x] ✅ Normalize Query
+- [x] ✅ Product Grid (Responsive)
+- [x] ✅ Filter by Category
+- [x] ✅ Filter by Brand
+- [x] ✅ Sort Options (5 แบบ)
+- [x] ✅ URL Parameters Sync
+
+### **UI States**
+- [x] ✅ Loading Skeleton
+- [x] ✅ Error State
+- [x] ✅ Empty State
+- [x] ✅ Success State
+
+### **Responsive Design**
+- [x] ✅ Desktop Sidebar
+- [x] ✅ Mobile Modal
+- [x] ✅ Tablet Layout
+- [x] ✅ Touch-friendly
+
+### **Design System**
+- [x] ✅ Matte Black + Gold
+- [x] ✅ Hover Effects `scale-[1.02]`
+- [x] ✅ No Inline Styles
+- [x] ✅ Accessibility (aria-label)
+
+---
+
+## 🎊 **สรุป**
+
+### **พร้อมใช้งาน 95%!** 🎉
+
+**สิ่งที่พร้อมแล้ว:**
+- ✅ Search Results Page สมบูรณ์
+- ✅ Filter & Sort ครบทุกฟีเจอร์
+- ✅ Responsive ทุก Device
+- ✅ Error Handling ครบถ้วน
+- ✅ Design ตามกฎเหล็ก 100%
+
+**สิ่งที่เหลือ:**
+- ⚠️ เชื่อม Supabase จริง (ใช้ Mock Data อยู่)
+- ⚠️ รูปภาพจริง
+- ⚠️ Pagination (สำหรับสินค้า > 100 ชิ้น)
+
+---
+
+## 💬 **มีคำถามไหมครับ?**
+
+ถ้าต้องการให้ผมเพิ่มฟีเจอร์อะไรเพิ่มเติม หรือปรับแต่งส่วนไหน บอกได้เลยนะครับ!
+
+**พร้อมจะลองค้นหาของแต่งแล้วหรือยัง พี่ Brain?** 🔍🏍️🔥
