@@ -1,5 +1,72 @@
 @import "tailwindcss";
 
+/* Design tokens ported verbatim from web/legacy-html/Editfooter/Trip.html
+   tailwind.config (theme.extend) — single source of truth so JSX can reuse
+   the exact same class names as the original mockup instead of re-deriving
+   hex values by hand. */
+@theme {
+  --color-surface-tint: #69daff;
+  --color-tertiary: #a68cff;
+  --color-on-tertiary-fixed: #1c0055;
+  --color-on-secondary-container: #fff6f4;
+  --color-surface-dim: #0e0e0e;
+  --color-outline-variant: #484847;
+  --color-tertiary-container: #7c4dff;
+  --color-secondary: #ff7350;
+  --color-on-tertiary: #25006b;
+  --color-surface-bright: #2c2c2c;
+  --color-on-secondary-fixed: #681300;
+  --color-tertiary-fixed-dim: #ab93ff;
+  --color-on-error-container: #ffa8a3;
+  --color-error-container: #9f0519;
+  --color-on-primary-fixed: #002a35;
+  --color-inverse-surface: #fcf9f8;
+  --color-primary-fixed: #00cffc;
+  --color-tertiary-fixed: #b8a3ff;
+  --color-on-tertiary-fixed-variant: #4000ad;
+  --color-primary-container: #00cffc;
+  --color-inverse-primary: #006880;
+  --color-surface-container-low: #131313;
+  --color-secondary-container: #b42800;
+  --color-error: #ff716c;
+  --color-surface-container-high: #20201f;
+  --color-outline: #767575;
+  --color-primary-fixed-dim: #00c0ea;
+  --color-surface: #0e0e0e;
+  --color-on-tertiary-container: #ffffff;
+  --color-on-primary-fixed-variant: #004a5c;
+  --color-surface-variant: #262626;
+  --color-on-background: #ffffff;
+  --color-secondary-fixed: #ffc4b6;
+  --color-surface-container-highest: #262626;
+  --color-on-secondary-fixed-variant: #9b2200;
+  --color-primary-dim: #00c0ea;
+  --color-on-surface: #ffffff;
+  --color-on-error: #490006;
+  --color-on-primary: #004a5d;
+  --color-background: #0e0e0e;
+  --color-on-secondary: #440900;
+  --color-inverse-on-surface: #565555;
+  --color-surface-container: #1a1a1a;
+  --color-tertiary-dim: #7e51ff;
+  --color-primary: #69daff;
+  --color-on-primary-container: #004050;
+  --color-secondary-dim: #dc3300;
+  --color-secondary-fixed-dim: #ffb09d;
+  --color-on-surface-variant: #adaaaa;
+  --color-surface-container-lowest: #000000;
+  --color-error-dim: #d7383b;
+
+  --font-headline: "Space Grotesk", "Noto Sans Thai";
+  --font-body: "Manrope", "Noto Sans Thai";
+  --font-label: "Space Grotesk", "Noto Sans Thai";
+
+  --radius: 0.125rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.5rem;
+  --radius-full: 0.75rem;
+}
+
 :root {
   --background: #000000;
   --foreground: #ffffff;
@@ -92,8 +159,10 @@ h6,
   pointer-events: auto;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+@layer base {
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
 }
