@@ -22,6 +22,7 @@ venv/
 !.env.example
 web/.env
 web/.env.*
+engine/data/**/7.2_Access_Keys*/
 
 # Editor / OS
 .DS_Store
