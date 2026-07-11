@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>โปรดรอสักครู่...</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;600&display=swap');
+
+        body {
+            background-color: #0d1117; /* สีพื้นหลังมืดๆ แบบเนียนๆ */
+            color: #c9d1d9;
+            font-family: 'Sarabun', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            width: 80%;
+            max-width: 400px;
+        }
+
+        #status-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        /* ดีไซน์ Progress Bar แบบเนียนๆ เหมือนเว็บทั่วไป */
+        .progress-bar-container {
+            width: 100%;
+            height: 10px;
+            background-color: #21262d;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #30363d;
+        }
+
+        #progress-fill {
+            height: 100%;
+            background-color: #238636; /* สีเขียวเหมือนกำลังโหลดสำเร็จ */
+            width: 0%;
+            transition: width 0.1s linear; /* ทำให้ดูวิ่งลื่นๆ */
+        }
+
+        #percentage {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-top: 10px;
+            color: #ffffff;
+        }
+
+        /* สไตล์ของข้อความที่จะเด้งขึ้นมาตอนจบ */
+        #final-message {
+            display: none; /* ตอนแรกซ่อนไว้ก่อน */
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #ff7b72; /* สีแดงอ่อนๆ ให้ดูเด่น */
+            line-height: 1.4;
+            animation: fadeIn 0.5s ease-in-out;
+            margin-top: -50px; /* ขยับขึ้นมาหน่อย */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="loading-area">
+            <p id="status-text">กำลังดึงข้อมูล... โปรดอย่าปิดหน้านี้</p>
+            <div class="progress-bar-container">
+                <div id="progress-fill"></div>
+            </div>
+            <div id="percentage">0%</div>
+        </div>
+
+        <div id="final-message">
+            <p>รอไปถึงไหน</p>
+            <p style="font-size: 2rem;">ยังไงเขาก็ไม่กลับมา</p>
+        </div>
+    </div>
+
+    <script>
+        const progressFill = document.getElementById('progress-fill');
+        const percentageText = document.getElementById('percentage');
+        const loadingArea = document.getElementById('loading-area');
+        const finalMessage = document.getElementById('final-message');
+        const statusText = document.getElementById('status-text');
+
+        let currentPercent = 0;
+        // ปรับเวลา (ms) ตรงนี้ได้ ถ้าอยากให้โหลดนานกว่านี้
+        const totalDuration = 6000; // 6 วินาที
+
+        const interval = setInterval(() => {
+            // ทำให้เปอร์เซ็นต์ขึ้นแบบไม่สม่ำเสมอ เพิ่มความเนียน
+            currentPercent += Math.random() * 5; 
+
+            if (currentPercent >= 99) {
+                currentPercent = 99; // ค้างไว้ที่ 99%
+                clearInterval(interval);
+                
+                percentageText.innerText = `99%`;
+                progressFill.style.width = `99%`;
+                
+                // ค้างไว้แป๊บหนึ่งให้เขาลุ้น (เช่น 1 วินาที)
+                setTimeout(() => {
+                    showFinalMessage();
+                }, 1000); 
+
+            } else {
+                percentageText.innerText = `${Math.round(currentPercent)}%`;
+                progressFill.style.width = `${currentPercent}%`;
+            }
+
+        }, 100); // อัปเดตทุกๆ 0.1 วินาที
+
+        function showFinalMessage() {
+            // ซ่อนหน้าจอ Loading
+            loadingArea.style.display = 'none';
+            // แสดงข้อความแกล้ง
+            finalMessage.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
