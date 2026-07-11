@@ -77,7 +77,7 @@
                     <option value="crashbar">แคชบาร์</option><option value="exhaust">ท่อไอเสีย</option><option value="light">ไฟ LED</option>
                     <option value="handle">แฮนด์</option><option value="bag">กระเป๋า</option><option value="screen">วินด์สกรีน</option>
                     <option value="rear_rack">แร็คท้าย</option><option value="side_rack">แร็คข้าง</option><option value="sticker">สติ๊กเกอร์</option>
-                    <option value="top_box">กล่องท้าย</option><option value="tire">ยาง</option><option value="accessory">อุปกรณ์เสริม</option><option value="other">อื่นๆ</option>
+                    <option value="top_box">กล่องท้าย</option><option value="side_box">กล่องข้าง</option><option value="tire">ยาง</option><option value="accessory">อุปกรณ์เสริม</option><option value="other">อื่นๆ</option>
                 </select>
             </div>
         </div>
@@ -106,7 +106,7 @@
                                 <option value="crashbar">🛡️ แคชบาร์</option><option value="exhaust">🔥 ท่อไอเสีย</option><option value="light">💡 ไฟ LED</option>
                                 <option value="handle">🎛️ แฮนด์</option><option value="bag">🎒 กระเป๋า</option><option value="screen">🪟 วินด์สกรีน</option>
                                 <option value="rear_rack">🧳 แร็คท้าย</option><option value="side_rack">📦 แร็คข้าง</option><option value="sticker">🎨 สติ๊กเกอร์</option>
-                                <option value="top_box">📦 กล่องท้าย</option><option value="tire">🛞 ยาง</option><option value="accessory">🔧 อุปกรณ์เสริม</option><option value="other">📦 อื่นๆ</option>
+                                <option value="top_box">📦 กล่องท้าย</option><option value="side_box">🧳 กล่องข้าง</option><option value="tire">🛞 ยาง</option><option value="accessory">🔧 อุปกรณ์เสริม</option><option value="other">📦 อื่นๆ</option>
                             </select>
                         </div>
                     </div>
@@ -308,11 +308,11 @@ on public.affiliate_products (is_published);</textarea>
     async function loadModelsFromSupabase() {
         if (!supabaseA) return;
         // ดึง slug และ name ตาม Master Table 
-        const { data, error } = await supabaseA.from('models').select('slug, name').order('name');
+        const { data, error } = await supabaseA.from('models').select('slug, "Brand", "Model"').order('"Brand"').order('"Model"');
         if (error) throw error;
         allModelsList = data;
         const select = document.getElementById('modelSelect');
-        select.innerHTML = '<option value="">-- เลือกรุ่นรถ --</option>' + allModelsList.map(m => `<option value="${m.slug}">${escapeHtml(m.name)}</option>`).join('');
+        select.innerHTML = '<option value="">-- เลือกรุ่นรถ --</option>' + allModelsList.map(m => `<option value="${m.slug}">${escapeHtml(m.Brand + ' ' + m.Model)}</option>`).join('');
         select.onchange = (e) => {
             const val = e.target.value;
             if (val && !selectedModelSlugs.includes(val)) {
@@ -578,7 +578,7 @@ on public.affiliate_products (is_published);</textarea>
     function renderSelectedModelTags() {
         const container = document.getElementById('selectedModels');
         const selectedModelsData = allModelsList.filter(m => selectedModelSlugs.includes(m.slug));
-        container.innerHTML = selectedModelsData.map(m => `<span class="inline-flex items-center gap-1 bg-primary/20 text-primary px-3 py-1 rounded-full text-sm">${escapeHtml(m.name)} <button type="button" onclick="removeSelectedModel('${m.slug}')" class="ml-1 text-white/70">&times;</button></span>`).join('');
+        container.innerHTML = selectedModelsData.map(m => `<span class="inline-flex items-center gap-1 bg-primary/20 text-primary px-3 py-1 rounded-full text-sm">${escapeHtml(m.Brand + ' ' + m.Model)} <button type="button" onclick="removeSelectedModel('${m.slug}')" class="ml-1 text-white/70">&times;</button></span>`).join('');
         document.getElementById('modelsData').value = selectedModelSlugs.join(',');
     }
     window.removeSelectedModel = function(slug) {

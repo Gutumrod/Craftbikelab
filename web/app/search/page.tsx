@@ -1,8 +1,9 @@
 import { redirect } from 'next/navigation';
 import SearchResultsClient from './SearchResultsClient';
+import { normalizeModelNameWithDB } from '@/lib/utils/normalizer';
 
 interface SearchPageProps {
-  searchParams: Promise<{ 
+  searchParams: Promise<{
     q?: string;
     category?: string;
     brand?: string;
@@ -18,12 +19,13 @@ export default async function SearchPage(props: SearchPageProps) {
     redirect('/');
   }
 
-  // ส่ง Props ให้ครบตามที่ SearchResultsClient โค้ดเดิมต้องการ
+  const normalizedQuery = await normalizeModelNameWithDB(q);
+
   return (
     <main className="min-h-screen bg-black">
-      <SearchResultsClient 
-        query={q} 
-        normalizedQuery={q.toLowerCase()} // ใส่เพิ่มเพื่อให้โค้ดเดิมทำงานได้
+      <SearchResultsClient
+        query={q}
+        normalizedQuery={normalizedQuery}
         initialCategory={searchParams.category || 'all'}
         initialBrand={searchParams.brand}
         initialSort={searchParams.sort || 'relevance'}
