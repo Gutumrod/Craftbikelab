@@ -1,16 +1,16 @@
-import { legacyEditfooterPath, readLegacyHtml, routeLegacyLinks } from "@/app/legacy-html";
+import type { Metadata } from 'next';
+import TripRoutesClient from './TripRoutesClient';
+import { getPublishedTripRoutes } from '@/lib/trip-routes';
 
-export default function TripPage() {
-  const legacyHtml = readLegacyHtml(legacyEditfooterPath("Trip.html"));
-  const html = routeLegacyLinks(legacyHtml);
+export const dynamic = 'force-dynamic';
 
-  return (
-    <main className="h-screen w-screen overflow-hidden bg-black">
-      <iframe
-        title="CraftBikeLab Legacy Trip"
-        srcDoc={html}
-        className="h-full w-full border-0"
-      />
-    </main>
-  );
+export const metadata: Metadata = {
+  title: 'Trip Routes | CraftBikeLab',
+  description: 'เส้นทางขี่มอเตอร์ไซค์และ Google Maps route สำหรับนักขี่ในไทย',
+};
+
+export default async function TripPage() {
+  const { routes, error } = await getPublishedTripRoutes();
+
+  return <TripRoutesClient routes={routes} initialError={error} />;
 }

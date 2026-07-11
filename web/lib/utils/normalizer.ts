@@ -20,7 +20,14 @@ export async function loadAliasesFromDB(): Promise<Record<string, string>> {
   if (aliasCache) return aliasCache;
 
   try {
-    const { supabase } = await import('../supabase');
+    const { getSupabaseClient } = await import('../supabase');
+    const supabase = getSupabaseClient();
+
+    if (!supabase) {
+      console.warn('[Normalizer] ไม่พบ Supabase env ใช้ fallback แทน');
+      return HARDCODED_ALIASES;
+    }
+
     const { data, error } = await supabase
       .from('model_aliases')
       .select('alias, model_slug');
