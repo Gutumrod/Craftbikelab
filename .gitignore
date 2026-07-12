@@ -24,6 +24,10 @@ web/.env
 web/.env.*
 engine/data/**/7.2_Access_Keys*/
 
+# Planning docs with very long Thai filenames — breaks git clone on
+# case-sensitive/strict-path-length build hosts (e.g. Vercel Linux builders)
+engine/data/
+
 # Editor / OS
 .DS_Store
 Thumbs.db
