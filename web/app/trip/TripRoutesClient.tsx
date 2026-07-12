@@ -245,6 +245,9 @@ function ErrorPanel({ message }: { message: string }) {
 }
 
 function TripRouteCard({ route }: { route: TripRoute }) {
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const stops = route.stops ?? [];
+
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-xl bg-[#131313] transition-all hover:-translate-y-2 hover:border-b-2 hover:border-[#69daff]">
       <div className="relative h-44 overflow-hidden md:h-56">
@@ -287,13 +290,34 @@ function TripRouteCard({ route }: { route: TripRoute }) {
             <MaterialIcon name="map" className="text-sm" />
             View on Google Maps
           </a>
-          <button
-            type="button"
-            className="w-full rounded-lg border border-white/10 py-1.5 font-headline text-[10px] font-bold uppercase tracking-tighter text-white transition-all hover:bg-white/5 md:py-2 md:text-xs"
-          >
-            Trip Details
-          </button>
+          {stops.length > 0 && (
+            <button
+              type="button"
+              onClick={() => setDetailsOpen((value) => !value)}
+              aria-expanded={detailsOpen}
+              className="w-full rounded-lg border border-white/10 py-1.5 font-headline text-[10px] font-bold uppercase tracking-tighter text-white transition-all hover:bg-white/5 md:py-2 md:text-xs"
+            >
+              {detailsOpen ? 'ซ่อนจุดแวะ' : 'Trip Details'}
+            </button>
+          )}
         </div>
+
+        {detailsOpen && stops.length > 0 && (
+          <ol className="mt-3 space-y-2 border-t border-white/10 pt-3 md:mt-4 md:pt-4">
+            {stops.map((stop, index) => (
+              <li key={`${stop.label}-${index}`} className="text-xs text-neutral-300 md:text-sm">
+                <span className="font-headline font-bold uppercase tracking-tighter text-[#69daff]">
+                  {stop.label}
+                </span>{' '}
+                <span className="text-white">{stop.place}</span>
+                {stop.note && <p className="mt-0.5 text-neutral-400">{stop.note}</p>}
+                {stop.shop_recommendation && (
+                  <p className="mt-0.5 text-[#ff7350]">แนะนำ: {stop.shop_recommendation}</p>
+                )}
+              </li>
+            ))}
+          </ol>
+        )}
       </div>
     </article>
   );
