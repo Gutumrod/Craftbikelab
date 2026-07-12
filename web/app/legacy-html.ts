@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const legacyEditfooterRoot = "D:\\Craftbikelab-Project\\web\\legacy-html\\Editfooter";
+const legacyEditfooterRoot = path.join(process.cwd(), "legacy-html", "Editfooter");
 
 export function readLegacyHtml(filePath: string) {
   return fs.readFileSync(filePath, "utf8");
