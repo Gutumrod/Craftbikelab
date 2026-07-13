@@ -159,7 +159,72 @@
     </div>
 
     <div id="newsTab" class="tab-pane hidden"><div class="glass-panel rounded-xl p-6 text-center"><p class="text-white/60">📰 ข่าวสาร - รอการเชื่อมต่อ Supabase Project B</p></div></div>
-    <div id="tripTab" class="tab-pane hidden"><div class="glass-panel rounded-xl p-6 text-center"><p class="text-white/60">🗺️ ทริป planner - รอการเชื่อมต่อ Supabase Project B</p></div></div>
+
+    <div id="tripTab" class="tab-pane hidden">
+        <div class="flex justify-between items-center mb-6 flex-wrap gap-4">
+            <h2 class="text-2xl font-black font-headline text-white">เส้นทางทริปทั้งหมด</h2>
+            <div class="flex gap-2">
+                <select id="tripStatusFilter" class="bg-surface-container-low border border-white/10 rounded-lg px-4 py-2 text-sm text-white">
+                    <option value="">ทั้งหมด</option>
+                    <option value="published">Published</option>
+                    <option value="pending">Pending</option>
+                </select>
+                <button id="newTripBtn" class="kinetic-gradient-primary px-4 py-2 rounded-lg text-black font-headline font-bold text-sm">➕ เพิ่มเส้นทาง</button>
+            </div>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+                <thead class="bg-surface-container-low border-b border-white/10"><tr class="text-left text-white/60 font-headline text-xs uppercase tracking-wider">
+                    <th class="p-4">เส้นทาง</th><th class="p-4">ภาค</th><th class="p-4">ระดับ</th><th class="p-4">โหวต</th><th class="p-4">สถานะ</th><th class="p-4">จัดการ</th>
+                </tr></thead>
+                <tbody id="tripTableBody"><tr><td colspan="6" class="text-center py-12 text-white/40">กำลังโหลดข้อมูล...</td></tr></tbody>
+            </table>
+        </div>
+
+        <div id="tripFormPanel" class="hidden mt-8 max-w-3xl mx-auto">
+            <div class="glass-panel rounded-xl p-6 no-line-card">
+                <h3 id="tripFormTitle" class="text-xl font-black font-headline text-white mb-6">➕ เพิ่มเส้นทางใหม่</h3>
+                <form id="tripForm" class="space-y-6">
+                    <input type="hidden" id="tripId" value="">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div><label class="block text-white/60 text-xs uppercase tracking-wider mb-1">ชื่อเส้นทาง *</label><input type="text" id="tripName" required class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-2 text-white"></div>
+                        <div><label class="block text-white/60 text-xs uppercase tracking-wider mb-1">ภาค *</label>
+                            <select id="tripRegion" required class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-2 text-white">
+                                <option value="north">ภาคเหนือ</option><option value="south">ภาคใต้</option><option value="central">ภาคกลาง</option><option value="northeast">ภาคอีสาน</option>
+                            </select>
+                        </div>
+                        <div><label class="block text-white/60 text-xs uppercase tracking-wider mb-1">ระดับความยาก</label><input type="text" id="tripDifficulty" placeholder="ทางชิล / ทางลุย / Custom" class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-2 text-white"></div>
+                        <div><label class="block text-white/60 text-xs uppercase tracking-wider mb-1">ฤดูกาลแนะนำ</label><input type="text" id="tripSeason" placeholder="เช่น Winter Session" class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-2 text-white"></div>
+                    </div>
+                    <div><label class="block text-white/60 text-xs uppercase tracking-wider mb-1">Google Maps Link *</label><input type="url" id="tripMapsUrl" required placeholder="https://www.google.com/maps/dir/..." class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-2 text-white"></div>
+                    <div><label class="block text-white/60 text-xs uppercase tracking-wider mb-1">Image URL</label><input type="url" id="tripImageUrl" placeholder="https://..." class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-2 text-white"></div>
+                    <div><label class="block text-white/60 text-xs uppercase tracking-wider mb-1">คำอธิบาย</label><textarea id="tripDescription" rows="3" class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-2 text-white"></textarea></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div><label class="block text-white/60 text-xs uppercase tracking-wider mb-1">ผู้ส่ง (ถ้ามี)</label><input type="text" id="tripSubmittedBy" class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-2 text-white"></div>
+                        <div><label class="block text-white/60 text-xs uppercase tracking-wider mb-1">ช่องทางที่ส่งมา</label>
+                            <select id="tripSubmittedVia" class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-2 text-white">
+                                <option value="">— ทีมทำเอง —</option><option value="line">Line</option><option value="email">Email</option><option value="facebook">Facebook</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-3 mt-2 mb-3">
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="tripPublishedToggle" class="sr-only peer">
+                                <div class="w-11 h-6 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#69daff]"></div>
+                                <span class="ml-3 text-sm font-medium text-white/80">Published</span>
+                            </label>
+                            <span class="text-[10px] text-white/40">(เปิดให้แสดงบนหน้าทริป — ต้องมี Maps link เป็น URL ของ Google Maps จริงถึงจะ Publish ได้ ตาม constraint ของตาราง)</span>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 pt-4">
+                        <button type="submit" id="saveTripBtn" class="kinetic-gradient-primary px-6 py-2 rounded-lg text-black font-headline font-bold tracking-tighter shadow-lg hover:scale-105 transition">💾 บันทึกเส้นทาง</button>
+                        <button type="button" id="cancelTripFormBtn" class="border border-white/20 px-6 py-2 rounded-lg text-white/70 hover:text-white transition">ยกเลิก</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <div id="settingsTab" class="tab-pane hidden">
         <div class="max-w-3xl mx-auto space-y-6">
@@ -297,6 +362,7 @@ on public.affiliate_products (is_published);</textarea>
             document.getElementById('connectionBadge').innerHTML = '☁️ SUPABASE ACTIVE';
             await loadModelsFromSupabase();        // 1. โหลด models
             await fetchProductsFromSupabase();      // 2. โหลดสินค้า
+            await fetchTripRoutesFromSupabase();    // 3. โหลดเส้นทางทริป
             return true;
         } catch (err) {
             handleError(err, 'เชื่อมต่อ Supabase');
@@ -614,6 +680,160 @@ on public.affiliate_products (is_published);</textarea>
     });
 
     // ---------------------------
+    // 4b. TRIP ROUTES CRUD (uses the same supabaseA client/project — no separate Project B)
+    // ---------------------------
+    let currentTripRoutes = [];
+    let isSavingTrip = false;
+    const TRIP_REGION_LABELS = { north: 'ภาคเหนือ', south: 'ภาคใต้', central: 'ภาคกลาง', northeast: 'ภาคอีสาน' };
+    const GOOGLE_MAPS_URL_RE = /^https?:\/\/(www\.)?(google\.[^/]+\/maps|maps\.app\.goo\.gl|goo\.gl\/maps)/i;
+
+    async function fetchTripRoutesFromSupabase() {
+        if (!supabaseA) return;
+        try {
+            document.getElementById('tripTableBody').innerHTML = '<tr><td colspan="6" class="text-center py-12 text-white/40">กำลังโหลด...</td></tr>';
+            const { data, error } = await supabaseA
+                .from('trip_routes')
+                .select('*')
+                .order('created_at', { ascending: false });
+            if (error) throw error;
+            currentTripRoutes = data || [];
+            renderTripTable();
+        } catch (err) {
+            handleError(err, 'โหลดเส้นทางทริป');
+        }
+    }
+
+    function renderTripTable() {
+        const statusFilter = document.getElementById('tripStatusFilter').value;
+        const filtered = currentTripRoutes.filter(t => !statusFilter || t.status === statusFilter);
+        const tbody = document.getElementById('tripTableBody');
+        if (!filtered.length) {
+            tbody.innerHTML = '<tr><td colspan="6" class="text-center py-12 text-white/40">ไม่พบเส้นทาง</td></tr>';
+            return;
+        }
+        tbody.innerHTML = filtered.map(t => {
+            const statusBadge = t.status === 'published'
+                ? '<span class="text-green-400">Published</span>'
+                : '<span class="text-yellow-400">Pending</span>';
+            return `<tr class="border-b border-white/5 hover:bg-white/5">
+                <td class="p-4"><div class="font-bold text-white">${escapeHtml(t.name)}</div><div class="text-white/40 text-xs">${escapeHtml(t.season || '')}</div></td>
+                <td class="p-4">${TRIP_REGION_LABELS[t.region] || escapeHtml(t.region)}</td>
+                <td class="p-4">${escapeHtml(t.difficulty || '—')}</td>
+                <td class="p-4">${(t.votes_count || 0).toLocaleString()}</td>
+                <td class="p-4 text-sm font-semibold">${statusBadge}</td>
+                <td class="p-4"><div class="flex gap-2"><button onclick="editTripRoute(${t.id})" class="text-primary"><span class="material-symbols-outlined text-base">edit</span></button><button onclick="deleteTripRoute(${t.id})" class="text-red-400"><span class="material-symbols-outlined text-base">delete</span></button></div></td>
+            </tr>`;
+        }).join('');
+    }
+
+    document.getElementById('tripStatusFilter').addEventListener('change', () => renderTripTable());
+
+    document.getElementById('newTripBtn').addEventListener('click', () => {
+        resetTripForm();
+        document.getElementById('tripFormPanel').classList.remove('hidden');
+        document.getElementById('tripFormPanel').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    document.getElementById('cancelTripFormBtn').addEventListener('click', () => {
+        resetTripForm();
+        document.getElementById('tripFormPanel').classList.add('hidden');
+    });
+
+    function resetTripForm() {
+        document.getElementById('tripForm').reset();
+        document.getElementById('tripId').value = '';
+        document.getElementById('tripFormTitle').innerText = '➕ เพิ่มเส้นทางใหม่';
+        document.getElementById('tripPublishedToggle').checked = false;
+    }
+
+    window.editTripRoute = function (id) {
+        const trip = currentTripRoutes.find(t => t.id === id);
+        if (!trip) return;
+        document.getElementById('tripFormTitle').innerText = '✏️ แก้ไขเส้นทาง';
+        document.getElementById('tripId').value = trip.id;
+        document.getElementById('tripName').value = trip.name;
+        document.getElementById('tripRegion').value = trip.region;
+        document.getElementById('tripDifficulty').value = trip.difficulty || '';
+        document.getElementById('tripSeason').value = trip.season || '';
+        document.getElementById('tripMapsUrl').value = trip.maps_url || '';
+        document.getElementById('tripImageUrl').value = trip.image_url || '';
+        document.getElementById('tripDescription').value = trip.description || '';
+        document.getElementById('tripSubmittedBy').value = trip.submitted_by || '';
+        document.getElementById('tripSubmittedVia').value = trip.submitted_via || '';
+        document.getElementById('tripPublishedToggle').checked = trip.status === 'published';
+        document.getElementById('tripFormPanel').classList.remove('hidden');
+        document.getElementById('tripFormPanel').scrollIntoView({ behavior: 'smooth' });
+    };
+
+    window.deleteTripRoute = async function (id) {
+        if (!confirm('ลบเส้นทางนี้ถาวร?')) return;
+        if (!supabaseA) { toast('ยังไม่ได้เชื่อมต่อ Supabase', true); return; }
+        try {
+            const { error } = await supabaseA.from('trip_routes').delete().eq('id', id);
+            if (error) throw error;
+            toast('ลบเส้นทางเรียบร้อย');
+            await fetchTripRoutesFromSupabase();
+        } catch (err) {
+            handleError(err, 'ลบเส้นทาง');
+        }
+    };
+
+    async function saveTripRouteToSupabase(event) {
+        event.preventDefault();
+        if (!supabaseA) { toast('ยังไม่ได้เชื่อมต่อ Supabase', true); return; }
+        if (isSavingTrip) return;
+        isSavingTrip = true;
+        const saveBtn = document.getElementById('saveTripBtn');
+        const originalText = saveBtn.innerText;
+        setLoading(saveBtn, true, 'กำลังบันทึก...');
+
+        try {
+            const name = document.getElementById('tripName').value.trim();
+            const mapsUrl = document.getElementById('tripMapsUrl').value.trim();
+            if (!name) throw new Error('กรุณากรอกชื่อเส้นทาง');
+            if (!mapsUrl) throw new Error('กรุณากรอก Google Maps link');
+
+            const published = document.getElementById('tripPublishedToggle').checked;
+            if (published && !GOOGLE_MAPS_URL_RE.test(mapsUrl)) {
+                throw new Error('Maps link ต้องเป็น URL ของ Google Maps จริงถ้าจะ Publish (ตาม constraint ของตาราง trip_routes)');
+            }
+
+            const tripData = {
+                name,
+                region: document.getElementById('tripRegion').value,
+                difficulty: document.getElementById('tripDifficulty').value.trim() || null,
+                season: document.getElementById('tripSeason').value.trim() || null,
+                maps_url: mapsUrl,
+                image_url: document.getElementById('tripImageUrl').value.trim() || null,
+                description: document.getElementById('tripDescription').value.trim() || null,
+                submitted_by: document.getElementById('tripSubmittedBy').value.trim() || null,
+                submitted_via: document.getElementById('tripSubmittedVia').value || null,
+                status: published ? 'published' : 'pending',
+            };
+
+            const tripId = document.getElementById('tripId').value;
+            if (tripId) {
+                const { error } = await supabaseA.from('trip_routes').update(tripData).eq('id', tripId);
+                if (error) throw error;
+            } else {
+                const { error } = await supabaseA.from('trip_routes').insert(tripData);
+                if (error) throw error;
+            }
+
+            toast(tripId ? 'อัปเดตเส้นทางเรียบร้อย' : 'เพิ่มเส้นทางใหม่สำเร็จ');
+            resetTripForm();
+            document.getElementById('tripFormPanel').classList.add('hidden');
+            await fetchTripRoutesFromSupabase();
+        } catch (err) {
+            handleError(err, 'บันทึกเส้นทาง');
+        } finally {
+            setLoading(saveBtn, false, originalText);
+            isSavingTrip = false;
+        }
+    }
+    document.getElementById('tripForm').addEventListener('submit', saveTripRouteToSupabase);
+
+    // ---------------------------
     // 5. SETTINGS & API KEYS
     // ---------------------------
     function loadSettings() {
@@ -655,6 +875,7 @@ on public.affiliate_products (is_published);</textarea>
             document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('text-[#69daff]', 'border-b-2', 'border-[#69daff]'); b.classList.add('text-white/60'); });
             btn.classList.add('text-[#69daff]', 'border-b-2', 'border-[#69daff]');
             if (tabId === 'settings') loadSettings();
+            if (tabId === 'trip' && supabaseA) fetchTripRoutesFromSupabase();
         });
     });
 
