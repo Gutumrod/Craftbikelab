@@ -3,9 +3,10 @@
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/site-footer';
-import type { TripRegion, TripRoute } from '@/lib/trip-routes';
+import type { TripRegion, TripRoute, TripType } from '@/lib/trip-routes';
 
 type RegionFilter = 'all' | TripRegion;
+type TripTypeFilter = 'all' | 'day_trip' | 'weekend' | 'road_trip' | 'seasonal';
 
 interface TripRoutesClientProps {
   routes: TripRoute[];
@@ -20,17 +21,29 @@ const REGION_OPTIONS: Array<{ id: RegionFilter; label: string }> = [
   { id: 'central', label: 'ภาคกลาง' },
 ];
 
+const TRIP_TYPE_OPTIONS: Array<{ id: TripTypeFilter; label: string }> = [
+  { id: 'all', label: 'ทั้งหมด' },
+  { id: 'day_trip', label: 'เดย์ทริป' },
+  { id: 'weekend', label: 'วันหยุดสุดสัปดาห์' },
+  { id: 'road_trip', label: 'โรดทริป 7 วัน' },
+  { id: 'seasonal', label: 'ตามฤดูกาล' },
+];
+
 const INITIAL_VISIBLE_COUNT = 6;
 const LOAD_MORE_COUNT = 4;
 
 export default function TripRoutesClient({ routes, initialError }: TripRoutesClientProps) {
   const [selectedRegion, setSelectedRegion] = useState<RegionFilter>('all');
+  const [selectedTripType, setSelectedTripType] = useState<TripTypeFilter>('all');
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE_COUNT);
 
   const filteredRoutes = useMemo(() => {
-    if (selectedRegion === 'all') return routes;
-    return routes.filter((route) => route.region === selectedRegion);
-  }, [routes, selectedRegion]);
+    return routes.filter((route) => {
+      const matchRegion = selectedRegion === 'all' || route.region === selectedRegion;
+      const matchTripType = selectedTripType === 'all' || route.trip_type === selectedTripType;
+      return matchRegion && matchTripType;
+    });
+  }, [routes, selectedRegion, selectedTripType]);
 
   const visibleRoutes = filteredRoutes.slice(0, visibleCount);
   const topRoutes = routes.slice(0, 3);
@@ -38,6 +51,11 @@ export default function TripRoutesClient({ routes, initialError }: TripRoutesCli
 
   function handleRegionChange(region: RegionFilter) {
     setSelectedRegion(region);
+    setVisibleCount(INITIAL_VISIBLE_COUNT);
+  }
+
+  function handleTripTypeChange(type: TripTypeFilter) {
+    setSelectedTripType(type);
     setVisibleCount(INITIAL_VISIBLE_COUNT);
   }
 
@@ -115,7 +133,7 @@ export default function TripRoutesClient({ routes, initialError }: TripRoutesCli
               </div>
             </div>
 
-            <div className="mb-8 flex flex-wrap gap-2 font-body md:gap-3">
+            <div className="mb-4 flex flex-wrap gap-2 font-body md:gap-3">
               {REGION_OPTIONS.map((region) => (
                 <button
                   key={region.id}
@@ -129,6 +147,24 @@ export default function TripRoutesClient({ routes, initialError }: TripRoutesCli
                   aria-pressed={selectedRegion === region.id}
                 >
                   {region.label}
+                </button>
+              ))}
+            </div>
+
+            <div className="mb-8 flex flex-wrap gap-2 font-body md:gap-3">
+              {TRIP_TYPE_OPTIONS.map((typeOption) => (
+                <button
+                  key={typeOption.id}
+                  type="button"
+                  onClick={() => handleTripTypeChange(typeOption.id)}
+                  className={`rounded-full px-4 py-1.5 text-xs font-bold transition-colors md:px-5 md:py-2 md:text-sm ${
+                    selectedTripType === typeOption.id
+                      ? 'bg-[#69daff] text-black shadow-[0_0_20px_rgba(105,218,255,0.35)]'
+                      : 'border border-white/10 bg-[#20201f] text-white hover:border-[#69daff] hover:text-[#69daff]'
+                  }`}
+                  aria-pressed={selectedTripType === typeOption.id}
+                >
+                  {typeOption.label}
                 </button>
               ))}
             </div>
