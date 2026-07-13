@@ -2,6 +2,7 @@ import { getSupabaseClient } from '@/lib/supabase';
 
 export type TripRegion = 'north' | 'south' | 'central' | 'northeast';
 export type TripStatus = 'pending' | 'published';
+export type TripType = 'day_trip' | 'weekend' | 'road_trip' | 'seasonal' | null;
 
 export interface TripStop {
   label: string;
@@ -14,6 +15,7 @@ export interface TripRoute {
   id: number;
   name: string;
   region: TripRegion;
+  trip_type: TripType;
   season: string | null;
   description: string | null;
   image_url: string | null;
@@ -46,7 +48,7 @@ export async function getPublishedTripRoutes(): Promise<TripRoutesResult> {
   const { data, error } = await supabase
     .from('trip_routes')
     .select(
-      'id, name, region, season, description, image_url, maps_url, difficulty, submitted_by, submitted_via, votes_count, status, created_at, stops',
+      'id, name, region, season, description, image_url, maps_url, difficulty, submitted_by, submitted_via, votes_count, status, created_at, stops, trip_type',
     )
     .eq('status', 'published')
     .order('votes_count', { ascending: false })
