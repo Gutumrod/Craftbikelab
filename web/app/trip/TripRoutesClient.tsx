@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useTransition } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/site-footer';
 import type { TripRegion, TripRoute, TripType } from '@/lib/trip-routes';
-import { voteTripRoute } from './actions';
+import { submitTripRoute, voteTripRoute } from './actions';
 
 const LIKED_ROUTES_STORAGE_KEY = 'cbl_liked_routes';
 
@@ -96,13 +96,8 @@ export default function TripRoutesClient({ routes, initialError }: TripRoutesCli
 
       <main className="min-h-screen pb-20 pt-24">
         <section className="relative overflow-hidden px-4 py-12 md:px-8 md:py-20">
-          <div className="pointer-events-none absolute right-0 top-0 h-full w-1/2 opacity-20">
-            <img
-              className="h-full w-full object-cover grayscale"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3_ngBBQzGCxUujk54TmwSFIz2dKiLEjk0uyRVi5HSmsCxAVN9LGYzetWSi9av_psMbtfpD9fH9vSHwQiLacYbgh5opKJHKsg84SYW9yNtk2iW7Ec0PoEEVh4ngTXWACxxTUBpV9VRBZNvHPDtw0D02F2CXPcI0MX5uL3kx-sMgMq90pUcz4OvYg7FlwRqp4f42MfVyshhjUY8B3FceOtszZff5P7wRJzgIl88vrdqvUEaZRB_ydCfp5QBKt6crx-JHurPkZyts-Nj"
-              alt=""
-              aria-hidden="true"
-            />
+          <div className="pointer-events-none absolute right-0 top-0 h-full w-1/2 opacity-20" aria-hidden="true">
+            <div className="h-full w-full bg-[radial-gradient(circle_at_70%_30%,rgba(105,218,255,0.35),transparent_45%),radial-gradient(circle_at_90%_80%,rgba(255,115,80,0.25),transparent_40%),linear-gradient(135deg,#20201f,#0e0e0e)]" />
             <div className="absolute inset-0 bg-gradient-to-l from-transparent to-[#0e0e0e]" />
           </div>
 
@@ -321,6 +316,7 @@ function TripRouteCard({ route }: { route: TripRoute }) {
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [count, setCount] = useState(route.votes_count);
   const [liked, setLiked] = useState(false);
+  const [imageFailed, setImageFailed] = useState(false);
   const stops = route.stops ?? [];
 
   useEffect(() => {
@@ -342,12 +338,13 @@ function TripRouteCard({ route }: { route: TripRoute }) {
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-xl bg-[#131313] transition-all hover:-translate-y-2 hover:border-b-2 hover:border-[#69daff]">
       <div className="relative h-44 overflow-hidden md:h-56">
-        {route.image_url ? (
+        {route.image_url && !imageFailed ? (
           <img
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
             src={route.image_url}
             alt={route.name}
             loading="lazy"
+            onError={() => setImageFailed(true)}
           />
         ) : (
           <div className="h-full w-full bg-[radial-gradient(circle_at_20%_20%,rgba(105,218,255,0.28),transparent_32%),linear-gradient(135deg,#20201f,#0e0e0e)]" />
@@ -424,6 +421,8 @@ function TripRouteCard({ route }: { route: TripRoute }) {
 }
 
 function SubmitRouteSection({ topRoutes }: { topRoutes: TripRoute[] }) {
+  const [formOpen, setFormOpen] = useState(false);
+
   return (
     <section className="container mx-auto max-w-7xl px-4 py-16 md:px-6 md:py-24">
       <div className="glass-panel relative overflow-hidden rounded-2xl border border-white/5 p-6 md:p-12">
@@ -440,13 +439,20 @@ function SubmitRouteSection({ topRoutes }: { topRoutes: TripRoute[] }) {
           <div className="w-full md:w-1/3">
             <button
               type="button"
+              onClick={() => setFormOpen((value) => !value)}
+              aria-expanded={formOpen}
+              aria-controls="submit-route-form"
               className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#69daff] py-4 font-headline text-base font-black uppercase tracking-tighter text-black shadow-[0_0_30px_rgba(105,218,255,0.4)] transition-transform hover:scale-105 active:scale-95 md:py-5 md:text-lg"
             >
-              ส่งเส้นทางของคุณ
-              <MaterialIcon name="send" filled />
+              {formOpen ? 'ปิดฟอร์ม' : 'ส่งเส้นทางของคุณ'}
+              <MaterialIcon name={formOpen ? 'close' : 'send'} filled />
             </button>
           </div>
         </div>
+
+        {formOpen && (
+          <SubmitRouteForm onClose={() => setFormOpen(false)} />
+        )}
 
         {topRoutes.length > 0 && (
           <div className="relative z-10 mt-8 md:mt-10">
@@ -478,6 +484,236 @@ function SubmitRouteSection({ topRoutes }: { topRoutes: TripRoute[] }) {
         )}
       </div>
     </section>
+  );
+}
+
+const SUBMIT_REGION_OPTIONS: Array<{ value: TripRegion; label: string }> = [
+  { value: 'north', label: 'ภาคเหนือ' },
+  { value: 'south', label: 'ภาคใต้' },
+  { value: 'central', label: 'ภาคกลาง' },
+  { value: 'northeast', label: 'ภาคอีสาน' },
+];
+
+const SUBMIT_SUCCESS_MESSAGE =
+  'ขอบคุณ! เส้นทางของคุณส่งเข้าระบบแล้ว ทีมงานจะตรวจสอบก่อนเผยแพร่';
+
+function SubmitRouteForm({ onClose }: { onClose: () => void }) {
+  const [name, setName] = useState('');
+  const [region, setRegion] = useState('');
+  const [mapsUrl, setMapsUrl] = useState('');
+  const [description, setDescription] = useState('');
+  const [submittedBy, setSubmittedBy] = useState('');
+  const [website, setWebsite] = useState(''); // honeypot
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+  const [isPending, startTransition] = useTransition();
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError(null);
+
+    // Client-side guards (server validation remains the source of truth).
+    const trimmedName = name.trim();
+    if (!trimmedName) {
+      setError('กรุณากรอกชื่อเส้นทาง');
+      return;
+    }
+    if (!region) {
+      setError('กรุณาเลือกภาค');
+      return;
+    }
+    if (!mapsUrl.trim()) {
+      setError('กรุณากรอกลิงก์ Google Maps');
+      return;
+    }
+
+    startTransition(async () => {
+      const result = await submitTripRoute({
+        name: trimmedName,
+        region,
+        maps_url: mapsUrl.trim(),
+        description: description.trim(),
+        submitted_by: submittedBy.trim(),
+        website,
+      });
+
+      if (result.ok) {
+        setSuccess(true);
+        setName('');
+        setRegion('');
+        setMapsUrl('');
+        setDescription('');
+        setSubmittedBy('');
+        setWebsite('');
+      } else {
+        setError(result.error);
+      }
+    });
+  }
+
+  if (success) {
+    return (
+      <div
+        id="submit-route-form"
+        className="relative z-10 mt-8 rounded-xl border border-[#69daff]/30 bg-[#101a1f] p-6 md:mt-10 md:p-8"
+      >
+        <div className="flex items-start gap-3">
+          <MaterialIcon name="check_circle" filled className="text-2xl text-[#69daff]" />
+          <div>
+            <p className="font-headline text-base font-bold text-white md:text-lg">
+              {SUBMIT_SUCCESS_MESSAGE}
+            </p>
+            <button
+              type="button"
+              onClick={onClose}
+              className="mt-4 rounded-lg border border-white/15 px-4 py-2 font-headline text-xs font-bold uppercase tracking-tighter text-white transition-colors hover:bg-white/5"
+            >
+              ปิด
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const inputClass =
+    'w-full rounded-lg border border-white/10 bg-[#0e0e0e]/70 px-4 py-2.5 text-sm text-white placeholder:text-neutral-500 outline-none transition-colors focus:border-[#69daff] focus:ring-1 focus:ring-[#69daff]';
+  const labelClass =
+    'mb-1.5 block font-headline text-xs font-bold uppercase tracking-tighter text-white/70';
+
+  return (
+    <form
+      id="submit-route-form"
+      onSubmit={handleSubmit}
+      className="relative z-10 mt-8 grid grid-cols-1 gap-4 rounded-xl border border-white/10 bg-[#0e0e0e]/60 p-6 backdrop-blur md:mt-10 md:grid-cols-2 md:p-8"
+    >
+      <div className="md:col-span-2">
+        <label htmlFor="route-name" className={labelClass}>
+          ชื่อเส้นทาง <span className="text-[#ff7350]">*</span>
+        </label>
+        <input
+          id="route-name"
+          name="name"
+          type="text"
+          required
+          maxLength={120}
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+          placeholder="เช่น ดอยอ่างขาง – บ้านหลวง"
+          className={inputClass}
+        />
+      </div>
+
+      <div>
+        <label htmlFor="route-region" className={labelClass}>
+          ภาค <span className="text-[#ff7350]">*</span>
+        </label>
+        <select
+          id="route-region"
+          name="region"
+          required
+          value={region}
+          onChange={(event) => setRegion(event.target.value)}
+          className={inputClass}
+        >
+          <option value="" disabled>
+            เลือกภาค
+          </option>
+          {SUBMIT_REGION_OPTIONS.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div>
+        <label htmlFor="route-submitted-by" className={labelClass}>
+          ชื่อผู้ส่ง
+        </label>
+        <input
+          id="route-submitted-by"
+          name="submitted_by"
+          type="text"
+          maxLength={80}
+          value={submittedBy}
+          onChange={(event) => setSubmittedBy(event.target.value)}
+          placeholder="ชื่อหรือชื่อเล่น (ไม่บังคับ)"
+          className={inputClass}
+        />
+      </div>
+
+      <div className="md:col-span-2">
+        <label htmlFor="route-maps-url" className={labelClass}>
+          Google Maps URL <span className="text-[#ff7350]">*</span>
+        </label>
+        <input
+          id="route-maps-url"
+          name="maps_url"
+          type="url"
+          required
+          inputMode="url"
+          value={mapsUrl}
+          onChange={(event) => setMapsUrl(event.target.value)}
+          placeholder="https://maps.app.goo.gl/..."
+          className={inputClass}
+        />
+      </div>
+
+      <div className="md:col-span-2">
+        <label htmlFor="route-description" className={labelClass}>
+          คำอธิบาย
+        </label>
+        <textarea
+          id="route-description"
+          name="description"
+          rows={3}
+          maxLength={500}
+          value={description}
+          onChange={(event) => setDescription(event.target.value)}
+          placeholder="เล่าสั้นๆ ว่าเส้นทางนี้เด็ดยังไง (ไม่บังคับ)"
+          className={`${inputClass} resize-y`}
+        />
+      </div>
+
+      {/* Honeypot — visually hidden, off-screen. Bots fill it; humans never see it. */}
+      <div aria-hidden="true" className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden">
+        <label htmlFor="route-website">Website</label>
+        <input
+          id="route-website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={website}
+          onChange={(event) => setWebsite(event.target.value)}
+        />
+      </div>
+
+      {error && (
+        <p className="md:col-span-2 rounded-lg bg-[#241210] px-4 py-2.5 text-sm text-[#ffc4b6]" aria-live="polite">
+          {error}
+        </p>
+      )}
+
+      <div className="flex flex-col gap-3 md:col-span-2 md:flex-row">
+        <button
+          type="submit"
+          disabled={isPending}
+          className="flex items-center justify-center gap-2 rounded-lg bg-[#69daff] px-6 py-3 font-headline text-sm font-black uppercase tracking-tighter text-black shadow-[0_0_24px_rgba(105,218,255,0.35)] transition-transform hover:scale-[1.02] active:scale-95 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          {isPending ? 'กำลังส่ง…' : 'ส่งเส้นทาง'}
+          {!isPending && <MaterialIcon name="send" filled className="text-sm" />}
+        </button>
+        <button
+          type="button"
+          onClick={onClose}
+          className="rounded-lg border border-white/15 px-6 py-3 font-headline text-sm font-bold uppercase tracking-tighter text-white transition-colors hover:bg-white/5"
+        >
+          ยกเลิก
+        </button>
+      </div>
+    </form>
   );
 }
 

@@ -32,11 +32,107 @@ export async function voteTripRoute(routeId: number): Promise<VoteResult> {
     return { ok: false };
   }
 
+  // increment_trip_vote returns NULL when it updates 0 rows (route not found or
+  // not published). Number(null) === 0 is finite, so guard on null explicitly —
+  // otherwise a no-op vote would wrongly report a real count of 0 and lock the button.
+  if (data == null) {
+    return { ok: false };
+  }
+
   const count = typeof data === 'number' ? data : Number(data);
 
-  if (!Number.isFinite(count)) {
+  if (!Number.isFinite(count) || count < 0) {
     return { ok: false };
   }
 
   return { ok: true, count };
+}
+
+export type SubmitRouteInput = {
+  name: string;
+  region: string;
+  maps_url: string;
+  description?: string;
+  submitted_by?: string;
+  website?: string; // honeypot — must stay empty
+};
+
+export type SubmitRouteResult = { ok: true } | { ok: false; error: string };
+
+const VALID_REGIONS = ['north', 'south', 'central', 'northeast'] as const;
+
+// Accept the common Google Maps link shapes: google.*/maps, maps.google.*,
+// maps.app.goo.gl short links, and goo.gl/maps short links.
+const GOOGLE_MAPS_URL_REGEX =
+  /^https?:\/\/(?:(?:[\w-]+\.)*google\.[a-z.]+\/maps\b|maps\.google\.[a-z.]+\/|maps\.app\.goo\.gl\/|(?:[\w-]+\.)*goo\.gl\/maps\b)/i;
+
+export async function submitTripRoute(
+  input: SubmitRouteInput,
+): Promise<SubmitRouteResult> {
+  if (!input || typeof input !== 'object') {
+    return { ok: false, error: 'ข้อมูลไม่ถูกต้อง' };
+  }
+
+  // Honeypot: real users never fill this. Silently reject bots (report generic error).
+  if (typeof input.website === 'string' && input.website.trim() !== '') {
+    return { ok: false, error: 'ไม่สามารถส่งข้อมูลได้ ลองใหม่อีกครั้ง' };
+  }
+
+  const name = typeof input.name === 'string' ? input.name.trim() : '';
+  const region = typeof input.region === 'string' ? input.region.trim() : '';
+  const mapsUrl = typeof input.maps_url === 'string' ? input.maps_url.trim() : '';
+  const description =
+    typeof input.description === 'string' ? input.description.trim() : '';
+  const submittedBy =
+    typeof input.submitted_by === 'string' ? input.submitted_by.trim() : '';
+
+  if (!name) {
+    return { ok: false, error: 'กรุณากรอกชื่อเส้นทาง' };
+  }
+  if (name.length > 120) {
+    return { ok: false, error: 'ชื่อเส้นทางต้องไม่เกิน 120 ตัวอักษร' };
+  }
+  if (!VALID_REGIONS.includes(region as (typeof VALID_REGIONS)[number])) {
+    return { ok: false, error: 'กรุณาเลือกภาคให้ถูกต้อง' };
+  }
+  if (!mapsUrl) {
+    return { ok: false, error: 'กรุณากรอกลิงก์ Google Maps' };
+  }
+  if (!GOOGLE_MAPS_URL_REGEX.test(mapsUrl)) {
+    return { ok: false, error: 'ลิงก์ต้องเป็น Google Maps ที่ถูกต้อง' };
+  }
+  if (description.length > 500) {
+    return { ok: false, error: 'คำอธิบายต้องไม่เกิน 500 ตัวอักษร' };
+  }
+  if (submittedBy.length > 80) {
+    return { ok: false, error: 'ชื่อผู้ส่งต้องไม่เกิน 80 ตัวอักษร' };
+  }
+
+  const supabase = getSupabaseClient();
+
+  if (!supabase) {
+    console.error('[TripRoutes] Missing Supabase env for trip_routes insert');
+    return { ok: false, error: 'ระบบไม่พร้อมใช้งานชั่วคราว ลองใหม่อีกครั้ง' };
+  }
+
+  const { error } = await supabase.from('trip_routes').insert({
+    name,
+    region,
+    maps_url: mapsUrl,
+    description: description || null,
+    submitted_by: submittedBy || null,
+    submitted_via: 'web',
+    status: 'pending',
+    votes_count: 0,
+  });
+
+  if (error) {
+    console.error('[TripRoutes] Failed to insert trip_route', {
+      message: error.message,
+      code: error.code,
+    });
+    return { ok: false, error: 'ส่งไม่สำเร็จ ลองใหม่อีกครั้ง' };
+  }
+
+  return { ok: true };
 }
