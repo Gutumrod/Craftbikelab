@@ -9,6 +9,7 @@ export interface TripStop {
   place: string;
   note?: string;
   shop_recommendation?: string;
+  attraction_recommendation?: string;
 }
 
 export interface TripRoute {

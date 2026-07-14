@@ -411,6 +411,9 @@ function TripRouteCard({ route }: { route: TripRoute }) {
                 {stop.shop_recommendation && (
                   <p className="mt-0.5 text-[#ff7350]">แนะนำ: {stop.shop_recommendation}</p>
                 )}
+                {stop.attraction_recommendation && (
+                  <p className="mt-0.5 text-[#69daff]">ที่เที่ยว: {stop.attraction_recommendation}</p>
+                )}
               </li>
             ))}
           </ol>
