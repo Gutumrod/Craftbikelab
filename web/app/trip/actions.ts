@@ -1,8 +1,25 @@
 'use server';
 
+import { createHash } from 'node:crypto';
+import { headers } from 'next/headers';
+
 import { getSupabaseClient } from '@/lib/supabase';
 
 export type VoteResult = { ok: true; count: number } | { ok: false };
+
+// Salted hash of the caller's IP: the DB stores this, never the raw address, and the
+// salt stops anyone with table access from reversing the small IPv4 space by brute force.
+// Set VOTE_HASH_SALT in the deploy env; the fallback keeps local dev working.
+const VOTE_HASH_SALT = process.env.VOTE_HASH_SALT ?? 'craftbikelab-trip-vote';
+
+async function getVoterHash(): Promise<string> {
+  const headerList = await headers();
+  // Vercel puts the real client IP first in x-forwarded-for.
+  const forwarded = headerList.get('x-forwarded-for') ?? '';
+  const ip = forwarded.split(',')[0]?.trim() || headerList.get('x-real-ip') || 'unknown';
+
+  return createHash('sha256').update(`${VOTE_HASH_SALT}:${ip}`).digest('hex');
+}
 
 export async function voteTripRoute(routeId: number): Promise<VoteResult> {
   if (
@@ -20,8 +37,12 @@ export async function voteTripRoute(routeId: number): Promise<VoteResult> {
     return { ok: false };
   }
 
+  // The RPC records one vote row per (route, voter) and refuses to double-count, so a
+  // repeat vote returns the current tally instead of inflating it. localStorage on the
+  // client is only a UX hint — this is the real guard.
   const { data, error } = await supabase.rpc('increment_trip_vote', {
     p_route_id: routeId,
+    p_voter_hash: await getVoterHash(),
   });
 
   if (error) {
