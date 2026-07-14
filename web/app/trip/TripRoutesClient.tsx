@@ -1,9 +1,40 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import SiteFooter from '@/components/site-footer';
 import type { TripRegion, TripRoute, TripType } from '@/lib/trip-routes';
+import { voteTripRoute } from './actions';
+
+const LIKED_ROUTES_STORAGE_KEY = 'cbl_liked_routes';
+
+function readLikedRoutes(): number[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = window.localStorage.getItem(LIKED_ROUTES_STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed)
+      ? parsed.filter((id): id is number => typeof id === 'number')
+      : [];
+  } catch {
+    return [];
+  }
+}
+
+function addLikedRoute(routeId: number): void {
+  if (typeof window === 'undefined') return;
+  try {
+    const current = readLikedRoutes();
+    if (current.includes(routeId)) return;
+    window.localStorage.setItem(
+      LIKED_ROUTES_STORAGE_KEY,
+      JSON.stringify([...current, routeId]),
+    );
+  } catch {
+    // ignore storage failures (private mode, quota, etc.)
+  }
+}
 
 type RegionFilter = 'all' | TripRegion;
 type TripTypeFilter = 'all' | 'day_trip' | 'weekend' | 'road_trip' | 'seasonal';
@@ -223,6 +254,9 @@ function TripHeader() {
         </Link>
 
         <div className="hidden items-center gap-8 md:flex">
+          <Link className="font-headline uppercase tracking-tighter text-white/70 transition-colors hover:text-white" href="/news">
+            News
+          </Link>
           <Link className="font-headline uppercase tracking-tighter text-white/70 transition-colors hover:text-white" href="/shop">
             Shop
           </Link>
@@ -253,6 +287,9 @@ function TripHeader() {
       </div>
       <div className={`mobile-menu border-t border-white/10 bg-[#0e0e0e]/95 shadow-lg backdrop-blur-xl md:hidden ${menuOpen ? '' : 'hidden'}`}>
         <div className="flex flex-col gap-4 px-4 py-4">
+          <Link className="py-2 font-headline uppercase tracking-tighter text-white/80 transition-colors hover:text-[#69daff]" href="/news" onClick={() => setMenuOpen(false)}>
+            News
+          </Link>
           <Link className="py-2 font-headline uppercase tracking-tighter text-white/80 transition-colors hover:text-[#69daff]" href="/shop" onClick={() => setMenuOpen(false)}>
             Shop
           </Link>
@@ -282,7 +319,25 @@ function ErrorPanel({ message }: { message: string }) {
 
 function TripRouteCard({ route }: { route: TripRoute }) {
   const [detailsOpen, setDetailsOpen] = useState(false);
+  const [count, setCount] = useState(route.votes_count);
+  const [liked, setLiked] = useState(false);
   const stops = route.stops ?? [];
+
+  useEffect(() => {
+    if (readLikedRoutes().includes(route.id)) {
+      setLiked(true);
+    }
+  }, [route.id]);
+
+  async function handleVote() {
+    if (liked) return;
+    const result = await voteTripRoute(route.id);
+    if (result.ok) {
+      setCount(result.count);
+      setLiked(true);
+      addLikedRoute(route.id);
+    }
+  }
 
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-xl bg-[#131313] transition-all hover:-translate-y-2 hover:border-b-2 hover:border-[#69daff]">
@@ -299,10 +354,16 @@ function TripRouteCard({ route }: { route: TripRoute }) {
         )}
         <button
           type="button"
+          onClick={handleVote}
+          disabled={liked}
           aria-label="favorite route"
-          className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-[#1a1a1a]/70 text-white shadow-[0_0_0_rgba(255,80,80,0)] backdrop-blur transition-all duration-200 hover:text-[#ff4d6d] md:right-4 md:top-4 md:h-10 md:w-10"
+          aria-pressed={liked}
+          className={`absolute right-2 top-2 flex items-center gap-1 rounded-full bg-[#1a1a1a]/70 px-2 py-1 shadow-[0_0_0_rgba(255,80,80,0)] backdrop-blur transition-all duration-200 md:right-4 md:top-4 md:px-2.5 md:py-1.5 ${
+            liked ? 'text-[#ff4d6d]' : 'text-white hover:text-[#ff4d6d]'
+          }`}
         >
-          <MaterialIcon name="favorite" className="text-sm md:text-base" />
+          <MaterialIcon name="favorite" filled={liked} className="text-sm md:text-base" />
+          <span className="text-xs font-bold md:text-sm">{count.toLocaleString('th-TH')}</span>
         </button>
         <div className="absolute left-2 top-2 rounded bg-[#20201f]/90 px-2 py-0.5 text-[8px] font-bold uppercase tracking-widest text-[#69daff] shadow-[inset_2px_0_0_#ff7350] backdrop-blur md:left-4 md:top-4 md:px-3 md:py-1 md:text-[10px]">
           {route.season ?? 'Open Ride'}
