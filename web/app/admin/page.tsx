@@ -1,16 +1,21 @@
-import { legacyEditfooterPath, readLegacyHtml, routeLegacyLinks } from "@/app/legacy-html";
+import { getProductsForAdmin } from '@/lib/shop-products';
+import AdminProductsClient from './AdminProductsClient';
+import { getPendingTripRoutes } from './trip-actions';
 
-export default function AdminPage() {
-  const legacyHtml = readLegacyHtml(legacyEditfooterPath("Craftbikelab-Admin.html"));
-  const html = routeLegacyLinks(legacyHtml);
+export const dynamic = 'force-dynamic';
+
+export default async function AdminPage() {
+  const [productsResult, tripsResult] = await Promise.all([
+    getProductsForAdmin(),
+    getPendingTripRoutes(),
+  ]);
 
   return (
-    <main className="h-screen w-screen overflow-hidden bg-black">
-      <iframe
-        title="CraftBikeLab Legacy Admin"
-        srcDoc={html}
-        className="h-full w-full border-0"
-      />
-    </main>
+    <AdminProductsClient
+      initialProducts={productsResult.products}
+      initialProductError={productsResult.error}
+      initialTrips={tripsResult.routes}
+      initialTripError={tripsResult.error}
+    />
   );
 }
